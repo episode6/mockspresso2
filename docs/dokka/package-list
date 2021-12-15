@@ -1,0 +1,7 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:api
+com.episode6.mxo2
+com.episode6.mxo2.api
+com.episode6.mxo2.reflect
