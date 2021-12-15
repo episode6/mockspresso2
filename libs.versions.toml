@@ -1,0 +1,33 @@
+[versions]
+gradle-core = "7.1"
+kotlin-core = "1.5.31"
+dokka-core = "1.5.30"
+
+# test utils
+junit4-core = "4.13.2"
+junit5-core = "5.8.1"
+mockito-core = "4.0.0"
+assertk-core = "0.25"
+
+[libraries]
+gradle-plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-core" }
+gradle-plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka-core" }
+
+javax-inject-core = { module = "javax.inject:javax.inject", version = "1" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin-core" }
+
+# test utils
+junit4-core = { module = "junit:junit", version.ref = "junit4-core" }
+junit5-core = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5-core" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-core" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-core" }
+assertk-core = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk-core" }
+assertk-jvm = { module = "com.willowtreeapps.assertk:assertk-jvm", version.ref = "assertk-core" }
+
+
+[bundles]
+gradle-plugins = [
+  "gradle-plugin-kotlin",
+  "gradle-plugin-dokka",
+]
