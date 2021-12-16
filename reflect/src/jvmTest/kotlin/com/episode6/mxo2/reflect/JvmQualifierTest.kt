@@ -23,9 +23,11 @@ class JvmQualifierTest {
   @Test fun testOneQualifierWithName() {
     val qualifier = OneQualifierWithName::class.annotations.findQualifier { "test failure context" }
 
-    assertThat(qualifier).isNotNull().isInstanceOf(Named::class).given {
-      assertThat(it.value).isEqualTo("something")
-    }
+    assertThat(qualifier)
+      .isNotNull()
+      .isInstanceOf(Named::class)
+      .transform { it.value }
+      .isEqualTo("something")
   }
 
   @Test fun testTwoQualifiers() {
@@ -40,16 +42,15 @@ class JvmQualifierTest {
   @Test fun testTwoQualifiersWithName() {
     assertThat {
       TwoQualifiersWithName::class.annotations.findQualifier { "test failure context" }
-    }.isFailure().given {
-      assertThat(it).isInstanceOf(MultipleQualifierError::class)
-      assertThat(it.message).isEqualTo("Multiple qualifier annotations found: test failure context")
-    }
+    }.isFailure()
+      .isInstanceOf(MultipleQualifierError::class)
+      .hasMessage("Multiple qualifier annotations found: test failure context")
   }
 }
 
-@Qualifier annotation class TestQualifierAnnotation
-annotation class TestRegAnnotation1
-annotation class TestRegAnnotation2
+@Qualifier private annotation class TestQualifierAnnotation
+private annotation class TestRegAnnotation1
+private annotation class TestRegAnnotation2
 
 @TestRegAnnotation1 @TestRegAnnotation2 private class NoQualifiers
 @TestQualifierAnnotation @TestRegAnnotation1 @TestRegAnnotation2 private class OneQualifier
