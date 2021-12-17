@@ -5,6 +5,9 @@ import kotlin.reflect.KType
 import kotlin.reflect.KTypeParameter
 import kotlin.reflect.KTypeProjection
 
+/**
+ * Returns a concrete [TypeToken] representing the [referencedType] using the receiver as context.
+ */
 fun TypeToken<*>.resolveType(referencedType: KType): TypeToken<*> =
   when (val classifier = referencedType.classifier) {
     is KTypeParameter -> TypeToken<Any>(resolveTypeParamNamed(classifier.name))
@@ -29,5 +32,8 @@ private fun TypeToken<*>.resolveTypeParamNamed(name: String): KType =
 private fun TypeToken<*>.indexOfTypeParamNamed(name: String): Int =
   asKClass().typeParameters().indexOfFirst { it.name == name }
 
+/**
+ * Thrown when an error occurs while trying to resolve a [KType] into a concrete [TypeToken]
+ */
 class TypeTokenResolutionError(referencedType: KType, context: TypeToken<*>) :
   AssertionError("Error resolving type $referencedType given context of $context")
