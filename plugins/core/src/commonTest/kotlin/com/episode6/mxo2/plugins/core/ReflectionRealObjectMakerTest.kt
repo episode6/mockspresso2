@@ -62,7 +62,7 @@ class ReflectionRealObjectMakerTest {
   }
 
   private fun ObjectMaker.test(): TestClass = makeObject(dependencyKey<TestClass>(), dependencies)!! as TestClass
-  private class TestClass(val p1: String, val p2: Int) {
+  @Suppress("unused") private class TestClass(val p1: String, val p2: Int) {
     var constructorCall = "primary"
 
     constructor(p3: Long, p4: Boolean, p5: Float) : this("", 0) {
