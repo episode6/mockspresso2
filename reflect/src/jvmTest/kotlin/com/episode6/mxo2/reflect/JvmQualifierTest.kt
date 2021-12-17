@@ -46,14 +46,14 @@ class JvmQualifierTest {
       .isInstanceOf(MultipleQualifierError::class)
       .hasMessage("Multiple qualifier annotations found: test failure context")
   }
+
+  @Qualifier private annotation class TestQualifierAnnotation
+  private annotation class TestRegAnnotation1
+  private annotation class TestRegAnnotation2
+
+  @TestRegAnnotation1 @TestRegAnnotation2 private class NoQualifiers
+  @TestQualifierAnnotation @TestRegAnnotation1 @TestRegAnnotation2 private class OneQualifier
+  @TestQualifierAnnotation @TestRegAnnotation1 @TestRegAnnotation2 @Named private class TwoQualifiers
+  @TestQualifierAnnotation @TestRegAnnotation1 @TestRegAnnotation2 @Named("name") private class TwoQualifiersWithName
+  @TestRegAnnotation1 @TestRegAnnotation2 @Named("something") private class OneQualifierWithName
 }
-
-@Qualifier private annotation class TestQualifierAnnotation
-private annotation class TestRegAnnotation1
-private annotation class TestRegAnnotation2
-
-@TestRegAnnotation1 @TestRegAnnotation2 private class NoQualifiers
-@TestQualifierAnnotation @TestRegAnnotation1 @TestRegAnnotation2 private class OneQualifier
-@TestQualifierAnnotation @TestRegAnnotation1 @TestRegAnnotation2 @Named private class TwoQualifiers
-@TestQualifierAnnotation @TestRegAnnotation1 @TestRegAnnotation2 @Named("something") private class TwoQualifiersWithName
-@TestRegAnnotation1 @TestRegAnnotation2 @Named("something") private class OneQualifierWithName
