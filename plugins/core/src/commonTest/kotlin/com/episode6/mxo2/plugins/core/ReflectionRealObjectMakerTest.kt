@@ -10,6 +10,7 @@ import com.episode6.mxo2.reflect.dependencyKey
 import com.episode6.mxo2.reflect.parameterCount
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import kotlin.test.Test
 
 class ReflectionRealObjectMakerTest {
@@ -33,6 +34,12 @@ class ReflectionRealObjectMakerTest {
       assertThat(p1).isEqualTo("w00t")
       assertThat(p2).isEqualTo(42)
     }
+    verify {
+      with(dependencies) {
+        get(dependencyKey<String>())
+        get(dependencyKey<Int>())
+      }
+    }
   }
 
   @Test fun testLongest() {
@@ -45,6 +52,13 @@ class ReflectionRealObjectMakerTest {
       assertThat(constructorCall).isEqualTo("longest")
       assertThat(p1).isEqualTo("")
       assertThat(p2).isEqualTo(0)
+    }
+    verify {
+      with(dependencies) {
+        get(dependencyKey<Long>())
+        get(dependencyKey<Boolean>())
+        get(dependencyKey<Float>())
+      }
     }
   }
 
@@ -59,6 +73,8 @@ class ReflectionRealObjectMakerTest {
       assertThat(p1).isEqualTo("")
       assertThat(p2).isEqualTo(0)
     }
+
+    verify { dependencies.get(dependencyKey<Double>()) }
   }
 
   private fun ObjectMaker.test(): TestClass = makeObject(dependencyKey<TestClass>(), dependencies)!! as TestClass
