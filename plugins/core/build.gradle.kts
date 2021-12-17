@@ -12,5 +12,10 @@ kotlin {
         implementation(project(":reflect"))
       }
     }
+    val commonTest by getting {
+      dependencies {
+        implementation(libs.mockk.core)
+      }
+    }
   }
 }
