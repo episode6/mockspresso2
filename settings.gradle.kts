@@ -14,3 +14,6 @@ include(
   ":api",
   ":reflect"
 )
+apply {
+  from("plugins/settings.gradle.kts")
+}
