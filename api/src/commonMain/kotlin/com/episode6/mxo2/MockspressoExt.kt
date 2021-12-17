@@ -31,5 +31,5 @@ inline fun <reified T : Any?> MockspressoProperties.findDep(qualifier: Annotatio
 inline fun <reified T : Any?> MockspressoProperties.realInstance(qualifier: Annotation? = null): Lazy<T> =
   dependencyKey<T>(qualifier).let { realImplOf(it, it.token) }
 
-inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.realImpl(qualifier: Annotation? = null): Lazy<IMPL> =
+inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.realImplOf(qualifier: Annotation? = null): Lazy<IMPL> =
   realImplOf(dependencyKey<BIND>(qualifier), typeToken())
