@@ -12,6 +12,7 @@ rootProject.name = "mockspresso2"
 
 include(
   ":api",
+  ":core",
   ":reflect"
 )
 apply {

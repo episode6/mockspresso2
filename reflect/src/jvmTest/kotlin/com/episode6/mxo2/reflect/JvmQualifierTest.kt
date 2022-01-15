@@ -31,18 +31,17 @@ class JvmQualifierTest {
   }
 
   @Test fun testTwoQualifiers() {
-    assertThat {
-      TwoQualifiers::class.annotations.findQualifier { "test failure context" }
-    }.isFailure().given {
-      assertThat(it).isInstanceOf(MultipleQualifierError::class)
-      assertThat(it.message).isEqualTo("Multiple qualifier annotations found: test failure context")
-    }
+    assertThat { TwoQualifiers::class.annotations.findQualifier { "test failure context" } }
+      .isFailure()
+      .given {
+        assertThat(it).isInstanceOf(MultipleQualifierError::class)
+        assertThat(it.message).isEqualTo("Multiple qualifier annotations found: test failure context")
+      }
   }
 
   @Test fun testTwoQualifiersWithName() {
-    assertThat {
-      TwoQualifiersWithName::class.annotations.findQualifier { "test failure context" }
-    }.isFailure()
+    assertThat { TwoQualifiersWithName::class.annotations.findQualifier { "test failure context" } }
+      .isFailure()
       .isInstanceOf(MultipleQualifierError::class)
       .hasMessage("Multiple qualifier annotations found: test failure context")
   }
