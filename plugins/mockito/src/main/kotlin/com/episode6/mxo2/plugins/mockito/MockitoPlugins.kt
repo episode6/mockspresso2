@@ -11,11 +11,11 @@ import org.mockito.Incubating
 import org.mockito.Mockito
 import org.mockito.kotlin.KStubbing
 import org.mockito.kotlin.UseConstructor
-import org.mockito.kotlin.mock
 import org.mockito.listeners.InvocationListener
 import org.mockito.mock.SerializableMode
 import org.mockito.stubbing.Answer
 import kotlin.reflect.KClass
+import org.mockito.kotlin.mock as _mock
 
 /**
  * Use mockito to generate fallback objects for dependencies that are not present in the mockspresso instance
@@ -40,7 +40,7 @@ inline fun <reified T : Any> MockspressoBuilder.defaultMock(
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false
 ): MockspressoBuilder {
-  val mock: T = mock(
+  val mock: T = _mock(
     extraInterfaces = extraInterfaces,
     name = name,
     spiedInstance = spiedInstance,
@@ -73,7 +73,7 @@ inline fun <reified T : Any> MockspressoBuilder.defaultMock(
   @Incubating lenient: Boolean = false,
   stubbing: KStubbing<T>.(T) -> Unit
 ): MockspressoBuilder {
-  val mock: T = mock(
+  val mock: T = _mock(
     extraInterfaces = extraInterfaces,
     name = name,
     spiedInstance = spiedInstance,
@@ -106,7 +106,7 @@ inline fun <reified T : Any> MockspressoProperties.mock(
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false
 ): T {
-  val mock: T = org.mockito.kotlin.mock(
+  val mock: T = _mock(
     extraInterfaces = extraInterfaces,
     name = name,
     spiedInstance = spiedInstance,
@@ -139,7 +139,7 @@ inline fun <reified T : Any> MockspressoProperties.mock(
   @Incubating lenient: Boolean = false,
   stubbing: KStubbing<T>.(T) -> Unit
 ): T {
-  val mock: T = org.mockito.kotlin.mock(
+  val mock: T = _mock(
     extraInterfaces = extraInterfaces,
     name = name,
     spiedInstance = spiedInstance,
