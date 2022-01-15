@@ -43,6 +43,7 @@ internal class MxoInstance(
   }
 
   fun teardown() {
+    ensureInit()
     teardownCallbacks.forEach { it.invoke() }
     parent?.teardown()
   }

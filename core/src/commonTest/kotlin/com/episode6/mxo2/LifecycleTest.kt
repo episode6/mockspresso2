@@ -93,6 +93,21 @@ class LifecycleTest {
     confirmAllVerified()
   }
 
+  @Test fun testTeardownWithoutInit() {
+    mxo.teardown()
+
+    verify {
+      builderSetup.invoke(any())
+      propSetup.invoke(any())
+      testDependency1.touch()
+      testDependency2.touch()
+
+      builderTeardown.invoke()
+      propTeardown.invoke()
+    }
+    confirmAllVerified()
+  }
+
   @Test fun testDoubleTeardown() {
     mxo.ensureInit()
     mxo.teardown()
