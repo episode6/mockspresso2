@@ -14,6 +14,6 @@ dependencies {
   testImplementation(project(":core"))
 }
 tasks.test {
-  // Enable JUnit 5 (Gradle 4.6+).
+  // Enable JUnit 5
   useJUnitPlatform()
 }
