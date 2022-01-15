@@ -23,7 +23,7 @@ class Junit4PluginsTest {
   @Test fun verifyApplyCausesNoAction() {
     mxoRule.apply(baseStatement, description)
 
-    confirmVerified(setupCmd, teardownCmd)
+    confirmVerified(setupCmd, teardownCmd, baseStatement)
   }
 
   @Test fun verifyOrderOfCalls() {
