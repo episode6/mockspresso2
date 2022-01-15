@@ -5,3 +5,9 @@ module:api
 com.episode6.mxo2
 com.episode6.mxo2.api
 com.episode6.mxo2.reflect
+module:core
+com.episode6.mxo2
+module:plugins-core
+com.episode6.mxo2.plugins.core
+module:reflect
+com.episode6.mxo2.reflect

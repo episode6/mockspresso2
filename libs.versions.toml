@@ -1,7 +1,7 @@
 [versions]
-gradle-core = "7.1"
-kotlin-core = "1.5.31"
-dokka-core = "1.5.30"
+gradle-core = "7.3.3"
+kotlin-core = "1.6.10"
+dokka-core = "1.6.10"
 
 # test utils
 junit4-core = "4.13.2"
