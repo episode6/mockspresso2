@@ -8,9 +8,9 @@ dependencies {
   api(project(":api"))
 
   implementation(libs.mockito.core)
-  implementation(libs.mockito.inline)
   implementation(libs.mockito.kotlin)
 
+  testImplementation(libs.mockito.inline)
   testImplementation(libs.junit5.core)
   testImplementation(project(":core"))
 }
