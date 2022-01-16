@@ -25,6 +25,11 @@ import org.mockito.kotlin.mock as _mock
     override fun <T> makeObject(key: DependencyKey<T>): T = Mockito.mock(key.token.asKClass().java as Class<T>)
   })
 
+/**
+ * Add a mock with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
+ * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mock]
+ * instead.
+ */
 inline fun <reified T : Any> MockspressoBuilder.defaultMock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
@@ -39,8 +44,8 @@ inline fun <reified T : Any> MockspressoBuilder.defaultMock(
   @Incubating useConstructor: UseConstructor? = null,
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false
-): MockspressoBuilder {
-  val mock: T = _mock(
+): MockspressoBuilder = addDependencyOf(qualifier) {
+  _mock<T>(
     extraInterfaces = extraInterfaces,
     name = name,
     spiedInstance = spiedInstance,
@@ -54,9 +59,13 @@ inline fun <reified T : Any> MockspressoBuilder.defaultMock(
     outerInstance = outerInstance,
     lenient = lenient
   )
-  return addDependencyOf(qualifier) { mock }
 }
 
+/**
+ * Add a mock with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
+ * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mock]
+ * instead.
+ */
 inline fun <reified T : Any> MockspressoBuilder.defaultMock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
@@ -71,9 +80,9 @@ inline fun <reified T : Any> MockspressoBuilder.defaultMock(
   @Incubating useConstructor: UseConstructor? = null,
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false,
-  stubbing: KStubbing<T>.(T) -> Unit
-): MockspressoBuilder {
-  val mock: T = _mock(
+  noinline stubbing: KStubbing<T>.(T) -> Unit
+): MockspressoBuilder = addDependencyOf(qualifier) {
+  _mock<T>(
     extraInterfaces = extraInterfaces,
     name = name,
     spiedInstance = spiedInstance,
@@ -88,9 +97,12 @@ inline fun <reified T : Any> MockspressoBuilder.defaultMock(
     lenient = lenient,
     stubbing = stubbing,
   )
-  return addDependencyOf(qualifier) { mock }
 }
 
+/**
+ * Add a mock with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
+ * supplied qualifier annotation and will be accessible via the returned lazy.
+ */
 inline fun <reified T : Any> MockspressoProperties.mock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
@@ -105,8 +117,8 @@ inline fun <reified T : Any> MockspressoProperties.mock(
   @Incubating useConstructor: UseConstructor? = null,
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false
-): T {
-  val mock: T = _mock(
+): Lazy<T> = depOf(qualifier) {
+  _mock<T>(
     extraInterfaces = extraInterfaces,
     name = name,
     spiedInstance = spiedInstance,
@@ -120,9 +132,12 @@ inline fun <reified T : Any> MockspressoProperties.mock(
     outerInstance = outerInstance,
     lenient = lenient
   )
-  return depOf(qualifier) { mock }.value
 }
 
+/**
+ * Add a mock with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
+ * supplied qualifier annotation and will be accessible via the returned lazy.
+ */
 inline fun <reified T : Any> MockspressoProperties.mock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
@@ -137,9 +152,9 @@ inline fun <reified T : Any> MockspressoProperties.mock(
   @Incubating useConstructor: UseConstructor? = null,
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false,
-  stubbing: KStubbing<T>.(T) -> Unit
-): T {
-  val mock: T = _mock(
+  noinline stubbing: KStubbing<T>.(T) -> Unit
+): Lazy<T> = depOf(qualifier) {
+  _mock<T>(
     extraInterfaces = extraInterfaces,
     name = name,
     spiedInstance = spiedInstance,
@@ -154,5 +169,4 @@ inline fun <reified T : Any> MockspressoProperties.mock(
     lenient = lenient,
     stubbing = stubbing,
   )
-  return depOf(qualifier) { mock }.value
 }
