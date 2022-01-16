@@ -16,7 +16,7 @@ class Junit4PluginsTest {
   private val mxoRule = MockspressoBuilder()
     .onSetup(setupCmd)
     .onTeardown(teardownCmd)
-    .build().rule()
+    .build().junitRule()
   private val baseStatement: Statement = mockk(relaxUnitFun = true)
   private val description: Description = mockk()
 

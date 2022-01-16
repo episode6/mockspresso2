@@ -5,12 +5,13 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
-interface MockspressoRule : Mockspresso, TestRule
+interface MockspressoJUnit4Rule : Mockspresso, TestRule
 
 /**
- * Create a junit rule to handle mockspresso lifecycle callbacks.
+ * Create a junit rule to handle mockspresso lifecycle callbacks. Apply this using the [org.junit.Rule]
+ * annotation in your test.
  */
-fun Mockspresso.rule(): MockspressoRule = object : MockspressoRule, Mockspresso by this {
+fun Mockspresso.junitRule(): MockspressoJUnit4Rule = object : MockspressoJUnit4Rule, Mockspresso by this {
   override fun apply(base: Statement, description: Description): Statement = object : Statement() {
     override fun evaluate() {
       ensureInit()
