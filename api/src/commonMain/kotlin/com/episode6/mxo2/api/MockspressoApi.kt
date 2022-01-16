@@ -15,7 +15,7 @@ fun interface ObjectMaker {
   fun makeObject(key: DependencyKey<*>, dependencies: Dependencies): Any?
 }
 
-fun interface OptionalObjectMaker {
+fun interface DynamicObjectMaker {
   fun canMakeObject(key: DependencyKey<*>, dependencies: Dependencies): ObjectAnswer
 }
 

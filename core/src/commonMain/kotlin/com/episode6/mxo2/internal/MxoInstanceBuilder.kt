@@ -4,7 +4,7 @@ import com.episode6.mxo2.DependencyAlreadyMappedError
 import com.episode6.mxo2.MockspressoInstance
 import com.episode6.mxo2.api.FallbackObjectMaker
 import com.episode6.mxo2.api.ObjectMaker
-import com.episode6.mxo2.api.OptionalObjectMaker
+import com.episode6.mxo2.api.DynamicObjectMaker
 import com.episode6.mxo2.defaultFallbackObjectMaker
 import com.episode6.mxo2.defaultRealObjectMaker
 import com.episode6.mxo2.reflect.DependencyKey
@@ -15,7 +15,7 @@ internal class MxoInstanceBuilder(private val parent: Lazy<MxoInstance>? = null)
   private var realMaker: ObjectMaker? = null
   private var fallbackMaker: FallbackObjectMaker? = null
 
-  private val specialMakers: MutableList<OptionalObjectMaker> = mutableListOf()
+  private val dynamicMakers: MutableList<DynamicObjectMaker> = mutableListOf()
 
   private val dependencies = DependencyCache()
   private val realObjectRequests = RealObjectRequestsList()
@@ -35,8 +35,8 @@ internal class MxoInstanceBuilder(private val parent: Lazy<MxoInstance>? = null)
     this.realMaker = realMaker
   }
 
-  fun specialObjectMakers(vararg untypedMakers: OptionalObjectMaker) {
-    specialMakers += untypedMakers
+  fun addDynamicMaker(dynamicMaker: DynamicObjectMaker) {
+    dynamicMakers += dynamicMaker
   }
 
   fun fallbackObjectMaker(fallbackMaker: FallbackObjectMaker) {
@@ -64,7 +64,7 @@ internal class MxoInstanceBuilder(private val parent: Lazy<MxoInstance>? = null)
       parent = parent,
       realMaker = realMaker ?: parent?.realMaker ?: defaultRealObjectMaker(),
       fallbackMaker = fallbackMaker ?: parent?.fallbackMaker ?: defaultFallbackObjectMaker(),
-      specialMakers = specialMakers,
+      specialMakers = dynamicMakers,
       setupCallbacks = setupCallbacks,
       teardownCallbacks = teardownCallbacks,
       dependencies = dependencies,

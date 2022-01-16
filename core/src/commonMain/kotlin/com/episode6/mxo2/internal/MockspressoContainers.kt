@@ -1,9 +1,9 @@
 package com.episode6.mxo2.internal
 
 import com.episode6.mxo2.*
+import com.episode6.mxo2.api.DynamicObjectMaker
 import com.episode6.mxo2.api.FallbackObjectMaker
 import com.episode6.mxo2.api.ObjectMaker
-import com.episode6.mxo2.api.OptionalObjectMaker
 import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.TypeToken
 
@@ -28,8 +28,8 @@ internal class MockspressoBuilderContainer(parent: Lazy<MxoInstance>? = null) : 
   override fun makeRealObjectsWith(realMaker: ObjectMaker): MockspressoBuilder =
     apply { builder.realObjectMaker(realMaker) }
 
-  override fun addOptionalObjectMakers(vararg optionalMakers: OptionalObjectMaker): MockspressoBuilder =
-    apply { builder.specialObjectMakers(*optionalMakers) }
+  override fun addDynamicObjectMaker(dynamicMaker: DynamicObjectMaker): MockspressoBuilder =
+    apply { builder.addDynamicMaker(dynamicMaker) }
 
   override fun makeFallbackObjectsWith(fallbackMaker: FallbackObjectMaker): MockspressoBuilder =
     apply { builder.fallbackObjectMaker(fallbackMaker) }
@@ -65,6 +65,10 @@ private class MockspressoPropertiesContainer(
 
   override fun onTeardown(cmd: () -> Unit) {
     builder.onTearDown(cmd)
+  }
+
+  override fun addDynamicObjectMaker(dynamicMaker: DynamicObjectMaker) {
+    builder.addDynamicMaker(dynamicMaker)
   }
 
   override fun <T> depOf(key: DependencyKey<T>, maker: () -> T): Lazy<T> {

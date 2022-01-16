@@ -10,7 +10,7 @@ internal class MxoInstance(
   private val parent: MxoInstance? = null,
   val realMaker: ObjectMaker,
   val fallbackMaker: FallbackObjectMaker,
-  private val specialMakers: List<OptionalObjectMaker>,
+  private val specialMakers: List<DynamicObjectMaker>,
   setupCallbacks: MutableList<(MockspressoInstance) -> Unit>,
   private val teardownCallbacks: List<() -> Unit>,
   private val dependencies: DependencyCache,
@@ -82,7 +82,7 @@ internal class MxoInstance(
     Yes(value.checkedCast(key).cacheWith(key, validator))
 }
 
-private fun List<OptionalObjectMaker>.canMake(key: DependencyKey<*>, dependencies: Dependencies): ObjectAnswer =
+private fun List<DynamicObjectMaker>.canMake(key: DependencyKey<*>, dependencies: Dependencies): ObjectAnswer =
   firstNotNullOfOrNull { maker ->
     maker.canMakeObject(key, dependencies).takeIf { it is ObjectAnswer.Yes }
   } ?: ObjectAnswer.No
