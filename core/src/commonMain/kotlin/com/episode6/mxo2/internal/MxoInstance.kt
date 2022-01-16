@@ -13,7 +13,7 @@ internal class MxoInstance(
   private val parent: MxoInstance? = null,
   val realMaker: ObjectMaker,
   val fallbackMaker: FallbackObjectMaker,
-  private val specialMakers: List<DynamicObjectMaker>,
+  private val dynamicMakers: List<DynamicObjectMaker>,
   setupCallbacks: MutableList<(MockspressoInstance) -> Unit>,
   private val teardownCallbacks: List<() -> Unit>,
   private val dependencies: DependencyCache,
@@ -55,7 +55,7 @@ internal class MxoInstance(
     if (dependencies.containsKey(key)) return Yes(dependencies.get(key, validator))
     if (realObjectRequests.containsKey(key)) return Yes(createInternal(key, validator, cache = true))
 
-    val isSpecial = specialMakers.canMake(key, validator.asDependencies())
+    val isSpecial = dynamicMakers.canMake(key, validator.asDependencies())
     if (isSpecial is DynamicObjectMaker.Answer.Yes) return isSpecial.castAndCache(key, validator)
 
     return parent?.canGetInternal(key, validator) ?: No
