@@ -2,7 +2,10 @@ package com.episode6.mxo2.internal
 
 import com.episode6.mxo2.InvalidTypeReturnedFromMakerError
 import com.episode6.mxo2.MockspressoInstance
-import com.episode6.mxo2.api.*
+import com.episode6.mxo2.api.Dependencies
+import com.episode6.mxo2.api.DynamicObjectMaker
+import com.episode6.mxo2.api.FallbackObjectMaker
+import com.episode6.mxo2.api.ObjectMaker
 import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.asKClass
 
@@ -10,7 +13,7 @@ internal class MxoInstance(
   private val parent: MxoInstance? = null,
   val realMaker: ObjectMaker,
   val fallbackMaker: FallbackObjectMaker,
-  private val specialMakers: List<OptionalObjectMaker>,
+  private val dynamicMakers: List<DynamicObjectMaker>,
   setupCallbacks: MutableList<(MockspressoInstance) -> Unit>,
   private val teardownCallbacks: List<() -> Unit>,
   private val dependencies: DependencyCache,
@@ -52,8 +55,8 @@ internal class MxoInstance(
     if (dependencies.containsKey(key)) return Yes(dependencies.get(key, validator))
     if (realObjectRequests.containsKey(key)) return Yes(createInternal(key, validator, cache = true))
 
-    val isSpecial = specialMakers.canMake(key, validator.asDependencies())
-    if (isSpecial is ObjectAnswer.Yes) return isSpecial.castAndCache(key, validator)
+    val isSpecial = dynamicMakers.canMake(key, validator.asDependencies())
+    if (isSpecial is DynamicObjectMaker.Answer.Yes) return isSpecial.castAndCache(key, validator)
 
     return parent?.canGetInternal(key, validator) ?: No
   }
@@ -78,14 +81,19 @@ internal class MxoInstance(
   private fun <T : Any?> T.cacheWith(key: DependencyKey<T>, validator: DependencyValidator): T =
     also { dependencies.put(key, validator) { it } }
 
-  private fun <T : Any?> ObjectAnswer.Yes.castAndCache(key: DependencyKey<T>, validator: DependencyValidator): Yes<T> =
+  private fun <T : Any?> DynamicObjectMaker.Answer.Yes.castAndCache(
+    key: DependencyKey<T>,
+    validator: DependencyValidator
+  ): Yes<T> =
     Yes(value.checkedCast(key).cacheWith(key, validator))
 }
 
-private fun List<OptionalObjectMaker>.canMake(key: DependencyKey<*>, dependencies: Dependencies): ObjectAnswer =
-  firstNotNullOfOrNull { maker ->
-    maker.canMakeObject(key, dependencies).takeIf { it is ObjectAnswer.Yes }
-  } ?: ObjectAnswer.No
+private fun List<DynamicObjectMaker>.canMake(
+  key: DependencyKey<*>,
+  dependencies: Dependencies
+): DynamicObjectMaker.Answer = firstNotNullOfOrNull { maker ->
+  maker.canMakeObject(key, dependencies).takeIf { it is DynamicObjectMaker.Answer.Yes }
+} ?: DynamicObjectMaker.Answer.No
 
 private sealed class TypedObjectAnswer<out T : Any?>
 private data class Yes<T : Any?>(val value: T) : TypedObjectAnswer<T>()
