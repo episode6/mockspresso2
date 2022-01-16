@@ -6,17 +6,18 @@ interface Dependencies {
   fun <T : Any?> get(key: DependencyKey<T>): T
 }
 
-sealed class ObjectAnswer {
-  data class Yes(val value: Any?) : ObjectAnswer()
-  object No : ObjectAnswer()
-}
-
 fun interface ObjectMaker {
   fun makeObject(key: DependencyKey<*>, dependencies: Dependencies): Any?
 }
 
+
 fun interface DynamicObjectMaker {
-  fun canMakeObject(key: DependencyKey<*>, dependencies: Dependencies): ObjectAnswer
+  sealed class Answer {
+    data class Yes(val value: Any?) : Answer()
+    object No : Answer()
+  }
+
+  fun canMakeObject(key: DependencyKey<*>, dependencies: Dependencies): Answer
 }
 
 interface FallbackObjectMaker {
