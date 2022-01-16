@@ -214,3 +214,17 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyI
   qualifier: Annotation? = null,
   noinline stubbing: KStubbing<IMPL>.(IMPL) -> Unit
 ): Lazy<IMPL> = realImplOf<BIND, IMPL>(qualifier) { spy(it, stubbing) }
+
+/*
+ * Mark type [T] (with optional [qualifier]) as a Factory object. The object will be mocked and each method will return
+ * a dependency from the underlying Mockspresso instance.
+ */
+inline fun <reified T : Any?> MockspressoBuilder.autoFactory(qualifier: Annotation? = null): MockspressoBuilder =
+  addDependencyOf<T>(qualifier) { autoFactoryMock<T>(qualifier) }
+
+/**
+ * Mark type [T] (with optional [qualifier]) as a Factory object which is also accessible via the returned lazy.
+ * The object will be mocked and each method will return a dependency from the underlying Mockspresso instance.
+ */
+inline fun <reified T : Any?> MockspressoProperties.autoFactory(qualifier: Annotation? = null): Lazy<T> =
+  depOf<T>(qualifier) { autoFactoryMock<T>(qualifier) }

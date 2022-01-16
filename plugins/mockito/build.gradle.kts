@@ -7,6 +7,7 @@ plugins {
 dependencies {
   api(project(":api"))
 
+  implementation(project(":reflect"))
   implementation(libs.mockito.core)
   implementation(libs.mockito.kotlin)
 
