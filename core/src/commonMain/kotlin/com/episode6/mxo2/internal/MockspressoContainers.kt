@@ -67,10 +67,6 @@ private class MockspressoPropertiesContainer(
     builder.onTearDown(cmd)
   }
 
-  override fun addDynamicObjectMaker(dynamicMaker: DynamicObjectMaker) {
-    builder.addDynamicMaker(dynamicMaker)
-  }
-
   override fun <T> depOf(key: DependencyKey<T>, maker: () -> T): Lazy<T> {
     val lazy = mlazy(maker)
     builder.dependencyOf(key) { lazy.value }

@@ -50,7 +50,6 @@ interface MockspressoInstance {
 interface MockspressoProperties {
   fun onSetup(cmd: (MockspressoInstance) -> Unit)
   fun onTeardown(cmd: () -> Unit)
-  fun addDynamicObjectMaker(dynamicMaker: DynamicObjectMaker)
   fun <T : Any?> depOf(key: DependencyKey<T>, maker: () -> T): Lazy<T>
   fun <T : Any?> findDepOf(key: DependencyKey<T>): Lazy<T>
   fun <BIND : Any?, IMPL : BIND> realImplOf(key: DependencyKey<BIND>, implementationToken: TypeToken<IMPL>): Lazy<IMPL>
