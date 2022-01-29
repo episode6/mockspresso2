@@ -15,13 +15,12 @@ internal class DependencyCacheBuilder {
   }
 
   @Suppress("UNCHECKED_CAST")
-  fun build(makeDependencies: (DependencyValidator)->Dependencies): DependencyCache {
+  fun build(makeDependencies: DependencyValidator.()->Dependencies): DependencyCache {
     val cache = DependencyCache()
     map.entries.forEach { (key, maker) ->
       key as DependencyKey<Any?>
       val validator = DependencyValidator(key)
-      val dependencies = { makeDependencies(validator) }
-      cache.put(key, validator) { dependencies().maker() }
+      cache.put(key, validator) { validator.makeDependencies().maker() }
     }
     return cache
   }

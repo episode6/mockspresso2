@@ -20,7 +20,7 @@ internal class MxoInstance(
   private val realObjectRequests: RealObjectRequestsList,
 ) {
 
-  private val dependencies = dependenciesBuilder.build { it.asDependencies() }
+  private val dependencies = dependenciesBuilder.build { asDependencies() }
 
   val ensureInit: () -> Unit by runOnce {
     parent?.ensureInit?.invoke()
