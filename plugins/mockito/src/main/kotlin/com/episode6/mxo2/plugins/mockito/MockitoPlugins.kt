@@ -1,16 +1,14 @@
 package com.episode6.mxo2.plugins.mockito
 
-import com.episode6.mxo2.MockspressoBuilder
-import com.episode6.mxo2.MockspressoProperties
-import com.episode6.mxo2.addDependencyOf
+import com.episode6.mxo2.*
 import com.episode6.mxo2.api.FallbackObjectMaker
-import com.episode6.mxo2.depOf
 import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.asKClass
 import org.mockito.Incubating
 import org.mockito.Mockito
 import org.mockito.kotlin.KStubbing
 import org.mockito.kotlin.UseConstructor
+import org.mockito.kotlin.spy
 import org.mockito.listeners.InvocationListener
 import org.mockito.mock.SerializableMode
 import org.mockito.stubbing.Answer
@@ -170,3 +168,39 @@ inline fun <reified T : Any> MockspressoProperties.mock(
     stubbing = stubbing,
   )
 }
+
+/**
+ * Create a real object of [T] using mockspresso then wrap it in a mockito [spy]. This spy will be par of the mockspresso
+ * graph and can be used by other real objects (and then verified in test code).
+ */
+inline fun <reified T : Any> MockspressoProperties.spy(qualifier: Annotation? = null): Lazy<T> =
+  realInstance(qualifier) { spy(it) }
+
+/**
+ * Create a real object of [T] using mockspresso then wrap it in a mockito [spy]. This spy will be par of the mockspresso
+ * graph and can be used by other real objects (and then verified in test code). The [stubbing] will be applied to the
+ * spy before it is injected as a dependency into other classes.
+ */
+inline fun <reified T : Any> MockspressoProperties.spy(
+  qualifier: Annotation? = null,
+  noinline stubbing: KStubbing<T>.(T) -> Unit
+): Lazy<T> = realInstance(qualifier) { spy(it, stubbing) }
+
+/**
+ * Create a real object of type [IMPL] using mockspresso then wrap it in a mockito [spy] (the object will be bound
+ * using type [BIND]). This spy will be par of the mockspresso graph and can be used by other real objects
+ * (and then verified in test code).
+ */
+inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(qualifier: Annotation? = null): Lazy<IMPL> =
+  realImplOf<BIND, IMPL>(qualifier) { spy(it) }
+
+/**
+ * Create a real object of type [IMPL] using mockspresso then wrap it in a mockito [spy] (the object will be bound
+ * using type [BIND]). This spy will be par of the mockspresso graph and can be used by other real objects
+ * (and then verified in test code). The [stubbing] will be applied to the spy before it is injected as a dependency
+ * into other classes.
+ */
+inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(
+  qualifier: Annotation? = null,
+  noinline stubbing: KStubbing<IMPL>.(IMPL) -> Unit
+): Lazy<IMPL> = realImplOf<BIND, IMPL>(qualifier) { spy(it, stubbing) }

@@ -37,8 +37,11 @@ internal class MockspressoBuilderContainer(parent: Lazy<MxoInstance>? = null) : 
   override fun <T> addDependencyOf(key: DependencyKey<T>, provider: () -> T): MockspressoBuilder =
     apply { builder.dependencyOf(key, provider) }
 
-  override fun <T> useRealImplOf(key: DependencyKey<T>, implementationToken: TypeToken<out T>): MockspressoBuilder =
-    apply { builder.realObject(key, implementationToken) }
+  override fun <BIND : Any?, IMPL : BIND>  useRealImplOf(
+    key: DependencyKey<BIND>,
+    implementationToken: TypeToken<IMPL>,
+    interceptor: (IMPL) -> BIND
+  ): MockspressoBuilder = apply { builder.realObject(key, implementationToken, interceptor) }
 
   override fun testResources(maker: (MockspressoProperties) -> Unit): MockspressoBuilder =
     apply { maker(properties) }
@@ -76,9 +79,10 @@ private class MockspressoPropertiesContainer(
   @Suppress("UNCHECKED_CAST")
   override fun <BIND, IMPL : BIND> realImplOf(
     key: DependencyKey<BIND>,
-    implementationToken: TypeToken<IMPL>
+    implementationToken: TypeToken<IMPL>,
+    interceptor: (IMPL)->IMPL
   ): Lazy<IMPL> {
-    builder.realObject(key, implementationToken)
+    builder.realObject(key, implementationToken, interceptor)
     return mlazy { instance.get(key) as IMPL }
   }
 

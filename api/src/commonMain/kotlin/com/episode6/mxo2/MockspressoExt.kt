@@ -2,15 +2,16 @@ package com.episode6.mxo2
 
 import com.episode6.mxo2.reflect.dependencyKey
 import com.episode6.mxo2.reflect.typeToken
+import kotlin.coroutines.ContinuationInterceptor
 
 inline fun <reified T : Any?> MockspressoBuilder.addDependencyOf(qualifier: Annotation? = null, noinline provider: () -> T): MockspressoBuilder =
   addDependencyOf(dependencyKey(qualifier), provider)
 
-inline fun <reified T : Any?> MockspressoBuilder.useRealInstanceOf(qualifier: Annotation? = null): MockspressoBuilder =
-  dependencyKey<T>(qualifier).let { useRealImplOf(it, it.token) }
+inline fun <reified T : Any?> MockspressoBuilder.useRealInstanceOf(qualifier: Annotation? = null, noinline interceptor: (T)->T = {it}): MockspressoBuilder =
+  dependencyKey<T>(qualifier).let { useRealImplOf(it, it.token, interceptor) }
 
-inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.useRealImplOf(qualifier: Annotation? = null): MockspressoBuilder =
-  useRealImplOf(dependencyKey<BIND>(qualifier), typeToken<IMPL>())
+inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.useRealImplOf(qualifier: Annotation? = null, noinline interceptor: (IMPL)->BIND = {it}): MockspressoBuilder =
+  useRealImplOf(dependencyKey<BIND>(qualifier), typeToken<IMPL>(), interceptor)
 
 
 
@@ -28,8 +29,8 @@ inline fun <reified T : Any?> MockspressoProperties.depOf(qualifier: Annotation?
 inline fun <reified T : Any?> MockspressoProperties.findDep(qualifier: Annotation? = null): Lazy<T> =
   findDepOf(dependencyKey(qualifier))
 
-inline fun <reified T : Any?> MockspressoProperties.realInstance(qualifier: Annotation? = null): Lazy<T> =
-  dependencyKey<T>(qualifier).let { realImplOf(it, it.token) }
+inline fun <reified T : Any?> MockspressoProperties.realInstance(qualifier: Annotation? = null, noinline interceptor: (T)->T = {it}): Lazy<T> =
+  dependencyKey<T>(qualifier).let { realImplOf(it, it.token, interceptor) }
 
-inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.realImplOf(qualifier: Annotation? = null): Lazy<IMPL> =
-  realImplOf(dependencyKey<BIND>(qualifier), typeToken())
+inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.realImplOf(qualifier: Annotation? = null, noinline interceptor: (IMPL)->IMPL = {it}): Lazy<IMPL> =
+  realImplOf(dependencyKey<BIND>(qualifier), typeToken(), interceptor)
