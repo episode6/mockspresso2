@@ -192,7 +192,7 @@ inline fun <reified T : Any> MockspressoProperties.spy(
  * (and then verified in test code).
  */
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(qualifier: Annotation? = null): Lazy<IMPL> =
-  realInstance(qualifier) { spy(it) }
+  realImplOf<BIND, IMPL>(qualifier) { spy(it) }
 
 /**
  * Create a real object of type [IMPL] using mockspresso then wrap it in a mockito [spy] (the object will be bound
@@ -203,4 +203,4 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyI
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(
   qualifier: Annotation? = null,
   noinline stubbing: KStubbing<IMPL>.(IMPL) -> Unit
-): Lazy<IMPL> = realInstance(qualifier) { spy(it, stubbing) }
+): Lazy<IMPL> = realImplOf<BIND, IMPL>(qualifier) { spy(it, stubbing) }
