@@ -1,7 +1,8 @@
-package com.episode6.mxo2.internal
+package com.episode6.mxo2.internal.util
 
 import com.episode6.mxo2.reflect.DependencyKey
 
+// Stores lazies of dependencies in an immutable MxoInstance
 internal class DependencyCache {
   private val map: MutableMap<DependencyKey<*>, CacheEntry> = mutableMapOf()
 

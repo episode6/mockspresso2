@@ -5,6 +5,7 @@ import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.DynamicObjectMaker
 import com.episode6.mxo2.api.FallbackObjectMaker
 import com.episode6.mxo2.api.ObjectMaker
+import com.episode6.mxo2.internal.util.mlazy
 import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.TypeToken
 
@@ -38,7 +39,7 @@ internal class MockspressoBuilderContainer(parent: Lazy<MxoInstance>? = null) : 
   override fun <T> addDependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder =
     apply { builder.dependencyOf(key, provider) }
 
-  override fun <BIND : Any?, IMPL : BIND>  useRealImplOf(
+  override fun <BIND : Any?, IMPL : BIND> useRealImplOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> BIND
@@ -80,7 +81,7 @@ private class MockspressoPropertiesContainer(
   override fun <BIND, IMPL : BIND> realImplOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
-    interceptor: (IMPL)->IMPL
+    interceptor: (IMPL) -> IMPL
   ): Lazy<IMPL> {
     builder.realObject(key, implementationToken, interceptor)
     return mlazy { instance.get(key) as IMPL }

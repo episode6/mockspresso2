@@ -1,8 +1,9 @@
-package com.episode6.mxo2.internal
+package com.episode6.mxo2.internal.util
 
 import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.TypeToken
 
+// stores "requests" to create real objects until the MxoInstance is ensured
 @Suppress("UNCHECKED_CAST")
 internal class RealObjectRequestsList {
   private val map: MutableMap<DependencyKey<*>, RealObjectRequest> = mutableMapOf()

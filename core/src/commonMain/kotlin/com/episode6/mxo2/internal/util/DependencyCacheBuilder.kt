@@ -1,11 +1,13 @@
-package com.episode6.mxo2.internal
+package com.episode6.mxo2.internal.util
 
 import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.reflect.DependencyKey
 
 private typealias Maker<T> = Dependencies.() -> T
 
-// stores dependency cache "requests" until the MxoInstance is constructed
+// Stores dependency cache "requests" until the MxoInstance is constructed. All dependencies have the opportunity
+// to dynamically pull other child-dependencies at construction-time, so we store the lambdas here until the
+// instance becomes immutable
 internal class DependencyCacheBuilder {
   private val map: MutableMap<DependencyKey<*>, Maker<*>> = mutableMapOf()
 
