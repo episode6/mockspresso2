@@ -2,6 +2,8 @@ package com.episode6.mxo2
 
 import assertk.assertThat
 import assertk.assertions.*
+import io.mockk.spyk
+import io.mockk.verify
 import kotlin.test.Test
 
 @Suppress("UNUSED_VARIABLE") // We need to hold refs to some values to set up our test cases. If these were real tests the vars would not be unused.
@@ -86,6 +88,19 @@ class SimpleIntegrationTest {
     assertThat {
       mxo.findDependency<SomeDependency1>()
     }.isFailure().hasClass(NoFallbackMakerProvidedError::class)
+  }
+
+  @Test fun testInterceptSpyk() {
+    val mxo = MockspressoBuilder()
+      .addDependencyOf { SomeDependency1() }
+      .build()
+
+    val dep2: SomeDependency2 by mxo.realInstance { spyk(it) }
+    val objUnderTest: SomeObject by mxo.realInstance()
+
+    assertThat(dep2).isEqualTo(objUnderTest.dependency2)
+    objUnderTest.dependency2.doSomething()
+    verify { dep2.doSomething() }
   }
 
   private class SomeObject(val dependency1: SomeDependency1, val dependency2: SomeDependency2) {
