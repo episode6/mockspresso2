@@ -1,4 +1,4 @@
-package com.episode6.mxo2.internal
+package com.episode6.mxo2.internal.util
 
 internal fun <T> mlazy(initializer: () -> T): Lazy<T> = lazy(LazyThreadSafetyMode.NONE, initializer)
 

@@ -1,9 +1,11 @@
-package com.episode6.mxo2.internal
+package com.episode6.mxo2.internal.util
 
 import com.episode6.mxo2.CircularDependencyError
 import com.episode6.mxo2.InternalMockspressoError
 import com.episode6.mxo2.reflect.DependencyKey
 
+// Validates that there are no circular dependencies involved in constructing a given object (to avoid
+// stack-overflows and hangups in test-runs)
 internal class DependencyValidator(
   private val key: DependencyKey<*>,
   private val parents: MutableSet<DependencyKey<*>> = mutableSetOf(),

@@ -6,6 +6,10 @@ import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.DynamicObjectMaker
 import com.episode6.mxo2.api.FallbackObjectMaker
 import com.episode6.mxo2.api.ObjectMaker
+import com.episode6.mxo2.internal.util.DependencyCacheBuilder
+import com.episode6.mxo2.internal.util.DependencyValidator
+import com.episode6.mxo2.internal.util.RealObjectRequestsList
+import com.episode6.mxo2.internal.util.runOnce
 import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.asKClass
 
