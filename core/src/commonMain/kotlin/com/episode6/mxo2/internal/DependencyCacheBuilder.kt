@@ -5,6 +5,7 @@ import com.episode6.mxo2.reflect.DependencyKey
 
 private typealias Maker<T> = Dependencies.() -> T
 
+// stores dependency cache "requests" until the MxoInstance is constructed
 internal class DependencyCacheBuilder {
   private val map: MutableMap<DependencyKey<*>, Maker<*>> = mutableMapOf()
 
@@ -15,7 +16,7 @@ internal class DependencyCacheBuilder {
   }
 
   @Suppress("UNCHECKED_CAST")
-  fun build(makeDependencies: DependencyValidator.()->Dependencies): DependencyCache {
+  fun build(makeDependencies: DependencyValidator.() -> Dependencies): DependencyCache {
     val cache = DependencyCache()
     map.entries.forEach { (key, maker) ->
       key as DependencyKey<Any?>
