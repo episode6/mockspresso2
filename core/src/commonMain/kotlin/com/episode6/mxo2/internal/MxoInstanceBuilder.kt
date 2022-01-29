@@ -48,9 +48,13 @@ internal class MxoInstanceBuilder(private val parent: Lazy<MxoInstance>? = null)
     dependencies.put(key, DependencyValidator(key), provider)
   }
 
-  fun <T : Any?> realObject(key: DependencyKey<T>, implementationToken: TypeToken<out T>) {
+  fun <BIND : Any?, IMPL : BIND> realObject(
+    key: DependencyKey<BIND>,
+    implementationToken: TypeToken<IMPL>,
+    interceptor: (IMPL) -> BIND = { it }
+  ) {
     key.assertNotMapped()
-    realObjectRequests.put(key, implementationToken)
+    realObjectRequests.put(key, implementationToken, interceptor)
   }
 
   private fun DependencyKey<*>.assertNotMapped() {
