@@ -8,7 +8,11 @@ internal class RealObjectRequestsList {
   private val map: MutableMap<DependencyKey<*>, RealObjectRequest> = mutableMapOf()
   fun containsKey(key: DependencyKey<*>): Boolean = map.containsKey(key)
 
-  fun <BIND : Any?, IMPL : BIND> put(key: DependencyKey<BIND>, implementationToken: TypeToken<IMPL>, interceptor: (IMPL) -> BIND) {
+  fun <BIND : Any?, IMPL : BIND> put(
+    key: DependencyKey<BIND>,
+    implementationToken: TypeToken<IMPL>,
+    interceptor: (IMPL) -> BIND
+  ) {
     map[key] = RealObjectRequest(implementationToken, interceptor as (Any) -> Any)
   }
 
@@ -30,4 +34,4 @@ internal class RealObjectRequestsList {
   }
 }
 
-internal data class RealObjectRequest(val implToken: TypeToken<*>, val interceptor: (Any) -> Any)
+private data class RealObjectRequest(val implToken: TypeToken<*>, val interceptor: (Any) -> Any)
