@@ -1,6 +1,7 @@
 package com.episode6.mxo2.internal
 
 import com.episode6.mxo2.*
+import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.DynamicObjectMaker
 import com.episode6.mxo2.api.FallbackObjectMaker
 import com.episode6.mxo2.api.ObjectMaker
@@ -34,7 +35,7 @@ internal class MockspressoBuilderContainer(parent: Lazy<MxoInstance>? = null) : 
   override fun makeFallbackObjectsWith(fallbackMaker: FallbackObjectMaker): MockspressoBuilder =
     apply { builder.fallbackObjectMaker(fallbackMaker) }
 
-  override fun <T> addDependencyOf(key: DependencyKey<T>, provider: () -> T): MockspressoBuilder =
+  override fun <T> addDependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder =
     apply { builder.dependencyOf(key, provider) }
 
   override fun <BIND : Any?, IMPL : BIND>  useRealImplOf(
@@ -70,10 +71,9 @@ private class MockspressoPropertiesContainer(
     builder.onTearDown(cmd)
   }
 
-  override fun <T> depOf(key: DependencyKey<T>, maker: () -> T): Lazy<T> {
-    val lazy = mlazy(maker)
-    builder.dependencyOf(key) { lazy.value }
-    return lazy
+  override fun <T> depOf(key: DependencyKey<T>, maker: Dependencies.() -> T): Lazy<T> {
+    builder.dependencyOf(key, maker)
+    return findDepOf(key)
   }
 
   @Suppress("UNCHECKED_CAST")

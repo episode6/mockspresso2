@@ -1,5 +1,6 @@
 package com.episode6.mxo2
 
+import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.DynamicObjectMaker
 import com.episode6.mxo2.api.FallbackObjectMaker
 import com.episode6.mxo2.api.ObjectMaker
@@ -33,7 +34,7 @@ interface MockspressoBuilder {
 
   fun addDynamicObjectMaker(dynamicMaker: DynamicObjectMaker): MockspressoBuilder // formerly special object makers
 
-  fun <T : Any?> addDependencyOf(key: DependencyKey<T>, provider: () -> T): MockspressoBuilder
+  fun <T : Any?> addDependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder
   fun <BIND : Any?, IMPL : BIND> useRealImplOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
@@ -54,7 +55,7 @@ interface MockspressoInstance {
 interface MockspressoProperties {
   fun onSetup(cmd: (MockspressoInstance) -> Unit)
   fun onTeardown(cmd: () -> Unit)
-  fun <T : Any?> depOf(key: DependencyKey<T>, maker: () -> T): Lazy<T>
+  fun <T : Any?> depOf(key: DependencyKey<T>, maker: Dependencies.() -> T): Lazy<T>
   fun <T : Any?> findDepOf(key: DependencyKey<T>): Lazy<T>
   fun <BIND : Any?, IMPL : BIND> realImplOf(
     key: DependencyKey<BIND>,

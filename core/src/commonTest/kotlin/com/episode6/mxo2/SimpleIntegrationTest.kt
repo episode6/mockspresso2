@@ -2,6 +2,7 @@ package com.episode6.mxo2
 
 import assertk.assertThat
 import assertk.assertions.*
+import com.episode6.mxo2.reflect.dependencyKey
 import io.mockk.spyk
 import io.mockk.verify
 import kotlin.test.Test
@@ -101,6 +102,30 @@ class SimpleIntegrationTest {
     assertThat(dep2).isEqualTo(objUnderTest.dependency2)
     objUnderTest.dependency2.doSomething()
     verify { dep2.doSomething() }
+  }
+
+  @Test fun testDynamicDependency() {
+    val mxo = MockspressoBuilder()
+      .addDependencyOf { SomeObject(get(dependencyKey()), get(dependencyKey())) }
+      .build()
+
+    val dep1 by mxo.depOf { SomeDependency1() }
+    val dep2 by mxo.depOf { SomeDependency2() }
+    val someObject: SomeObject by mxo.findDep()
+
+    assertThat(someObject.dependency1).isEqualTo(dep1)
+    assertThat(someObject.dependency2).isEqualTo(dep2)
+  }
+
+  @Test fun testDynamicDependencyInProp() {
+    val mxo = MockspressoBuilder().build()
+
+    val someObject by mxo.depOf { SomeObject(get(dependencyKey()), get(dependencyKey())) }
+    val dep1 by mxo.depOf { SomeDependency1() }
+    val dep2 by mxo.depOf { SomeDependency2() }
+
+    assertThat(someObject.dependency1).isEqualTo(dep1)
+    assertThat(someObject.dependency2).isEqualTo(dep2)
   }
 
   private class SomeObject(val dependency1: SomeDependency1, val dependency2: SomeDependency2) {

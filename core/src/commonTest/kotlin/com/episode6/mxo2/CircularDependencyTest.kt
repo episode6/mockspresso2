@@ -5,6 +5,7 @@ import assertk.assertions.hasClass
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFailure
 import assertk.assertions.isNotNull
+import com.episode6.mxo2.reflect.dependencyKey
 import kotlin.test.Test
 
 class CircularDependencyTest {
@@ -32,6 +33,19 @@ class CircularDependencyTest {
 
     assertThat(c.a).isNotNull()
     assertThat(c.a!!.b).isEqualTo(b)
+  }
+
+  @Test fun testCircularDependency_stillFailsOnDynamicDependency() {
+    val mxo = MockspressoBuilder()
+      .useRealInstanceOf<A?>()
+      .addDependencyOf<B?> { B(get(dependencyKey())) }
+      .build()
+
+    val c by mxo.realImplOf<C?, C>()
+
+    assertThat {
+      c.a
+    }.isFailure().hasClass(CircularDependencyError::class)
   }
 
   private class A(val b: B?)

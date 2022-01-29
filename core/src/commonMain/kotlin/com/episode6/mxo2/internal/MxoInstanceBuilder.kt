@@ -2,6 +2,7 @@ package com.episode6.mxo2.internal
 
 import com.episode6.mxo2.DependencyAlreadyMappedError
 import com.episode6.mxo2.MockspressoInstance
+import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.FallbackObjectMaker
 import com.episode6.mxo2.api.ObjectMaker
 import com.episode6.mxo2.api.DynamicObjectMaker
@@ -17,7 +18,7 @@ internal class MxoInstanceBuilder(private val parent: Lazy<MxoInstance>? = null)
 
   private val dynamicMakers: MutableList<DynamicObjectMaker> = mutableListOf()
 
-  private val dependencies = DependencyCache()
+  private val dependencies = DependencyCacheBuilder()
   private val realObjectRequests = RealObjectRequestsList()
 
   private val setupCallbacks: MutableList<(MockspressoInstance) -> Unit> = mutableListOf()
@@ -43,9 +44,9 @@ internal class MxoInstanceBuilder(private val parent: Lazy<MxoInstance>? = null)
     this.fallbackMaker = fallbackMaker
   }
 
-  fun <T : Any?> dependencyOf(key: DependencyKey<T>, provider: () -> T) {
+  fun <T : Any?> dependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T) {
     key.assertNotMapped()
-    dependencies.put(key, DependencyValidator(key), provider)
+    dependencies.put(key, provider)
   }
 
   fun <BIND : Any?, IMPL : BIND> realObject(
@@ -71,7 +72,7 @@ internal class MxoInstanceBuilder(private val parent: Lazy<MxoInstance>? = null)
       dynamicMakers = dynamicMakers,
       setupCallbacks = setupCallbacks,
       teardownCallbacks = teardownCallbacks,
-      dependencies = dependencies,
+      dependenciesBuilder = dependencies,
       realObjectRequests = realObjectRequests,
     )
   }

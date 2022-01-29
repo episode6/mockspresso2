@@ -16,9 +16,11 @@ internal class MxoInstance(
   private val dynamicMakers: List<DynamicObjectMaker>,
   setupCallbacks: MutableList<(MockspressoInstance) -> Unit>,
   private val teardownCallbacks: List<() -> Unit>,
-  private val dependencies: DependencyCache,
+  dependenciesBuilder: DependencyCacheBuilder,
   private val realObjectRequests: RealObjectRequestsList,
 ) {
+
+  private val dependencies = dependenciesBuilder.build { asDependencies() }
 
   val ensureInit: () -> Unit by runOnce {
     parent?.ensureInit?.invoke()
