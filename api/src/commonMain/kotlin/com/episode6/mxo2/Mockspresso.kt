@@ -34,7 +34,7 @@ interface MockspressoBuilder {
   fun addDynamicObjectMaker(dynamicMaker: DynamicObjectMaker): MockspressoBuilder // formerly special object makers
 
   fun <T : Any?> addDependencyOf(key: DependencyKey<T>, provider: () -> T): MockspressoBuilder
-  fun <BIND : Any?, IMPL : BIND>  useRealImplOf(
+  fun <BIND : Any?, IMPL : BIND> useRealImplOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> BIND = { it }
@@ -59,6 +59,6 @@ interface MockspressoProperties {
   fun <BIND : Any?, IMPL : BIND> realImplOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
-    interceptor: (IMPL) -> BIND = { it }
+    interceptor: (IMPL) -> IMPL = { it }
   ): Lazy<IMPL>
 }
