@@ -72,7 +72,7 @@ internal class MxoInstance(
     realMaker
       .makeObject(realObjectRequests.getImplFor(key), validator.asDependencies())
       .checkedCast(key)
-      .let { realObjectRequests.getInterceptorFor(key).invoke(it) }
+      .let { realObjectRequests.intercept(key, it) }
       .also { if (cache) it.cacheWith(key, validator) }
 
   private fun DependencyValidator.asDependencies(): Dependencies = object : Dependencies {

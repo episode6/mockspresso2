@@ -13,7 +13,7 @@ internal class RealObjectRequestsList {
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> BIND
   ) {
-    map[key] = RealObjectRequest(implementationToken, interceptor as (Any) -> Any)
+    map[key] = RealObjectRequest(implementationToken, interceptor as (Any?) -> Any?)
   }
 
   fun <T : Any?> getImplFor(key: DependencyKey<T>): DependencyKey<out T> = DependencyKey(
@@ -21,12 +21,10 @@ internal class RealObjectRequestsList {
     qualifier = key.qualifier
   )
 
-  fun <T : Any?> getInterceptorFor(key: DependencyKey<T>): (T) -> T {
-    if (containsKey(key)) {
-      return map[key]!!.interceptor as (T) -> T
-    } else {
-      return { it }
-    }
+  // apply the interceptor lambda to the supplied [value] and return the result
+  fun <T : Any?> intercept(key: DependencyKey<T>, value: T): T = when {
+    containsKey(key) -> (map[key]!!.interceptor as (T) -> T).invoke(value)
+    else             -> value
   }
 
   fun forEach(consumer: (DependencyKey<*>) -> Unit) {
@@ -34,4 +32,4 @@ internal class RealObjectRequestsList {
   }
 }
 
-private data class RealObjectRequest(val implToken: TypeToken<*>, val interceptor: (Any) -> Any)
+private data class RealObjectRequest(val implToken: TypeToken<*>, val interceptor: (Any?) -> Any?)
