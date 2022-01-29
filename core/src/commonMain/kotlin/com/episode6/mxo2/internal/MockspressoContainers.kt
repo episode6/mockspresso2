@@ -80,7 +80,7 @@ private class MockspressoPropertiesContainer(
   override fun <BIND, IMPL : BIND> realImplOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
-    interceptor: (IMPL)->BIND
+    interceptor: (IMPL)->IMPL
   ): Lazy<IMPL> {
     builder.realObject(key, implementationToken, interceptor)
     return mlazy { instance.get(key) as IMPL }
