@@ -180,14 +180,14 @@ inline fun <reified T : Any?> MockspressoProperties.mock(
 }
 
 /**
- * Create a real object of [T] using mockspresso then wrap it in a mockito [spy]. This spy will be par of the mockspresso
+ * Create a real object of [T] using mockspresso then wrap it in a mockito [spy]. This spy will be part of the mockspresso
  * graph and can be used by other real objects (and then verified in test code).
  */
 inline fun <reified T : Any?> MockspressoProperties.spy(qualifier: Annotation? = null): Lazy<T> =
   realInstance(qualifier) { spy(it) }
 
 /**
- * Create a real object of [T] using mockspresso then wrap it in a mockito [spy]. This spy will be par of the mockspresso
+ * Create a real object of [T] using mockspresso then wrap it in a mockito [spy]. This spy will be part of the mockspresso
  * graph and can be used by other real objects (and then verified in test code). The [stubbing] will be applied to the
  * spy before it is injected as a dependency into other classes.
  */
@@ -198,7 +198,7 @@ inline fun <reified T : Any?> MockspressoProperties.spy(
 
 /**
  * Create a real object of type [IMPL] using mockspresso then wrap it in a mockito [spy] (the object will be bound
- * using type [BIND]). This spy will be par of the mockspresso graph and can be used by other real objects
+ * using type [BIND]). This spy will be part of the mockspresso graph and can be used by other real objects
  * (and then verified in test code).
  */
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(qualifier: Annotation? = null): Lazy<IMPL> =
@@ -206,7 +206,7 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyI
 
 /**
  * Create a real object of type [IMPL] using mockspresso then wrap it in a mockito [spy] (the object will be bound
- * using type [BIND]). This spy will be par of the mockspresso graph and can be used by other real objects
+ * using type [BIND]). This spy will be part of the mockspresso graph and can be used by other real objects
  * (and then verified in test code). The [stubbing] will be applied to the spy before it is injected as a dependency
  * into other classes.
  */
