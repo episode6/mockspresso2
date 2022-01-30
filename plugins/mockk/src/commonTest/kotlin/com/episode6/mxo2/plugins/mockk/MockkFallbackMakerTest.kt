@@ -13,7 +13,6 @@ class MockkFallbackMakerTest {
 
   private val realObject: TestObj by mxo.realInstance()
 
-
   @Test fun testCanCallMockFunctions() {
     realObject.dep1.doSomething()
     realObject.dep2.doSomethingElse()
