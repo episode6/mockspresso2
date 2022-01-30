@@ -14,12 +14,14 @@ import kotlin.reflect.full.memberProperties
 
 typealias AnnotationMatcher = KAnnotatedElement.() -> Boolean
 
+private val defaultMatcher: AnnotationMatcher = { hasAnnotation<Inject>() }
+
 fun javaxRealObjectMaker(
-  isInjectConstructor: AnnotationMatcher = { hasAnnotation<Inject>() },
-  isInjectProperty: AnnotationMatcher = { hasAnnotation<Inject>() },
-  isInjectFunction: AnnotationMatcher = { hasAnnotation<Inject>() },
+  chooseConstructor: DependencyKey<*>.() -> KFunction<*> = { findExactlyOneInjectConstructor(defaultMatcher) },
+  isInjectProperty: AnnotationMatcher = defaultMatcher,
+  isInjectFunction: AnnotationMatcher = defaultMatcher,
 ): ObjectMaker {
-  val reflectMaker = reflectionRealObjectMaker { findExactlyOneInjectConstructor(isInjectConstructor) }
+  val reflectMaker = reflectionRealObjectMaker(chooseConstructor)
   return ObjectMaker { key, dependencies ->
     // use a [reflectionRealObjectMaker] to create the objects, then inject members before it's returned
     reflectMaker.makeObject(key, dependencies).also { obj ->
@@ -43,12 +45,7 @@ fun javaxRealObjectMaker(
   }
 }
 
-private fun DependencyKey<*>.resolveKeyForCallableReturnType(callable: KCallable<*>): DependencyKey<*> = DependencyKey(
-  token = token.resolveType(callable.returnType),
-  qualifier = callable.annotations.findQualifier { "member ${callable.name} in class $this" }
-)
-
-private fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor: AnnotationMatcher): KFunction<*> {
+fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor: AnnotationMatcher): KFunction<*> {
   val injectConstructors = token.asKClass().allConstructors().filter { it.isInjectConstructor() }
   return when {
     injectConstructors.isEmpty() -> throw NoInjectConstructorsException(this)
@@ -56,6 +53,11 @@ private fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor
     else                         -> injectConstructors.first()
   }
 }
+
+private fun DependencyKey<*>.resolveKeyForCallableReturnType(callable: KCallable<*>): DependencyKey<*> = DependencyKey(
+  token = token.resolveType(callable.returnType),
+  qualifier = callable.annotations.findQualifier { "member ${callable.name} in class $this" }
+)
 
 class MultipleInjectConstructorsException(key: DependencyKey<*>) :
   AssertionError("Multiple Inject constructors found; only one is allowed. Key: $key")
