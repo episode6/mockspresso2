@@ -31,24 +31,24 @@ fun javaxRealObjectMaker(
   isInjectFunction: KAnnotationMatcher = defaultMatcher,
 ): ObjectMaker {
   val reflectMaker = reflectionRealObjectMaker(chooseConstructor)
-  return ObjectMaker { key, dependencies ->
+  return ObjectMaker { objKey, dependencies ->
     // use a [reflectionRealObjectMaker] to create the objects, then inject members before it's returned
-    reflectMaker.makeObject(key, dependencies).also { obj ->
+    reflectMaker.makeObject(objKey, dependencies).also { obj ->
 
-      // inject properties
-      key.token.asKClass().memberProperties.filterIsInstance<KMutableProperty<*>>()
+      // inject properties / fields
+      objKey.token.asKClass().memberProperties.filterIsInstance<KMutableProperty<*>>()
         .filter { it.setter.isInjectProperty() || it.javaField?.isInjectField() == true }
         .forEach { property ->
           property.tryMakeAccessible()
-          val param = dependencies.get(key.resolveKeyForCallableReturnType(property))
+          val param = dependencies.get(property.returnTypeKey(context = objKey))
           property.setter.callWith(obj, param)
         }
 
       // inject methods
-      key.token.asKClass().memberFunctions.filter { it.isInjectFunction() }
+      objKey.token.asKClass().memberFunctions.filter { it.isInjectFunction() }
         .forEach { function ->
           function.tryMakeAccessible()
-          val params = function.parameterKeys(context = key.token).drop(1).map { dependencies.get(it) }
+          val params = function.parameterKeys(context = objKey.token).drop(1).map { dependencies.get(it) }
           function.callWith(obj, *params.toTypedArray())
         }
     }
@@ -64,9 +64,9 @@ fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor: KAnnot
   }
 }
 
-private fun DependencyKey<*>.resolveKeyForCallableReturnType(callable: KCallable<*>): DependencyKey<*> = DependencyKey(
-  token = token.resolveType(callable.returnType),
-  qualifier = callable.annotations.findQualifier { "member ${callable.name} in class $this" }
+private fun KCallable<*>.returnTypeKey(context: DependencyKey<*>): DependencyKey<*> = DependencyKey(
+  token = context.token.resolveType(returnType),
+  qualifier = annotations.findQualifier { "member $name in class $this" }
 )
 
 class MultipleInjectConstructorsException(key: DependencyKey<*>) :
