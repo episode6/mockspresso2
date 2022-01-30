@@ -2,6 +2,7 @@ package com.episode6.mxo2.plugins.mockk
 
 import com.episode6.mxo2.MockspressoBuilder
 import com.episode6.mxo2.realInstance
+import io.mockk.verify
 import io.mockk.verifyOrder
 import kotlin.test.Test
 
@@ -12,6 +13,7 @@ class MockkFallbackMakerTest {
     .build()
 
   private val realObject: TestObj by mxo.realInstance()
+  private val realObjectWithNullable: TestObjNullable by mxo.realInstance()
 
   @Test fun testCanCallMockFunctions() {
     realObject.dep1.doSomething()
@@ -23,6 +25,12 @@ class MockkFallbackMakerTest {
     }
   }
 
+  @Test fun testCanCallMockOnNullableDep() {
+    realObjectWithNullable.nullableDep!!.doSomethingElse()
+    
+    verify { realObjectWithNullable.nullableDep!!.doSomethingElse() }
+  }
+
   private class TestDepOne {
     fun doSomething() {}
   }
@@ -32,4 +40,5 @@ class MockkFallbackMakerTest {
   }
 
   private class TestObj(val dep1: TestDepOne, val dep2: TestDepTwo)
+  private class TestObjNullable(val nullableDep: TestDepTwo?)
 }
