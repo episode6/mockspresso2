@@ -2,6 +2,7 @@
 gradle-core = "7.1"
 kotlin-core = "1.5.32"
 dokka-core = "1.5.31"
+dagger-core = "2.40.5"
 
 # test utils
 junit4-core = "4.13.2"
@@ -16,6 +17,8 @@ gradle-plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", vers
 
 javax-inject-core = { module = "javax.inject:javax.inject", version = "1" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin-core" }
+
+dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger-core" }
 
 # test utils
 junit4-core = { module = "junit:junit", version.ref = "junit4-core" }
