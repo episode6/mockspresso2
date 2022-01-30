@@ -8,7 +8,7 @@ import com.episode6.mxo2.realInstance
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
 
-class RealObjectMakerTest {
+class SimpleRealObjectMakerTest {
 
   @Test fun testConstructorInject() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()

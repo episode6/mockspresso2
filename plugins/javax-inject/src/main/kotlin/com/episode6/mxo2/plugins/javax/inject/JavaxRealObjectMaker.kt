@@ -3,7 +3,7 @@ package com.episode6.mxo2.plugins.javax.inject
 import com.episode6.mxo2.api.ObjectMaker
 import com.episode6.mxo2.plugins.core.reflectionRealObjectMaker
 import com.episode6.mxo2.reflect.*
-import java.lang.reflect.Field
+import java.lang.reflect.AnnotatedElement
 import javax.inject.Inject
 import kotlin.reflect.KAnnotatedElement
 import kotlin.reflect.KCallable
@@ -14,17 +14,21 @@ import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.javaField
 
-typealias AnnotationMatcher = KAnnotatedElement.() -> Boolean
-typealias FieldAnnotationMatcher = Field.() -> Boolean
+typealias KAnnotationMatcher = KAnnotatedElement.() -> Boolean
+typealias JAnnotationMatcher = AnnotatedElement.() -> Boolean
 
-private val defaultMatcher: AnnotationMatcher = { hasAnnotation<Inject>() }
-private val defaultFieldMatcher: FieldAnnotationMatcher = { isAnnotationPresent(Inject::class.java) }
+private val defaultMatcher: KAnnotationMatcher = { hasAnnotation<Inject>() }
+private val defaultFieldMatcher: JAnnotationMatcher = { isAnnotationPresent(Inject::class.java) }
 
+/**
+ * Returns an [ObjectMaker] that uses reflection to create real objects according to javax inject rules.
+ * Objects must have a single Injectable constructor and supports field/property and method injection.
+ */
 fun javaxRealObjectMaker(
   chooseConstructor: DependencyKey<*>.() -> KFunction<*> = { findExactlyOneInjectConstructor(defaultMatcher) },
-  isInjectProperty: AnnotationMatcher = defaultMatcher,
-  isInjectField: FieldAnnotationMatcher = defaultFieldMatcher,
-  isInjectFunction: AnnotationMatcher = defaultMatcher,
+  isInjectProperty: KAnnotationMatcher = defaultMatcher,
+  isInjectField: JAnnotationMatcher = defaultFieldMatcher,
+  isInjectFunction: KAnnotationMatcher = defaultMatcher,
 ): ObjectMaker {
   val reflectMaker = reflectionRealObjectMaker(chooseConstructor)
   return ObjectMaker { key, dependencies ->
@@ -32,26 +36,26 @@ fun javaxRealObjectMaker(
     reflectMaker.makeObject(key, dependencies).also { obj ->
 
       // inject properties
-      key.token.asKClass().memberProperties
-        .filterIsInstance<KMutableProperty<*>>()
+      key.token.asKClass().memberProperties.filterIsInstance<KMutableProperty<*>>()
         .filter { it.setter.isInjectProperty() || it.javaField?.isInjectField() == true }
-        .forEach {
-          it.tryMakeAccessible()
-          val param = dependencies.get(key.resolveKeyForCallableReturnType(it))
-          it.setter.callWith(obj, param)
+        .forEach { property ->
+          property.tryMakeAccessible()
+          val param = dependencies.get(key.resolveKeyForCallableReturnType(property))
+          property.setter.callWith(obj, param)
         }
 
       // inject methods
-      key.token.asKClass().memberFunctions.filter { it.isInjectFunction() }.forEach { function ->
-        function.tryMakeAccessible()
-        val params = function.parameterKeys(context = key.token).drop(1).map { dependencies.get(it) }
-        function.callWith(obj, *params.toTypedArray())
-      }
+      key.token.asKClass().memberFunctions.filter { it.isInjectFunction() }
+        .forEach { function ->
+          function.tryMakeAccessible()
+          val params = function.parameterKeys(context = key.token).drop(1).map { dependencies.get(it) }
+          function.callWith(obj, *params.toTypedArray())
+        }
     }
   }
 }
 
-fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor: AnnotationMatcher): KFunction<*> {
+fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor: KAnnotationMatcher): KFunction<*> {
   val injectConstructors = token.asKClass().allConstructors().filter { it.isInjectConstructor() }
   return when {
     injectConstructors.isEmpty() -> throw NoInjectConstructorsException(this)
