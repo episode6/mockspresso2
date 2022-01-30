@@ -30,7 +30,13 @@ fun MockspressoBuilder.fallbackWithMockk(
   }
 })
 
-
+/**
+ * Add a mockk with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
+ * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mockk]
+ * instead.
+ *
+ * IMPORTANT: we default [relaxed] and [relaxUnitFun] to true for defaultMocks.
+ */
 inline fun <reified T : Any?> MockspressoBuilder.defaultMockk(
   qualifier: Annotation? = null,
   name: String? = null,
@@ -48,6 +54,10 @@ inline fun <reified T : Any?> MockspressoBuilder.defaultMockk(
   )
 }
 
+/**
+ * Add a mockk with the supplied params as a dependency in this mockspresso instance. Mockk will be bound with the
+ * supplied qualifier annotation and will be accessible via the returned lazy.
+ */
 inline fun <reified T : Any?> MockspressoProperties.mockk(
   qualifier: Annotation? = null,
   name: String? = null,
@@ -65,6 +75,10 @@ inline fun <reified T : Any?> MockspressoProperties.mockk(
   )
 }
 
+/**
+ * Create a real object of [T] using mockspresso then wrap it in a [spyk]. This spy will be part of the mockspresso
+ * graph and can be used by other real objects (and then verified in test code).
+ */
 inline fun <reified T : Any?> MockspressoProperties.spyk(
   qualifier: Annotation? = null,
   name: String? = null,
@@ -81,6 +95,11 @@ inline fun <reified T : Any?> MockspressoProperties.spyk(
   )
 }
 
+/**
+ * Create a real object of type [IMPL] using mockspresso then wrap it in a [spyk] (the object will be bound
+ * using type [BIND]). This spy will be part of the mockspresso graph and can be used by other real objects
+ * (and then verified in test code).
+ */
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spykImplOf(
   qualifier: Annotation? = null,
   name: String? = null,
