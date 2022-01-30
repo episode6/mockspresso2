@@ -9,11 +9,11 @@ import org.mockito.Mockito
 import org.mockito.kotlin.KStubbing
 import org.mockito.kotlin.UseConstructor
 import org.mockito.kotlin.spy
+import org.mockito.kotlin.withSettings
 import org.mockito.listeners.InvocationListener
 import org.mockito.mock.SerializableMode
 import org.mockito.stubbing.Answer
 import kotlin.reflect.KClass
-import org.mockito.kotlin.mock as _mock
 
 /**
  * Use mockito to generate fallback objects for dependencies that are not present in the mockspresso instance
@@ -28,7 +28,7 @@ import org.mockito.kotlin.mock as _mock
  * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mock]
  * instead.
  */
-inline fun <reified T : Any> MockspressoBuilder.defaultMock(
+inline fun <reified T : Any?> MockspressoBuilder.defaultMock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
   name: String? = null,
@@ -43,20 +43,23 @@ inline fun <reified T : Any> MockspressoBuilder.defaultMock(
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false
 ): MockspressoBuilder = addDependencyOf(qualifier) {
-  _mock<T>(
-    extraInterfaces = extraInterfaces,
-    name = name,
-    spiedInstance = spiedInstance,
-    defaultAnswer = defaultAnswer,
-    serializable = serializable,
-    serializableMode = serializableMode,
-    verboseLogging = verboseLogging,
-    invocationListeners = invocationListeners,
-    stubOnly = stubOnly,
-    useConstructor = useConstructor,
-    outerInstance = outerInstance,
-    lenient = lenient
-  )
+  Mockito.mock(
+    T::class.java,
+    withSettings(
+      extraInterfaces = extraInterfaces,
+      name = name,
+      spiedInstance = spiedInstance,
+      defaultAnswer = defaultAnswer,
+      serializable = serializable,
+      serializableMode = serializableMode,
+      verboseLogging = verboseLogging,
+      invocationListeners = invocationListeners,
+      stubOnly = stubOnly,
+      useConstructor = useConstructor,
+      outerInstance = outerInstance,
+      lenient = lenient
+    )
+  )!!
 }
 
 /**
@@ -64,7 +67,7 @@ inline fun <reified T : Any> MockspressoBuilder.defaultMock(
  * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mock]
  * instead.
  */
-inline fun <reified T : Any> MockspressoBuilder.defaultMock(
+inline fun <reified T : Any?> MockspressoBuilder.defaultMock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
   name: String? = null,
@@ -80,28 +83,30 @@ inline fun <reified T : Any> MockspressoBuilder.defaultMock(
   @Incubating lenient: Boolean = false,
   noinline stubbing: KStubbing<T>.(T) -> Unit
 ): MockspressoBuilder = addDependencyOf(qualifier) {
-  _mock<T>(
-    extraInterfaces = extraInterfaces,
-    name = name,
-    spiedInstance = spiedInstance,
-    defaultAnswer = defaultAnswer,
-    serializable = serializable,
-    serializableMode = serializableMode,
-    verboseLogging = verboseLogging,
-    invocationListeners = invocationListeners,
-    stubOnly = stubOnly,
-    useConstructor = useConstructor,
-    outerInstance = outerInstance,
-    lenient = lenient,
-    stubbing = stubbing,
-  )
+  Mockito.mock(
+    T::class.java,
+    withSettings(
+      extraInterfaces = extraInterfaces,
+      name = name,
+      spiedInstance = spiedInstance,
+      defaultAnswer = defaultAnswer,
+      serializable = serializable,
+      serializableMode = serializableMode,
+      verboseLogging = verboseLogging,
+      invocationListeners = invocationListeners,
+      stubOnly = stubOnly,
+      useConstructor = useConstructor,
+      outerInstance = outerInstance,
+      lenient = lenient
+    )
+  ).apply { KStubbing(this).stubbing(this) }!!
 }
 
 /**
  * Add a mock with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
  * supplied qualifier annotation and will be accessible via the returned lazy.
  */
-inline fun <reified T : Any> MockspressoProperties.mock(
+inline fun <reified T : Any?> MockspressoProperties.mock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
   name: String? = null,
@@ -116,27 +121,30 @@ inline fun <reified T : Any> MockspressoProperties.mock(
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false
 ): Lazy<T> = depOf(qualifier) {
-  _mock<T>(
-    extraInterfaces = extraInterfaces,
-    name = name,
-    spiedInstance = spiedInstance,
-    defaultAnswer = defaultAnswer,
-    serializable = serializable,
-    serializableMode = serializableMode,
-    verboseLogging = verboseLogging,
-    invocationListeners = invocationListeners,
-    stubOnly = stubOnly,
-    useConstructor = useConstructor,
-    outerInstance = outerInstance,
-    lenient = lenient
-  )
+  Mockito.mock(
+    T::class.java,
+    withSettings(
+      extraInterfaces = extraInterfaces,
+      name = name,
+      spiedInstance = spiedInstance,
+      defaultAnswer = defaultAnswer,
+      serializable = serializable,
+      serializableMode = serializableMode,
+      verboseLogging = verboseLogging,
+      invocationListeners = invocationListeners,
+      stubOnly = stubOnly,
+      useConstructor = useConstructor,
+      outerInstance = outerInstance,
+      lenient = lenient
+    )
+  )!!
 }
 
 /**
  * Add a mock with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
  * supplied qualifier annotation and will be accessible via the returned lazy.
  */
-inline fun <reified T : Any> MockspressoProperties.mock(
+inline fun <reified T : Any?> MockspressoProperties.mock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
   name: String? = null,
@@ -152,28 +160,30 @@ inline fun <reified T : Any> MockspressoProperties.mock(
   @Incubating lenient: Boolean = false,
   noinline stubbing: KStubbing<T>.(T) -> Unit
 ): Lazy<T> = depOf(qualifier) {
-  _mock<T>(
-    extraInterfaces = extraInterfaces,
-    name = name,
-    spiedInstance = spiedInstance,
-    defaultAnswer = defaultAnswer,
-    serializable = serializable,
-    serializableMode = serializableMode,
-    verboseLogging = verboseLogging,
-    invocationListeners = invocationListeners,
-    stubOnly = stubOnly,
-    useConstructor = useConstructor,
-    outerInstance = outerInstance,
-    lenient = lenient,
-    stubbing = stubbing,
-  )
+  Mockito.mock(
+    T::class.java,
+    withSettings(
+      extraInterfaces = extraInterfaces,
+      name = name,
+      spiedInstance = spiedInstance,
+      defaultAnswer = defaultAnswer,
+      serializable = serializable,
+      serializableMode = serializableMode,
+      verboseLogging = verboseLogging,
+      invocationListeners = invocationListeners,
+      stubOnly = stubOnly,
+      useConstructor = useConstructor,
+      outerInstance = outerInstance,
+      lenient = lenient
+    )
+  ).apply { KStubbing(this).stubbing(this) }!!
 }
 
 /**
  * Create a real object of [T] using mockspresso then wrap it in a mockito [spy]. This spy will be par of the mockspresso
  * graph and can be used by other real objects (and then verified in test code).
  */
-inline fun <reified T : Any> MockspressoProperties.spy(qualifier: Annotation? = null): Lazy<T> =
+inline fun <reified T : Any?> MockspressoProperties.spy(qualifier: Annotation? = null): Lazy<T> =
   realInstance(qualifier) { spy(it) }
 
 /**
@@ -181,7 +191,7 @@ inline fun <reified T : Any> MockspressoProperties.spy(qualifier: Annotation? = 
  * graph and can be used by other real objects (and then verified in test code). The [stubbing] will be applied to the
  * spy before it is injected as a dependency into other classes.
  */
-inline fun <reified T : Any> MockspressoProperties.spy(
+inline fun <reified T : Any?> MockspressoProperties.spy(
   qualifier: Annotation? = null,
   noinline stubbing: KStubbing<T>.(T) -> Unit
 ): Lazy<T> = realInstance(qualifier) { spy(it, stubbing) }
