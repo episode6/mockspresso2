@@ -1,6 +1,7 @@
 val prefix = "plugins"
 listOf(
   "core",
+  "javax-inject",
   "junit4",
   "junit5",
   "mockito",
