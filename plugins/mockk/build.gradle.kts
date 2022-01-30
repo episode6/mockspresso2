@@ -1,4 +1,4 @@
-description = "Mockk support for Mockspresso2"
+description = "Mockk support for Mockspresso2."
 
 plugins {
   id("config-multi-deploy")
