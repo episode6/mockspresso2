@@ -3,6 +3,7 @@ package com.episode6.mxo2.plugins.javax.inject
 import com.episode6.mxo2.api.ObjectMaker
 import com.episode6.mxo2.plugins.core.reflectionRealObjectMaker
 import com.episode6.mxo2.reflect.*
+import java.lang.reflect.Field
 import javax.inject.Inject
 import kotlin.reflect.KAnnotatedElement
 import kotlin.reflect.KCallable
@@ -11,14 +12,18 @@ import kotlin.reflect.KMutableProperty
 import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.javaField
 
 typealias AnnotationMatcher = KAnnotatedElement.() -> Boolean
+typealias FieldAnnotationMatcher = Field.() -> Boolean
 
 private val defaultMatcher: AnnotationMatcher = { hasAnnotation<Inject>() }
+private val defaultFieldMatcher: FieldAnnotationMatcher = { isAnnotationPresent(Inject::class.java) }
 
 fun javaxRealObjectMaker(
   chooseConstructor: DependencyKey<*>.() -> KFunction<*> = { findExactlyOneInjectConstructor(defaultMatcher) },
   isInjectProperty: AnnotationMatcher = defaultMatcher,
+  isInjectField: FieldAnnotationMatcher = defaultFieldMatcher,
   isInjectFunction: AnnotationMatcher = defaultMatcher,
 ): ObjectMaker {
   val reflectMaker = reflectionRealObjectMaker(chooseConstructor)
@@ -27,8 +32,9 @@ fun javaxRealObjectMaker(
     reflectMaker.makeObject(key, dependencies).also { obj ->
 
       // inject properties
-      key.token.asKClass().memberProperties.filter { it.isInjectProperty() }
-        .filterIsInstance<KMutableProperty<Any?>>()
+      key.token.asKClass().memberProperties
+        .filterIsInstance<KMutableProperty<*>>()
+        .filter { it.setter.isInjectProperty() || it.javaField?.isInjectField() == true }
         .forEach {
           it.tryMakeAccessible()
           val param = dependencies.get(key.resolveKeyForCallableReturnType(it))
@@ -38,7 +44,7 @@ fun javaxRealObjectMaker(
       // inject methods
       key.token.asKClass().memberFunctions.filter { it.isInjectFunction() }.forEach { function ->
         function.tryMakeAccessible()
-        val params = function.parameterKeys(context = key.token).map { dependencies.get(it) }
+        val params = function.parameterKeys(context = key.token).drop(1).map { dependencies.get(it) }
         function.callWith(obj, *params.toTypedArray())
       }
     }
