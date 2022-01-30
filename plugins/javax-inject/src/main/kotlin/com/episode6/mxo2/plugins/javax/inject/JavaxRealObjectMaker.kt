@@ -17,18 +17,18 @@ import kotlin.reflect.jvm.javaField
 typealias KAnnotationMatcher = KAnnotatedElement.() -> Boolean
 typealias JAnnotationMatcher = AnnotatedElement.() -> Boolean
 
-private val defaultMatcher: KAnnotationMatcher = { hasAnnotation<Inject>() }
-private val defaultFieldMatcher: JAnnotationMatcher = { isAnnotationPresent(Inject::class.java) }
+private val defaultKMatcher: KAnnotationMatcher = { hasAnnotation<Inject>() }
+private val defaultJMatcher: JAnnotationMatcher = { isAnnotationPresent(Inject::class.java) }
 
 /**
  * Returns an [ObjectMaker] that uses reflection to create real objects according to javax inject rules.
  * Objects must have a single Injectable constructor and supports field/property and method injection.
  */
 fun javaxRealObjectMaker(
-  chooseConstructor: DependencyKey<*>.() -> KFunction<*> = { findExactlyOneInjectConstructor(defaultMatcher) },
-  isInjectProperty: KAnnotationMatcher = defaultMatcher,
-  isInjectField: JAnnotationMatcher = defaultFieldMatcher,
-  isInjectFunction: KAnnotationMatcher = defaultMatcher,
+  chooseConstructor: DependencyKey<*>.() -> KFunction<*> = { findExactlyOneInjectConstructor(defaultKMatcher) },
+  isInjectProperty: KAnnotationMatcher = defaultKMatcher,
+  isInjectField: JAnnotationMatcher = defaultJMatcher,
+  isInjectFunction: KAnnotationMatcher = defaultKMatcher,
 ): ObjectMaker {
   val reflectMaker = reflectionRealObjectMaker(chooseConstructor)
   return ObjectMaker { objKey, dependencies ->
