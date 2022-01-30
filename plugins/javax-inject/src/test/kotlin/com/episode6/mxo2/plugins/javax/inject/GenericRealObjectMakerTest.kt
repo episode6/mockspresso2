@@ -1,5 +1,6 @@
 package com.episode6.mxo2.plugins.javax.inject
 
+import assertk.all
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.episode6.mxo2.MockspressoBuilder
@@ -17,9 +18,18 @@ class GenericRealObjectMakerTest {
     val depB: Int by mxo.depOf { 4 }
     val depC: Long by mxo.depOf { 12L }
 
-    assertThat(ro.a).isEqualTo(depA)
-    assertThat(ro.b).isEqualTo(depB)
-    assertThat(ro.c).isEqualTo(depC)
+    assertThat(ro.a).all {
+      isEqualTo(depA)
+      isEqualTo("hi")
+    }
+    assertThat(ro.b).all {
+      isEqualTo(depB)
+      isEqualTo(4)
+    }
+    assertThat(ro.c).all {
+      isEqualTo(depC)
+      isEqualTo(12L)
+    }
   }
 
   @Test fun testSimpleSubclassDirectGeneric() {
@@ -29,9 +39,18 @@ class GenericRealObjectMakerTest {
     val depB: Int by mxo.depOf { 4 }
     val depA: Long by mxo.depOf { 12L }
 
-    assertThat(ro.a).isEqualTo(depA)
-    assertThat(ro.b).isEqualTo(depB)
-    assertThat(ro.c).isEqualTo(depC)
+    assertThat(ro.a).all {
+      isEqualTo(depA)
+      isEqualTo(12L)
+    }
+    assertThat(ro.b).all {
+      isEqualTo(depB)
+      isEqualTo(4)
+    }
+    assertThat(ro.c).all {
+      isEqualTo(depC)
+      isEqualTo("hi")
+    }
   }
 
   @Test fun testSimpleDirectGeneric_methodInject() {
@@ -41,9 +60,18 @@ class GenericRealObjectMakerTest {
     val depB: Int by mxo.depOf { 4 }
     val depC: Long by mxo.depOf { 12L }
 
-    assertThat(ro.a).isEqualTo(depA)
-    assertThat(ro.b).isEqualTo(depB)
-    assertThat(ro.c).isEqualTo(depC)
+    assertThat(ro.a).all {
+      isEqualTo(depA)
+      isEqualTo("hi")
+    }
+    assertThat(ro.b).all {
+      isEqualTo(depB)
+      isEqualTo(4)
+    }
+    assertThat(ro.c).all {
+      isEqualTo(depC)
+      isEqualTo(12L)
+    }
   }
 
   @Test fun testSimpleSubclassDirectGeneric_methodInject() {
@@ -53,9 +81,18 @@ class GenericRealObjectMakerTest {
     val depB: Int by mxo.depOf { 4 }
     val depA: Long by mxo.depOf { 12L }
 
-    assertThat(ro.a).isEqualTo(depA)
-    assertThat(ro.b).isEqualTo(depB)
-    assertThat(ro.c).isEqualTo(depC)
+    assertThat(ro.a).all {
+      isEqualTo(depA)
+      isEqualTo(12L)
+    }
+    assertThat(ro.b).all {
+      isEqualTo(depB)
+      isEqualTo(4)
+    }
+    assertThat(ro.c).all {
+      isEqualTo(depC)
+      isEqualTo("hi")
+    }
   }
 
   private open class GenericObj<A : Any, B : Any, C : Any> @Inject constructor() {
@@ -64,7 +101,7 @@ class GenericRealObjectMakerTest {
     @Inject lateinit var c: C
   }
 
-  private open class SubClass<C: Any, B: Any, A: Any> @Inject constructor() : GenericObj<A, B, C>()
+  private open class SubClass<C : Any, B : Any, A : Any> @Inject constructor() : GenericObj<A, B, C>()
 
   private open class GenericObjMethodInject<A : Any, B : Any, C : Any> @Inject constructor() {
     lateinit var a: A
@@ -77,5 +114,6 @@ class GenericRealObjectMakerTest {
     }
   }
 
-  private open class SubClassMethodInject<C: Any, B: Any, A: Any> @Inject constructor() : GenericObjMethodInject<A, B, C>()
+  private open class SubClassMethodInject<C : Any, B : Any, A : Any> @Inject constructor() :
+    GenericObjMethodInject<A, B, C>()
 }
