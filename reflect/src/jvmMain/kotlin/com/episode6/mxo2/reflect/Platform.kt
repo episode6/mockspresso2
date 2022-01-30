@@ -5,7 +5,7 @@ import kotlin.reflect.full.createType
 import kotlin.reflect.full.primaryConstructor
 import kotlin.reflect.jvm.isAccessible
 
-actual fun KFunction<*>.tryMakeAccessible() { isAccessible = true }
+actual fun KCallable<*>.tryMakeAccessible() { isAccessible = true }
 actual fun KClass<*>.primaryConstructor(): KFunction<*> = primaryConstructor!!
 actual fun KClass<*>.allConstructors(): List<KFunction<*>> = constructors.toList()
 actual fun KFunction<*>.parameterCount(): Int = parameters.size

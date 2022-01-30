@@ -5,7 +5,7 @@ import kotlin.reflect.*
 /**
  * Tries to make a [KFunction] accessible if it is not already
  */
-expect fun KFunction<*>.tryMakeAccessible()
+expect fun KCallable<*>.tryMakeAccessible()
 
 /**
  * Returns the primary constructor for a [KClass]
