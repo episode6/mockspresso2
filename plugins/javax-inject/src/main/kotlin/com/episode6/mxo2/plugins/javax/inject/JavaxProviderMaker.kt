@@ -19,7 +19,7 @@ private fun DependencyKey<*>.isGenericProvider(): Boolean =
 
 private fun Dependencies.providerFor(key: DependencyKey<*>): Provider<Any> = Provider { get(key) }
 
-fun DependencyKey<*>.typeArgumentKey(index: Int = 0): DependencyKey<*> = DependencyKey<Any>(
+private fun DependencyKey<*>.typeArgumentKey(index: Int = 0): DependencyKey<*> = DependencyKey<Any>(
   token = TypeToken(token.type.arguments[index].type!!),
   qualifier = qualifier
 )
