@@ -2,15 +2,13 @@ package com.episode6.mxo2.plugins.mockito
 
 import assertk.all
 import assertk.assertThat
-import assertk.assertions.hasClass
-import assertk.assertions.isEqualTo
-import assertk.assertions.isFailure
-import assertk.assertions.prop
+import assertk.assertions.*
 import com.episode6.mxo2.MockspressoBuilder
 import com.episode6.mxo2.realInstance
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.inOrder
+import org.mockito.kotlin.verify
 
 class MockitoMockingTest {
 
@@ -22,6 +20,9 @@ class MockitoMockingTest {
 
   private val realObject: TestObj by mxo.realInstance()
   private val dep2: TestDepTwo by mxo.mock()
+
+  private val realWithNullable: TestObjNullable by mxo.realInstance()
+  private val nullableDep2: TestDepTwo? by mxo.mock()
 
   @Test fun testFallbackHasMocks() {
     assertThat(realObject).all {
@@ -46,6 +47,17 @@ class MockitoMockingTest {
     }
   }
 
+  @Test fun testCanCallMockFunctionsOnNullable() {
+    realWithNullable.nullableDep!!.doSomethingElse()
+
+    verify(nullableDep2!!).doSomethingElse()
+
+    assertThat(realWithNullable.nullableDep).all {
+      isNotNull()
+      isEqualTo(nullableDep2)
+    }
+  }
+
   private class TestDepOne {
     fun doSomething() {}
   }
@@ -55,4 +67,5 @@ class MockitoMockingTest {
   }
 
   private class TestObj(val dep1: TestDepOne, val dep2: TestDepTwo)
+  private class TestObjNullable(val nullableDep: TestDepTwo?)
 }
