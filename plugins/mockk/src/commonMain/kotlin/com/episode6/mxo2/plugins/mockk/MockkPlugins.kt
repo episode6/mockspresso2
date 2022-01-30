@@ -8,7 +8,7 @@ import io.mockk.MockK
 import io.mockk.MockKGateway
 
 /**
- * Use mockk to generate fallback objects
+ * Use mockk to generate fallback objects for dependencies that are not present in the mockspresso instance
  */
 @Suppress("UNCHECKED_CAST")
 fun MockspressoBuilder.fallbackWithMockk(
