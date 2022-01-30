@@ -25,10 +25,10 @@ private val defaultJMatcher: JAnnotationMatcher = { isAnnotationPresent(Inject::
  * Objects must have a single Injectable constructor and supports field/property and method injection.
  */
 fun javaxRealObjectMaker(
-  chooseConstructor: DependencyKey<*>.() -> KFunction<*> = { findExactlyOneInjectConstructor(defaultKMatcher) },
   isInjectProperty: KAnnotationMatcher = defaultKMatcher,
   isInjectField: JAnnotationMatcher = defaultJMatcher,
   isInjectFunction: KAnnotationMatcher = defaultKMatcher,
+  chooseConstructor: DependencyKey<*>.() -> KFunction<*> = { findExactlyOneInjectConstructor() },
 ): ObjectMaker {
   val reflectMaker = reflectionRealObjectMaker(chooseConstructor)
   return ObjectMaker { objKey, dependencies ->
@@ -55,7 +55,7 @@ fun javaxRealObjectMaker(
   }
 }
 
-fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor: KAnnotationMatcher): KFunction<*> {
+fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor: KAnnotationMatcher = defaultKMatcher): KFunction<*> {
   val injectConstructors = token.asKClass().allConstructors().filter { it.isInjectConstructor() }
   return when {
     injectConstructors.isEmpty() -> throw NoInjectConstructorsException(this)
