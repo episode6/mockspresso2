@@ -9,7 +9,7 @@ dependencies {
 
   implementation(project(":plugins-javax-inject"))
   implementation(project(":reflect"))
-  implementation(libs.dagger.core)
+  implementation(libs.dagger2.core)
 
   testImplementation(libs.junit5.core)
   testImplementation(libs.mockk.core)
