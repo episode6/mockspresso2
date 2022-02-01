@@ -14,7 +14,7 @@ internal fun dagger2LazyMaker(): DynamicObjectMaker = DynamicObjectMaker { key, 
 }
 
 private fun DependencyKey<*>.isGenericLazy(): Boolean =
-  token.asKClass() == Lazy::class && token.type.arguments.isNotEmpty()
+  token.asKClass() == dagger.Lazy::class && token.type.arguments.isNotEmpty()
 
 private fun Dependencies.lazyFor(key: DependencyKey<*>): dagger.Lazy<Any> = dagger.Lazy { get(key) }
 
