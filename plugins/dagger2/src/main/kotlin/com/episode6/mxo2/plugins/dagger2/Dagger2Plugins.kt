@@ -12,7 +12,6 @@ import kotlin.reflect.full.hasAnnotation
  * method injection. This is the same as javax.inject rules except we also accept the [AssistedInject] as a
  * valid constructor annotation.
  */
-fun MockspressoBuilder.makeRealObjectsUsingDagger2Rules(): MockspressoBuilder =
-  makeRealObjectsWith(javaxRealObjectMaker {
-    findExactlyOneInjectConstructor { hasAnnotation<Inject>() || hasAnnotation<AssistedInject>() }
-  })
+fun MockspressoBuilder.makeRealObjectsUsingDagger2Rules(): MockspressoBuilder = makeRealObjectsWith(
+  javaxRealObjectMaker { findExactlyOneInjectConstructor { hasAnnotation<Inject>() || hasAnnotation<AssistedInject>() } }
+)
