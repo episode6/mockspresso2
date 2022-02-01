@@ -15,3 +15,8 @@ import kotlin.reflect.full.hasAnnotation
 fun MockspressoBuilder.makeRealObjectsUsingDagger2Rules(): MockspressoBuilder = makeRealObjectsWith(
   javaxRealObjectMaker { findExactlyOneInjectConstructor { hasAnnotation<Inject>() || hasAnnotation<AssistedInject>() } }
 )
+
+/**
+ * Enable automatic mapping of [dagger.Lazy]s to their underlying dependencies.
+ */
+fun MockspressoBuilder.dagger2LazySupport(): MockspressoBuilder = addDynamicObjectMaker(dagger2LazyMaker())
