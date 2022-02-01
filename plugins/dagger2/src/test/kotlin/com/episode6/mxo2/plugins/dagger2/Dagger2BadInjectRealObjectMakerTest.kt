@@ -11,7 +11,7 @@ import dagger.assisted.AssistedInject
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
 
-class DaggerBadInjectRealObjectMakerTest {
+class Dagger2BadInjectRealObjectMakerTest {
 
   @Test fun testNoConstructor() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingDagger2Rules().build()
