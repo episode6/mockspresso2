@@ -1,5 +1,7 @@
 package com.episode6.mxo2.plugins.javax.inject
 
+import com.episode6.mxo2.MockspressoInstance
+import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.ObjectMaker
 import com.episode6.mxo2.plugins.core.reflectionRealObjectMaker
 import com.episode6.mxo2.reflect.*
@@ -32,25 +34,8 @@ fun javaxRealObjectMaker(
 ): ObjectMaker {
   val reflectMaker = reflectionRealObjectMaker(chooseConstructor)
   return ObjectMaker { objKey, dependencies ->
-    // use a [reflectionRealObjectMaker] to create the objects, then inject members before it's returned
-    reflectMaker.makeObject(objKey, dependencies).also { obj ->
-
-      // inject properties / fields
-      objKey.token.asKClass().memberProperties.filterIsInstance<KMutableProperty<*>>()
-        .filter { it.setter.isInjectProperty() || it.javaField?.isInjectField() == true }
-        .forEach { property ->
-          property.tryMakeAccessible()
-          val param = dependencies.get(property.returnTypeKey(context = objKey))
-          property.setter.callWith(obj, param)
-        }
-
-      // inject methods
-      objKey.token.asKClass().memberFunctions.filter { it.isInjectFunction() }
-        .forEach { function ->
-          function.tryMakeAccessible()
-          val params = function.parameterKeys(context = objKey.token).drop(1).map { dependencies.get(it) }
-          function.callWith(obj, *params.toTypedArray())
-        }
+    reflectMaker.makeObject(objKey, dependencies)?.also { obj ->
+      obj.injectWithDependencies(objKey.token, dependencies, isInjectProperty, isInjectField, isInjectFunction)
     }
   }
 }
@@ -64,8 +49,34 @@ fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor: KAnnot
   }
 }
 
-private fun KCallable<*>.returnTypeKey(context: DependencyKey<*>): DependencyKey<*> = DependencyKey(
-  token = context.token.resolveType(returnType),
+internal fun Any.injectWithDependencies(
+  token: TypeToken<*>,
+  dependencies: Dependencies,
+  isInjectProperty: KAnnotationMatcher = defaultKMatcher,
+  isInjectField: JAnnotationMatcher = defaultJMatcher,
+  isInjectFunction: KAnnotationMatcher = defaultKMatcher,
+) {
+  token.asKClass().memberProperties.filterIsInstance<KMutableProperty<*>>()
+    .filter { it.setter.isInjectProperty() || it.javaField?.isInjectField() == true }
+    .forEach { property ->
+      property.tryMakeAccessible()
+      val param = dependencies.get(property.returnTypeKey(context = token))
+      property.setter.callWith(this, param)
+    }
+  token.asKClass().memberFunctions.filter { it.isInjectFunction() }
+    .forEach { function ->
+      function.tryMakeAccessible()
+      val params = function.parameterKeys(context = token).drop(1).map { dependencies.get(it) }
+      function.callWith(this, *params.toTypedArray())
+    }
+}
+
+internal fun MockspressoInstance.asDependencies(): Dependencies = object : Dependencies {
+  override fun <T> get(key: DependencyKey<T>): T = findDependency(key)
+}
+
+private fun KCallable<*>.returnTypeKey(context: TypeToken<*>): DependencyKey<*> = DependencyKey(
+  token = context.resolveType(returnType),
   qualifier = annotations.findQualifier { "member $name in class $this" }
 )
 
