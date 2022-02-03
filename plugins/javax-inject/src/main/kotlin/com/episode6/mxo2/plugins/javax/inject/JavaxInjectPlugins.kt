@@ -2,8 +2,6 @@ package com.episode6.mxo2.plugins.javax.inject
 
 import com.episode6.mxo2.MockspressoBuilder
 import com.episode6.mxo2.MockspressoInstance
-import com.episode6.mxo2.api.Dependencies
-import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.TypeToken
 import kotlin.reflect.full.createType
 
@@ -19,10 +17,20 @@ fun MockspressoBuilder.makeRealObjectsUsingJavaxInjectRules(): MockspressoBuilde
  */
 fun MockspressoBuilder.javaxProviderSupport(): MockspressoBuilder = addDynamicObjectMaker(javaxProviderMaker())
 
+/**
+ * Perform field and method injection on an object that's been created outside the context of mockspresso.
+ *
+ * WARNING: this method will throw an [IllegalArgumentException] immediately if [instance] is not a concrete class.
+ * To inject generics use the alternate signature of [inject] that accepts a [TypeToken]
+ */
 fun MockspressoInstance.inject(instance: Any) {
   inject(instance, TypeToken(instance.javaClass.kotlin.createType()))
 }
 
-fun <T: Any> MockspressoInstance.inject(instance: T, token: TypeToken<T>) {
+/**
+ * Perform field and method injection on an object that's been created outside the context of mockspresso. This method
+ * is safe to use with generic objects
+ */
+fun <T : Any> MockspressoInstance.inject(instance: T, token: TypeToken<T>) {
   instance.injectWithDependencies(token, asDependencies())
 }
