@@ -13,7 +13,7 @@ tasks.wrapper {
 
 allprojects {
   group = "com.episode6.mockspresso2"
-  version = "0.0.1-SNAPSHOT"
+  version = "2.0.0-SNAPSHOT"
 }
 
 val dokkaDir = "docs/dokka"
