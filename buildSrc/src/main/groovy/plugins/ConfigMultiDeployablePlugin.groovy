@@ -20,6 +20,12 @@ class ConfigMultiDeployablePlugin implements Plugin<Project> {
       tasks.publishJvmPublicationToMavenLocal {
         dependsOn tasks.signKotlinMultiplatformPublication
       }
+      tasks.publishKotlinMultiplatformPublicationToMavenRepository {
+        dependsOn tasks.signJvmPublication
+      }
+      tasks.publishJvmPublicationToMavenRepository {
+        dependsOn tasks.signKotlinMultiplatformPublication
+      }
 
       publishing {
         publications.withType(MavenPublication) {
