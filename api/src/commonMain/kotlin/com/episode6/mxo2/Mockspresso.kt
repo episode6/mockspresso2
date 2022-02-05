@@ -25,6 +25,35 @@ interface Mockspresso : MockspressoInstance, MockspressoProperties {
   fun teardown()
 }
 
+/**
+ * A fully-constructed instance of a Mockspresso dependency map.
+ */
+interface MockspressoInstance {
+  /**
+   * Create a new real object using the rules and dependencies in the mockspresso instance.
+   *
+   * Calling this method will ensure this [MockspressoInstance] is initialized.
+   */
+  fun <T : Any?> createRealObject(key: DependencyKey<T>): T
+
+  /**
+   * Find an existing dependency in this mockspresso instance. If the dependency hasn't been cached or constructed then
+   * it will be generated on the fly and cached from that point forward. If the binding hasn't been declared in this
+   * mockspresso instance, then a fallback will be generated.
+   *
+   * Calling this method will ensure this [MockspressoInstance] is initialized.
+   */
+  fun <T : Any?> findDependency(key: DependencyKey<T>): T
+
+  /**
+   * Returns a new [MockspressoBuilder] using this Mockspresso instance as a parent.
+   *
+   * This method will NOT ensure this [MockspressoInstance] is initialized (i.e. it's possible to build new mockspresso
+   * instances off of lazily instantiated ones, and the parents will be ensured when first accessed).
+   */
+  fun buildUpon(): MockspressoBuilder
+}
+
 interface MockspressoBuilder {
   fun onSetup(cmd: (MockspressoInstance) -> Unit): MockspressoBuilder
   fun onTeardown(cmd: () -> Unit): MockspressoBuilder
@@ -44,12 +73,6 @@ interface MockspressoBuilder {
   fun testResources(maker: (MockspressoProperties) -> Unit): MockspressoBuilder
 
   fun build(): Mockspresso
-}
-
-interface MockspressoInstance {
-  fun <T : Any?> createRealObject(key: DependencyKey<T>): T
-  fun <T : Any?> findDependency(key: DependencyKey<T>): T
-  fun buildUpon(): MockspressoBuilder
 }
 
 interface MockspressoProperties {
