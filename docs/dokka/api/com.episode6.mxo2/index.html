@@ -40,7 +40,7 @@
   <div>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">interface <a href="-mockspresso/index.html">Mockspresso</a> : <a href="-mockspresso-instance/index.html">MockspressoInstance</a>, <a href="-mockspresso-properties/index.html">MockspressoProperties</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<div class="brief "><p class="paragraph">The main interface returned from a <a href="-mockspresso-builder/index.html">MockspressoBuilder</a>. Under the hood, the <a href="-mockspresso-instance/index.html">MockspressoInstance</a> it implements is lazily initiated and doesn't become immutable until accessed.</p></div></div>
+<div class="brief "><p class="paragraph">The main interface returned from a <a href="-mockspresso-builder/index.html">MockspressoBuilder</a>. It implements <a href="-mockspresso-instance/index.html">MockspressoInstance</a> but under the hood, the instance it implements is lazily initiated and doesn't become ensured/immutable until its dependencies are accessed.</p></div></div>
 </div>
                     </div>
                   </div>
@@ -57,7 +57,7 @@
   <div>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">interface <a href="-mockspresso-builder/index.html">MockspressoBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">Builds a mockspresso <a href="-mockspresso/index.html">Mockspresso</a> instance that is lazily instantiated under the hood.</p></div></div>
 </div>
                     </div>
                   </div>
@@ -74,7 +74,7 @@
   <div>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">interface <a href="-mockspresso-instance/index.html">MockspressoInstance</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">A fully-constructed instance of a Mockspresso dependency map.</p></div></div>
 </div>
                     </div>
                   </div>
@@ -91,26 +91,26 @@
   <div>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">interface <a href="-mockspresso-properties/index.html">MockspressoProperties</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">An interface that represents a <a href="-mockspresso-instance/index.html">MockspressoInstance</a> that has not yet been fully constructed/ensured. It allows us to make changes to the graph while also leveraging kotlin's delegated properties to grab lazy references from it (that will be available after the <a href="-mockspresso-instance/index.html">MockspressoInstance</a> under the hood has been ensured).</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
               </div>
               <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="-1796742491%2FFunctions%2F2089714443" anchor-label="addDependencyOf" id="-1796742491%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+              <div class="table" data-togglable="Functions"><a data-name="311592085%2FFunctions%2F2089714443" anchor-label="addDependencyOf" id="311592085%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
                 <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="add-dependency-of.html"><span>add</span><wbr><span>Dependency</span><wbr><span><span>Of</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1796742491%2FFunctions%2F2089714443"></span>
+                    <div class=""><span class="inline-flex"><a href="add-dependency-of.html"><span>add</span><wbr><span>Dependency</span><wbr><span><span>Of</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="311592085%2FFunctions%2F2089714443"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title"><div class="divergent-group" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="add-dependency-of.html">T</a>&gt; <a href="-mockspresso-builder/index.html">MockspressoBuilder</a>.<a href="add-dependency-of.html">addDependencyOf</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null, noinline provider: () -&gt; <a href="add-dependency-of.html">T</a>): <a href="-mockspresso-builder/index.html">MockspressoBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="add-dependency-of.html">T</a>&gt; <a href="-mockspresso-builder/index.html">MockspressoBuilder</a>.<a href="add-dependency-of.html">addDependencyOf</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null, noinline provider: <a href="../com.episode6.mxo2.api/-dependencies/index.html">Dependencies</a>.() -&gt; <a href="add-dependency-of.html">T</a>): <a href="-mockspresso-builder/index.html">MockspressoBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">Register a dependency provided by <a href="add-dependency-of.html">provider</a>, bound in the mockspresso graph with a dependencyKey made from type <a href="add-dependency-of.html">T</a> and <a href="add-dependency-of.html">qualifier</a>.</p></div></div>
 </div>
                     </div>
                   </div>
@@ -127,24 +127,24 @@
   <div>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="create-real-object.html">T</a>&gt; <a href="-mockspresso-instance/index.html">MockspressoInstance</a>.<a href="create-real-object.html">createRealObject</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null): <a href="create-real-object.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">Create a new real object of type <a href="create-real-object.html">T</a> using the rules and dependencies in the mockspresso instance.</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-410700138%2FFunctions%2F2089714443" anchor-label="depOf" id="-410700138%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+<a data-name="27288324%2FFunctions%2F2089714443" anchor-label="depOf" id="27288324%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
                 <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="dep-of.html"><span>dep</span><wbr><span><span>Of</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-410700138%2FFunctions%2F2089714443"></span>
+                    <div class=""><span class="inline-flex"><a href="dep-of.html"><span>dep</span><wbr><span><span>Of</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="27288324%2FFunctions%2F2089714443"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title"><div class="divergent-group" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="dep-of.html">T</a>&gt; <a href="-mockspresso-properties/index.html">MockspressoProperties</a>.<a href="dep-of.html">depOf</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null, noinline provider: () -&gt; <a href="dep-of.html">T</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a>&lt;<a href="dep-of.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="dep-of.html">T</a>&gt; <a href="-mockspresso-properties/index.html">MockspressoProperties</a>.<a href="dep-of.html">depOf</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null, noinline provider: <a href="../com.episode6.mxo2.api/-dependencies/index.html">Dependencies</a>.() -&gt; <a href="dep-of.html">T</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a>&lt;<a href="dep-of.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">Register a dependency provided by <a href="dep-of.html">provider</a>, bound in the mockspresso graph with a dependencyKey made from type <a href="dep-of.html">T</a> and <a href="dep-of.html">qualifier</a>.</p></div></div>
 </div>
                     </div>
                   </div>
@@ -161,7 +161,7 @@
   <div>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="find-dep.html">T</a>&gt; <a href="-mockspresso-properties/index.html">MockspressoProperties</a>.<a href="find-dep.html">findDep</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a>&lt;<a href="find-dep.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">Find an existing dependency in the underlying mockspresso instance (bound with a dependencyKey of type <a href="find-dep.html">T</a> + <a href="find-dep.html">qualifier</a>) and return a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a> for access to it.</p></div></div>
 </div>
                     </div>
                   </div>
@@ -178,75 +178,75 @@
   <div>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="find-dependency.html">T</a>&gt; <a href="-mockspresso-instance/index.html">MockspressoInstance</a>.<a href="find-dependency.html">findDependency</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null): <a href="find-dependency.html">T</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">Find an existing dependency in this mockspresso instance of type <a href="find-dependency.html">T</a> with the provided <a href="find-dependency.html">qualifier</a>. If the dependency hasn't been cached or constructed then it will be generated on the fly and cached from that point forward. If the binding hasn't been declared in this mockspresso instance, then a fallback will be generated.</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-1121663204%2FFunctions%2F2089714443" anchor-label="realImpl" id="-1121663204%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+<a data-name="-156818898%2FFunctions%2F2089714443" anchor-label="realImplOf" id="-156818898%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
                 <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="real-impl.html"><span>real</span><wbr><span><span>Impl</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1121663204%2FFunctions%2F2089714443"></span>
+                    <div class=""><span class="inline-flex"><a href="real-impl-of.html"><span>real</span><wbr><span>Impl</span><wbr><span><span>Of</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-156818898%2FFunctions%2F2089714443"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title"><div class="divergent-group" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="real-impl.html">BIND</a>, <a href="real-impl.html">IMPL</a> : <a href="real-impl.html">BIND</a>&gt; <a href="-mockspresso-properties/index.html">MockspressoProperties</a>.<a href="real-impl.html">realImpl</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a>&lt;<a href="real-impl.html">IMPL</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="real-impl-of.html">BIND</a>, <a href="real-impl-of.html">IMPL</a> : <a href="real-impl-of.html">BIND</a>&gt; <a href="-mockspresso-properties/index.html">MockspressoProperties</a>.<a href="real-impl-of.html">realImplOf</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null, noinline interceptor: (<a href="real-impl-of.html">IMPL</a>) -&gt; <a href="real-impl-of.html">IMPL</a> = { it }): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a>&lt;<a href="real-impl-of.html">IMPL</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">Register a request to create a real object of type <a href="real-impl-of.html">IMPL</a> bound in the mockspresso graph with a dependencyKey made from type <a href="real-impl-of.html">BIND</a> and <a href="real-impl-of.html">qualifier</a>.</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-1757973167%2FFunctions%2F2089714443" anchor-label="realInstance" id="-1757973167%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+<a data-name="202506020%2FFunctions%2F2089714443" anchor-label="realInstance" id="202506020%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
                 <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="real-instance.html"><span>real</span><wbr><span><span>Instance</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1757973167%2FFunctions%2F2089714443"></span>
+                    <div class=""><span class="inline-flex"><a href="real-instance.html"><span>real</span><wbr><span><span>Instance</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="202506020%2FFunctions%2F2089714443"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title"><div class="divergent-group" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="real-instance.html">T</a>&gt; <a href="-mockspresso-properties/index.html">MockspressoProperties</a>.<a href="real-instance.html">realInstance</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a>&lt;<a href="real-instance.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="real-instance.html">T</a>&gt; <a href="-mockspresso-properties/index.html">MockspressoProperties</a>.<a href="real-instance.html">realInstance</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null, noinline interceptor: (<a href="real-instance.html">T</a>) -&gt; <a href="real-instance.html">T</a> = { it }): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a>&lt;<a href="real-instance.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">Register a request to create a real object of type <a href="real-instance.html">T</a> bound in the mockspresso graph with a dependencyKey made from type <a href="real-instance.html">T</a> and <a href="real-instance.html">qualifier</a>.</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-135060526%2FFunctions%2F2089714443" anchor-label="useRealImplOf" id="-135060526%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+<a data-name="-479651607%2FFunctions%2F2089714443" anchor-label="useRealImplOf" id="-479651607%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
                 <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="use-real-impl-of.html"><span>use</span><wbr><span>Real</span><wbr><span>Impl</span><wbr><span><span>Of</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-135060526%2FFunctions%2F2089714443"></span>
+                    <div class=""><span class="inline-flex"><a href="use-real-impl-of.html"><span>use</span><wbr><span>Real</span><wbr><span>Impl</span><wbr><span><span>Of</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-479651607%2FFunctions%2F2089714443"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title"><div class="divergent-group" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="use-real-impl-of.html">BIND</a>, <a href="use-real-impl-of.html">IMPL</a> : <a href="use-real-impl-of.html">BIND</a>&gt; <a href="-mockspresso-builder/index.html">MockspressoBuilder</a>.<a href="use-real-impl-of.html">useRealImplOf</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null): <a href="-mockspresso-builder/index.html">MockspressoBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="use-real-impl-of.html">BIND</a>, <a href="use-real-impl-of.html">IMPL</a> : <a href="use-real-impl-of.html">BIND</a>&gt; <a href="-mockspresso-builder/index.html">MockspressoBuilder</a>.<a href="use-real-impl-of.html">useRealImplOf</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null, noinline interceptor: (<a href="use-real-impl-of.html">IMPL</a>) -&gt; <a href="use-real-impl-of.html">BIND</a> = { it }): <a href="-mockspresso-builder/index.html">MockspressoBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">Register a request to create a real object of type <a href="use-real-impl-of.html">IMPL</a> bound in the mockspresso graph with a dependencyKey made from type <a href="use-real-impl-of.html">BIND</a> and <a href="use-real-impl-of.html">qualifier</a>.</p></div></div>
 </div>
                     </div>
                   </div>
                 </div>
-<a data-name="-1949539715%2FFunctions%2F2089714443" anchor-label="useRealInstanceOf" id="-1949539715%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+<a data-name="1434917200%2FFunctions%2F2089714443" anchor-label="useRealInstanceOf" id="1434917200%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
                 <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="use-real-instance-of.html"><span>use</span><wbr><span>Real</span><wbr><span>Instance</span><wbr><span><span>Of</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1949539715%2FFunctions%2F2089714443"></span>
+                    <div class=""><span class="inline-flex"><a href="use-real-instance-of.html"><span>use</span><wbr><span>Real</span><wbr><span>Instance</span><wbr><span><span>Of</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1434917200%2FFunctions%2F2089714443"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title"><div class="divergent-group" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="use-real-instance-of.html">T</a>&gt; <a href="-mockspresso-builder/index.html">MockspressoBuilder</a>.<a href="use-real-instance-of.html">useRealInstanceOf</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null): <a href="-mockspresso-builder/index.html">MockspressoBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace">inline fun &lt;<a href="use-real-instance-of.html">T</a>&gt; <a href="-mockspresso-builder/index.html">MockspressoBuilder</a>.<a href="use-real-instance-of.html">useRealInstanceOf</a>(qualifier: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a>? = null, noinline interceptor: (<a href="use-real-instance-of.html">T</a>) -&gt; <a href="use-real-instance-of.html">T</a> = { it }): <a href="-mockspresso-builder/index.html">MockspressoBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-</div>
+<div class="brief "><p class="paragraph">Register a request to create a real object of type <a href="use-real-instance-of.html">T</a> bound in the mockspresso graph with a dependencyKey made from type <a href="use-real-instance-of.html">T</a> and <a href="use-real-instance-of.html">qualifier</a>.</p></div></div>
 </div>
                     </div>
                   </div>
@@ -255,7 +255,7 @@
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
   
