@@ -12,7 +12,7 @@ import com.episode6.mxo2.reflect.TypeToken
  * the instance it implements is lazily initiated and doesn't become ensured/immutable until its dependencies are
  * accessed.
  *
- * IMPORTANT: Calling any of the [MockspressoProperties] methods after the graph has already been ensured
+ * IMPORTANT: Calling any of the [MockspressoProperties] methods after the instance has already been ensured
  * will throw errors at runtime.
  */
 interface Mockspresso : MockspressoInstance, MockspressoProperties {
