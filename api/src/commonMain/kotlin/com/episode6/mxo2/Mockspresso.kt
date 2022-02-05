@@ -61,23 +61,70 @@ interface MockspressoInstance {
  * Builds a mockspresso [Mockspresso] instance that is lazily instantiated under the hood.
  */
 interface MockspressoBuilder {
+
+  /**
+   * Add a callback that will fire when the [MockspressoInstance] is fully instantiated/ensured.
+   */
   fun onSetup(cmd: (MockspressoInstance) -> Unit): MockspressoBuilder
+
+  /**
+   * Add a callback that will fire when/if the [MockspressoInstance] is eventually torn down. (Automatic tear-down
+   * is not supported by default but can be configured using plugins).
+   */
   fun onTeardown(cmd: () -> Unit): MockspressoBuilder
 
+  /**
+   * Define how this [MockspressoInstance] will construct real objects. By default, mockspresso will reflectively
+   * call the primary constructor of a given class and pass appropriate dependencies to it.
+   */
   fun makeRealObjectsWith(realMaker: ObjectMaker): MockspressoBuilder // formerly injector
+
+  /**
+   * Define how this [MockspressoInstance] will make fallback objects (i.e. dependencies that have not been explicitly
+   * registered/cached within this instance). Usually this should be supplied by one of the mocking support plugins
+   * (i.e. plugins-mockito or plugins-mockk).
+   *
+   * By default, mockspresso ships with a no-op [FallbackObjectMaker] that throws exceptions when called.
+   */
   fun makeFallbackObjectsWith(fallbackMaker: FallbackObjectMaker): MockspressoBuilder // formerly mocker
 
+  /**
+   * Adds a [DynamicObjectMaker] to this [MockspressoInstance]. A [DynamicObjectMaker] gets a chance to supply any
+   * un-cached/undefined dependency before the request goes to the [FallbackObjectMaker]. This enables mockspresso
+   * plugins supply dependencies based on properties other than concrete types (i.e. generic types, class annotations,
+   * etc.).
+   */
   fun addDynamicObjectMaker(dynamicMaker: DynamicObjectMaker): MockspressoBuilder // formerly special object makers
 
+  /**
+   * Register a dependency provided by [provider], bound in the mockspresso graph with [key].
+   */
   fun <T : Any?> addDependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder
+
+  /**
+   * Register a request to create a real object of type [implementationToken] bound in the mockspresso graph with [key].
+   * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
+   * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
+   */
   fun <BIND : Any?, IMPL : BIND> useRealImplOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> BIND = { it }
   ): MockspressoBuilder
 
+  /**
+   * A utility method intended to enable the creation of shared "test resources" that can add to, pull from and
+   * define some kind of functionality within the injected dependencies of the mockspresso graph.
+   *
+   * The [maker] callback will be fired immediately when calling this method and does not wait for the instance to be
+   * ensured. This allows the test resources to add/configure dependencies in the graph.
+   */
   fun testResources(maker: (MockspressoProperties) -> Unit): MockspressoBuilder
 
+  /**
+   * Build a [Mockspresso] object, but the actual [MockspressoInstance] will not be created immediately and will still
+   * be mutable until its ensured or its dependencies are accessed.
+   */
   fun build(): Mockspresso
 }
 
