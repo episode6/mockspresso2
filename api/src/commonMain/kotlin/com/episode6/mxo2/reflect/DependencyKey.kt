@@ -32,4 +32,8 @@ inline fun <reified T : Any?> typeToken(): TypeToken<T> = TypeToken(typeOf<T>())
  * Creates a [DependencyKey] of type [T] + [qualifier]
  */
 inline fun <reified T : Any?> dependencyKey(qualifier: Annotation? = null) = DependencyKey<T>(typeToken(), qualifier)
+
+/**
+ * Return the [KClass] for this [TypeToken]. Class is not typed to ensure support for TypeTokens of nullable types.
+ */
 fun TypeToken<*>.asKClass(): KClass<*> = type.classifier as KClass<*>
