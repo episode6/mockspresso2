@@ -10,7 +10,6 @@ fun interface ObjectMaker {
   fun makeObject(key: DependencyKey<*>, dependencies: Dependencies): Any?
 }
 
-
 fun interface DynamicObjectMaker {
   sealed class Answer {
     data class Yes(val value: Any?) : Answer()
