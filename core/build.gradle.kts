@@ -10,11 +10,11 @@ kotlin {
       dependencies {
         api(project(":api"))
         api(project(":plugins-core"))
+        implementation(project(":reflect"))
       }
     }
     val commonTest by getting {
       dependencies {
-        implementation(project(":reflect"))
         implementation(libs.mockk.core)
       }
     }
