@@ -5,6 +5,7 @@ import assertk.assertions.isDataClassEqualTo
 import org.junit.jupiter.api.Test
 import java.lang.reflect.Method
 
+@Suppress("unused") // we're testing reflection here
 class JvmTypeTokenExtTest {
 
   @Test fun testFirstLevel() {
@@ -38,6 +39,39 @@ class JvmTypeTokenExtTest {
     assertThat(giveBToken).isDataClassEqualTo(typeToken<String>())
     assertThat(giveListAToken).isDataClassEqualTo(typeToken<List<Int>>())
     assertThat(giveMapXYToken).isDataClassEqualTo(typeToken<Map<String, Int>>())
+  }
+
+  @Test fun testThirdLevel() {
+    val token = typeToken<ConcreteDef>()
+    val giveA = token.asKClass().java.getMethod("giveA")
+    val giveB = token.asKClass().java.getMethod("giveB")
+    val giveListA = token.asKClass().java.getMethod("giveListA")
+    val giveMapXY = token.asKClass().java.getMethod("giveMapXY")
+
+    val giveAToken = token.resolveReturnTypeFromMethod(giveA)
+    val giveBToken = token.resolveReturnTypeFromMethod(giveB)
+    val giveListAToken = token.resolveReturnTypeFromMethod(giveListA)
+    val giveMapXYToken = token.resolveReturnTypeFromMethod(giveMapXY)
+
+    assertThat(giveAToken).isDataClassEqualTo(typeToken<Int>())
+    assertThat(giveBToken).isDataClassEqualTo(typeToken<String>())
+    assertThat(giveListAToken).isDataClassEqualTo(typeToken<List<Int>>())
+    assertThat(giveMapXYToken).isDataClassEqualTo(typeToken<Map<String, Int>>())
+  }
+
+  @Test fun testFirstLevelReversed() {
+    val token = typeToken<IFaceReverse<String>>()
+    val giveA = token.asKClass().java.getMethod("giveA")
+    val giveB = token.asKClass().java.getMethod("giveB")
+    val giveListA = token.asKClass().java.getMethod("giveListA")
+
+    val giveAToken = token.resolveReturnTypeFromMethod(giveA)
+    val giveBToken = token.resolveReturnTypeFromMethod(giveB)
+    val giveListAToken = token.resolveReturnTypeFromMethod(giveListA)
+
+    assertThat(giveAToken).isDataClassEqualTo(typeToken<Long>())
+    assertThat(giveBToken).isDataClassEqualTo(typeToken<String>())
+    assertThat(giveListAToken).isDataClassEqualTo(typeToken<List<Long>>())
   }
 
   private interface IFace<A, B> {
