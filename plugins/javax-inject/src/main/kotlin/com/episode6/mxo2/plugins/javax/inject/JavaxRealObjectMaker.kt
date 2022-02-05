@@ -2,7 +2,7 @@ package com.episode6.mxo2.plugins.javax.inject
 
 import com.episode6.mxo2.MockspressoInstance
 import com.episode6.mxo2.api.Dependencies
-import com.episode6.mxo2.api.ObjectMaker
+import com.episode6.mxo2.api.RealObjectMaker
 import com.episode6.mxo2.plugins.core.reflectionRealObjectMaker
 import com.episode6.mxo2.reflect.*
 import java.lang.reflect.AnnotatedElement
@@ -23,7 +23,7 @@ private val defaultKMatcher: KAnnotationMatcher = { hasAnnotation<Inject>() }
 private val defaultJMatcher: JAnnotationMatcher = { isAnnotationPresent(Inject::class.java) }
 
 /**
- * Returns an [ObjectMaker] that uses reflection to create real objects according to javax inject rules.
+ * Returns an [RealObjectMaker] that uses reflection to create real objects according to javax inject rules.
  * Objects must have a single Injectable constructor and supports field/property and method injection.
  */
 fun javaxRealObjectMaker(
@@ -31,10 +31,10 @@ fun javaxRealObjectMaker(
   isInjectField: JAnnotationMatcher = defaultJMatcher,
   isInjectFunction: KAnnotationMatcher = defaultKMatcher,
   chooseConstructor: DependencyKey<*>.() -> KFunction<*> = { findExactlyOneInjectConstructor() },
-): ObjectMaker {
+): RealObjectMaker {
   val reflectMaker = reflectionRealObjectMaker(chooseConstructor)
-  return ObjectMaker { objKey, dependencies ->
-    reflectMaker.makeObject(objKey, dependencies)?.also { obj ->
+  return RealObjectMaker { objKey, dependencies ->
+    reflectMaker.makeRealObject(objKey, dependencies)?.also { obj ->
       obj.injectWithDependencies(objKey.token, dependencies, isInjectProperty, isInjectField, isInjectFunction)
     }
   }

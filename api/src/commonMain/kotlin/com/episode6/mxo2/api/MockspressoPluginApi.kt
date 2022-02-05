@@ -18,12 +18,12 @@ interface Dependencies {
  * A function that makes real objects (usually via reflection). Should always return a valid value or throw withh
  * a descriptive reason.
  */
-fun interface ObjectMaker {
+fun interface RealObjectMaker {
   /**
    * Return a new object matching the type represented in the [key]. Any dependencies needed can be pulled
    * from the [dependencies] object
    */
-  fun makeObject(key: DependencyKey<*>, dependencies: Dependencies): Any?
+  fun makeRealObject(key: DependencyKey<*>, dependencies: Dependencies): Any?
 }
 
 /**

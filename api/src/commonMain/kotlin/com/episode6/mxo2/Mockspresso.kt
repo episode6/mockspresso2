@@ -3,7 +3,7 @@ package com.episode6.mxo2
 import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.DynamicObjectMaker
 import com.episode6.mxo2.api.FallbackObjectMaker
-import com.episode6.mxo2.api.ObjectMaker
+import com.episode6.mxo2.api.RealObjectMaker
 import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.TypeToken
 
@@ -78,7 +78,7 @@ interface MockspressoBuilder {
    * Define how this [MockspressoInstance] will construct real objects. By default, mockspresso will reflectively
    * call the primary constructor of a given class and pass appropriate dependencies to it.
    */
-  fun makeRealObjectsWith(realMaker: ObjectMaker): MockspressoBuilder // formerly injector
+  fun makeRealObjectsWith(realMaker: RealObjectMaker): MockspressoBuilder // formerly injector
 
   /**
    * Define how this [MockspressoInstance] will make fallback objects (i.e. dependencies that have not been explicitly
