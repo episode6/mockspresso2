@@ -4,7 +4,7 @@ import com.episode6.mxo2.MockspressoBuilder
 import com.episode6.mxo2.MockspressoProperties
 import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.reflect.DependencyKey
-import com.episode6.mxo2.reflect.asKClass
+import com.episode6.mxo2.reflect.asJClass
 import com.episode6.mxo2.reflect.resolveJvmType
 import org.mockito.Mockito
 import org.mockito.stubbing.Answer
@@ -16,8 +16,8 @@ import org.mockito.stubbing.Answer
  * Generally you shouldn't need to access this method directly, prefer applying with [MockspressoBuilder.autoFactory]
  * or [MockspressoProperties.autoFactory]
  */
-@Suppress("UNCHECKED_CAST") fun <T : Any?> Dependencies.autoFactoryMock(factoryKey: DependencyKey<T>): T =
-  Mockito.mock(factoryKey.token.asKClass().java as Class<T>, mockitoAutoFactoryAnswer(factoryKey))
+fun <T : Any?> Dependencies.autoFactoryMock(factoryKey: DependencyKey<T>): T =
+  Mockito.mock(factoryKey.token.asJClass(), mockitoAutoFactoryAnswer(factoryKey))
 
 /**
  * Returns a mockito default [Answer] for use in a mock of the given [factoryKey]. The answer will resolve the return
