@@ -5,6 +5,7 @@ import assertk.assertions.isDataClassEqualTo
 import org.junit.jupiter.api.Test
 import java.lang.reflect.Method
 
+// tests whether we can successfully resolve generics from java into [TypeToken]s with KTypes
 @Suppress("unused") // we're testing reflection here
 class JvmTypeTokenExtTest {
 
