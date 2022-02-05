@@ -3,7 +3,7 @@ package com.episode6.mxo2.plugins.core
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.episode6.mxo2.api.Dependencies
-import com.episode6.mxo2.api.ObjectMaker
+import com.episode6.mxo2.api.RealObjectMaker
 import com.episode6.mxo2.reflect.allConstructors
 import com.episode6.mxo2.reflect.asKClass
 import com.episode6.mxo2.reflect.dependencyKey
@@ -77,7 +77,7 @@ class ReflectionRealObjectMakerTest {
     verify { dependencies.get(dependencyKey<Double>()) }
   }
 
-  private fun ObjectMaker.test(): TestClass = makeObject(dependencyKey<TestClass>(), dependencies)!! as TestClass
+  private fun RealObjectMaker.test(): TestClass = makeRealObject(dependencyKey<TestClass>(), dependencies)!! as TestClass
   @Suppress("unused", "UNUSED_PARAMETER") private class TestClass(val p1: String, val p2: Int) {
     var constructorCall = "primary"
 

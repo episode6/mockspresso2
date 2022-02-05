@@ -5,7 +5,7 @@ import com.episode6.mxo2.MockspressoInstance
 import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.DynamicObjectMaker
 import com.episode6.mxo2.api.FallbackObjectMaker
-import com.episode6.mxo2.api.ObjectMaker
+import com.episode6.mxo2.api.RealObjectMaker
 import com.episode6.mxo2.internal.util.DependencyCacheBuilder
 import com.episode6.mxo2.internal.util.DependencyValidator
 import com.episode6.mxo2.internal.util.RealObjectRequestsList
@@ -15,7 +15,7 @@ import com.episode6.mxo2.reflect.asKClass
 
 internal class MxoInstance(
   private val parent: MxoInstance? = null,
-  val realMaker: ObjectMaker,
+  val realMaker: RealObjectMaker,
   val fallbackMaker: FallbackObjectMaker,
   private val dynamicMakers: List<DynamicObjectMaker>,
   setupCallbacks: MutableList<(MockspressoInstance) -> Unit>,
@@ -76,7 +76,7 @@ internal class MxoInstance(
 
   private fun <T : Any?> createInternal(key: DependencyKey<T>, validator: DependencyValidator, cache: Boolean): T =
     realMaker
-      .makeObject(realObjectRequests.getImplFor(key), validator.asDependencies())
+      .makeRealObject(realObjectRequests.getImplFor(key), validator.asDependencies())
       .checkedCast(key)
       .let { realObjectRequests.intercept(key, it) }
       .also { if (cache) it.cacheWith(key, validator) }

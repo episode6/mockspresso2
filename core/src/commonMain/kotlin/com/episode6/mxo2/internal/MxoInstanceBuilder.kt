@@ -5,7 +5,7 @@ import com.episode6.mxo2.MockspressoInstance
 import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.DynamicObjectMaker
 import com.episode6.mxo2.api.FallbackObjectMaker
-import com.episode6.mxo2.api.ObjectMaker
+import com.episode6.mxo2.api.RealObjectMaker
 import com.episode6.mxo2.defaultFallbackObjectMaker
 import com.episode6.mxo2.defaultRealObjectMaker
 import com.episode6.mxo2.internal.util.DependencyCacheBuilder
@@ -15,7 +15,7 @@ import com.episode6.mxo2.reflect.TypeToken
 
 internal class MxoInstanceBuilder(private val parent: Lazy<MxoInstance>? = null) {
 
-  private var realMaker: ObjectMaker? = null
+  private var realMaker: RealObjectMaker? = null
   private var fallbackMaker: FallbackObjectMaker? = null
 
   private val dynamicMakers: MutableList<DynamicObjectMaker> = mutableListOf()
@@ -34,7 +34,7 @@ internal class MxoInstanceBuilder(private val parent: Lazy<MxoInstance>? = null)
     teardownCallbacks += cmd
   }
 
-  fun realObjectMaker(realMaker: ObjectMaker) {
+  fun realObjectMaker(realMaker: RealObjectMaker) {
     this.realMaker = realMaker
   }
 
