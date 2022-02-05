@@ -168,6 +168,16 @@ interface MockspressoProperties {
    * point forward. If the binding hasn't been declared in this mockspresso instance, then a fallback will be generated.
    */
   fun <T : Any?> findDepOf(key: DependencyKey<T>): Lazy<T>
+
+  /**
+   * Register a request to create a real object of type [implementationToken] bound in the mockspresso graph with [key].
+   * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
+   * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
+   *
+   * Returns a [Lazy] of the resulting real object
+   * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
+   * if it hasn't been already.
+   */
   fun <BIND : Any?, IMPL : BIND> realImplOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
