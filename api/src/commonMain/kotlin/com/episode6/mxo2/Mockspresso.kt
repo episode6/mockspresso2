@@ -132,11 +132,41 @@ interface MockspressoBuilder {
  * An interface that represents a [MockspressoInstance] that has not yet been fully constructed/ensured. It allows us
  * to make changes to the graph while also leveraging kotlin's delegated properties to grab lazy references from it
  * (that will be available after the [MockspressoInstance] under the hood has been ensured).
+ *
+ * Most of the methods in the interface should be used in conjunction with Kotlin's delegated properties
+ * (aka "by") syntax.
  */
 interface MockspressoProperties {
+
+  /**
+   * Add a callback that will fire when the [MockspressoInstance] is fully instantiated/ensured.
+   */
   fun onSetup(cmd: (MockspressoInstance) -> Unit)
+
+  /**
+   * Add a callback that will fire when/if the [MockspressoInstance] is eventually torn down. (Automatic tear-down
+   * is not supported by default but can be configured using plugins).
+   */
   fun onTeardown(cmd: () -> Unit)
+
+  /**
+   * Register a dependency provided by [provider], bound in the mockspresso graph with [key] and return a [Lazy]
+   * of that object.
+   *
+   * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
+   * if it hasn't been already.
+   */
   fun <T : Any?> depOf(key: DependencyKey<T>, provider: Dependencies.() -> T): Lazy<T>
+
+  /**
+   * Find an existing dependency in the underlying mockspresso instance (bound with [key]) and return a [Lazy] for it.
+   *
+   * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
+   * if it hasn't been already.
+   *
+   * If the dependency hasn't been cached or constructed then it will be generated on the fly and cached from that
+   * point forward. If the binding hasn't been declared in this mockspresso instance, then a fallback will be generated.
+   */
   fun <T : Any?> findDepOf(key: DependencyKey<T>): Lazy<T>
   fun <BIND : Any?, IMPL : BIND> realImplOf(
     key: DependencyKey<BIND>,
