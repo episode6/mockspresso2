@@ -3,7 +3,7 @@ package com.episode6.mxo2.plugins.mockito
 import com.episode6.mxo2.*
 import com.episode6.mxo2.api.FallbackObjectMaker
 import com.episode6.mxo2.reflect.DependencyKey
-import com.episode6.mxo2.reflect.asKClass
+import com.episode6.mxo2.reflect.asJClass
 import org.mockito.Incubating
 import org.mockito.Mockito
 import org.mockito.kotlin.KStubbing
@@ -18,9 +18,9 @@ import kotlin.reflect.KClass
 /**
  * Use mockito to generate fallback objects for dependencies that are not present in the mockspresso instance
  */
-@Suppress("UNCHECKED_CAST") fun MockspressoBuilder.fallbackWithMockito(): MockspressoBuilder =
+fun MockspressoBuilder.fallbackWithMockito(): MockspressoBuilder =
   makeFallbackObjectsWith(object : FallbackObjectMaker {
-    override fun <T> makeObject(key: DependencyKey<T>): T = Mockito.mock(key.token.asKClass().java as Class<T>)
+    override fun <T> makeObject(key: DependencyKey<T>): T = Mockito.mock(key.token.asJClass())
   })
 
 /**

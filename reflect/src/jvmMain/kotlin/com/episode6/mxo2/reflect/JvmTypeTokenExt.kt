@@ -12,6 +12,11 @@ import kotlin.reflect.full.createType
 import kotlin.reflect.jvm.jvmName
 
 /**
+ *  Return the [Class] for this [TypeToken].
+ */
+@Suppress("UNCHECKED_CAST") fun <T : Any?> TypeToken<T>.asJClass(): Class<T> = asKClass().java as Class<T>
+
+/**
  * Returns a concrete [TypeToken] representing the given [jvmType].
  * @param jvmType The java type to resolve
  * @param declaringClass The class the jvmType is declared on (needed to resolve type arguments)
