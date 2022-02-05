@@ -8,9 +8,12 @@ import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.TypeToken
 
 /**
- * The main interface returned from a [MockspressoBuilder]. Under the hood,
- * the [MockspressoInstance] it implements is lazily initiated and doesn't become
- * immutable until accessed.
+ * The main interface returned from a [MockspressoBuilder]. It implements [MockspressoInstance] but under the hood,
+ * the instance it implements is lazily initiated and doesn't become ensured/immutable until its dependencies are
+ * accessed.
+ *
+ * IMPORTANT: Calling any of the [MockspressoProperties] methods after the graph has already been ensured
+ * will throw errors at runtime.
  */
 interface Mockspresso : MockspressoInstance, MockspressoProperties {
 
@@ -54,6 +57,9 @@ interface MockspressoInstance {
   fun buildUpon(): MockspressoBuilder
 }
 
+/**
+ * Builds a mockspresso [Mockspresso] instance that is lazily instantiated under the hood.
+ */
 interface MockspressoBuilder {
   fun onSetup(cmd: (MockspressoInstance) -> Unit): MockspressoBuilder
   fun onTeardown(cmd: () -> Unit): MockspressoBuilder
@@ -75,6 +81,11 @@ interface MockspressoBuilder {
   fun build(): Mockspresso
 }
 
+/**
+ * An interface that represents a [MockspressoInstance] that has not yet been fully constructed/ensured. It allows us
+ * to make changes to the graph while also leveraging kotlin's delegated properties to grab lazy references from it
+ * (that will be available after the [MockspressoInstance] under the hood has been ensured).
+ */
 interface MockspressoProperties {
   fun onSetup(cmd: (MockspressoInstance) -> Unit)
   fun onTeardown(cmd: () -> Unit)
