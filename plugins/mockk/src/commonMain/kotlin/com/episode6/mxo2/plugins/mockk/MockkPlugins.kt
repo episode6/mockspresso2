@@ -1,3 +1,5 @@
+@file:Suppress("REDUNDANT_SPREAD_OPERATOR_IN_NAMED_FORM_IN_FUNCTION") // mockk source code does this, when they stop, we'll stop
+
 package com.episode6.mxo2.plugins.mockk
 
 import com.episode6.mxo2.*

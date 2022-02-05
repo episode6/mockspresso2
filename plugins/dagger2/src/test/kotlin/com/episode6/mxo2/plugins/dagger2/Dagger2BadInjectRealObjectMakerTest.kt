@@ -1,3 +1,4 @@
+@file:Suppress("unused", "UNUSED_PARAMETER", "UNUSED_VARIABLE") // variables are intentionally unused
 package com.episode6.mxo2.plugins.dagger2
 
 import assertk.assertThat
