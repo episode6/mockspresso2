@@ -9,6 +9,7 @@ kotlin {
     val commonMain by getting {
       dependencies {
         api(project(":api"))
+        implementation(project(":reflect"))
         implementation(libs.mockk.core)
       }
     }

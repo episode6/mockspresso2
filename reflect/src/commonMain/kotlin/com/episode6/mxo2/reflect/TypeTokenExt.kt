@@ -6,6 +6,11 @@ import kotlin.reflect.KTypeParameter
 import kotlin.reflect.KTypeProjection
 
 /**
+ * Return the [KClass] for this [TypeToken]. Class is not typed to ensure support for TypeTokens of nullable types.
+ */
+fun TypeToken<*>.asKClass(): KClass<*> = type.classifier as KClass<*>
+
+/**
  * Returns a concrete [TypeToken] representing the [referencedType] using the receiver as context.
  */
 fun TypeToken<*>.resolveType(referencedType: KType): TypeToken<*> =
