@@ -8,9 +8,12 @@ import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.TypeToken
 
 /**
- * The main interface returned from a [MockspressoBuilder]. Under the hood,
- * the [MockspressoInstance] it implements is lazily initiated and doesn't become
- * immutable until accessed.
+ * The main interface returned from a [MockspressoBuilder]. It implements [MockspressoInstance] but under the hood,
+ * the instance it implements is lazily initiated and doesn't become ensured/immutable until its dependencies are
+ * accessed.
+ *
+ * IMPORTANT: Calling any of the [MockspressoProperties] methods after the instance has already been ensured
+ * will throw errors at runtime.
  */
 interface Mockspresso : MockspressoInstance, MockspressoProperties {
 
@@ -25,38 +28,157 @@ interface Mockspresso : MockspressoInstance, MockspressoProperties {
   fun teardown()
 }
 
+/**
+ * A fully-constructed instance of a Mockspresso dependency map.
+ */
+interface MockspressoInstance {
+
+  /**
+   * Create a new real object using the rules and dependencies in the mockspresso instance.
+   *
+   * Calling this method will ensure this [MockspressoInstance] is initialized.
+   */
+  fun <T : Any?> createRealObject(key: DependencyKey<T>): T
+
+  /**
+   * Find an existing dependency in this mockspresso instance. If the dependency hasn't been cached or constructed then
+   * it will be generated on the fly and cached from that point forward. If the binding hasn't been declared in this
+   * mockspresso instance, then a fallback will be generated.
+   *
+   * Calling this method will ensure this [MockspressoInstance] is initialized.
+   */
+  fun <T : Any?> findDependency(key: DependencyKey<T>): T
+
+  /**
+   * Returns a new [MockspressoBuilder] using this Mockspresso instance as a parent.
+   *
+   * This method will NOT ensure this [MockspressoInstance] is initialized (i.e. it's possible to build new mockspresso
+   * instances off of lazily instantiated ones, and the parents will be ensured when first accessed).
+   */
+  fun buildUpon(): MockspressoBuilder
+}
+
+/**
+ * Builds a mockspresso [Mockspresso] instance that is lazily instantiated under the hood.
+ */
 interface MockspressoBuilder {
+
+  /**
+   * Add a callback that will fire when the [MockspressoInstance] is fully instantiated/ensured.
+   */
   fun onSetup(cmd: (MockspressoInstance) -> Unit): MockspressoBuilder
+
+  /**
+   * Add a callback that will fire when/if the [MockspressoInstance] is eventually torn down. (Automatic tear-down
+   * is not supported by default but can be configured using plugins).
+   */
   fun onTeardown(cmd: () -> Unit): MockspressoBuilder
 
+  /**
+   * Define how this [MockspressoInstance] will construct real objects. By default, mockspresso will reflectively
+   * call the primary constructor of a given class and pass appropriate dependencies to it.
+   */
   fun makeRealObjectsWith(realMaker: ObjectMaker): MockspressoBuilder // formerly injector
+
+  /**
+   * Define how this [MockspressoInstance] will make fallback objects (i.e. dependencies that have not been explicitly
+   * registered/cached within this instance). Usually this should be supplied by one of the mocking support plugins
+   * (i.e. plugins-mockito or plugins-mockk).
+   *
+   * By default, mockspresso ships with a no-op [FallbackObjectMaker] that throws exceptions when called.
+   */
   fun makeFallbackObjectsWith(fallbackMaker: FallbackObjectMaker): MockspressoBuilder // formerly mocker
 
+  /**
+   * Adds a [DynamicObjectMaker] to this [MockspressoInstance]. A [DynamicObjectMaker] gets a chance to supply any
+   * un-cached/undefined dependency before the request goes to the [FallbackObjectMaker]. This enables mockspresso
+   * plugins supply dependencies based on properties other than concrete types (i.e. generic types, class annotations,
+   * etc.).
+   */
   fun addDynamicObjectMaker(dynamicMaker: DynamicObjectMaker): MockspressoBuilder // formerly special object makers
 
+  /**
+   * Register a dependency provided by [provider], bound in the mockspresso graph with [key].
+   */
   fun <T : Any?> addDependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder
+
+  /**
+   * Register a request to create a real object of type [implementationToken] bound in the mockspresso graph with [key].
+   * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
+   * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
+   */
   fun <BIND : Any?, IMPL : BIND> useRealImplOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> BIND = { it }
   ): MockspressoBuilder
 
+  /**
+   * A utility method intended to enable the creation of shared "test resources" that can add to, pull from and
+   * define some kind of functionality within the injected dependencies of the mockspresso graph.
+   *
+   * The [maker] callback will be fired immediately when calling this method and does not wait for the instance to be
+   * ensured. This allows the test resources to add/configure dependencies in the graph.
+   */
   fun testResources(maker: (MockspressoProperties) -> Unit): MockspressoBuilder
 
+  /**
+   * Build a [Mockspresso] object, but the actual [MockspressoInstance] will not be created immediately and will still
+   * be mutable until its ensured or its dependencies are accessed.
+   */
   fun build(): Mockspresso
 }
 
-interface MockspressoInstance {
-  fun <T : Any?> createRealObject(key: DependencyKey<T>): T
-  fun <T : Any?> findDependency(key: DependencyKey<T>): T
-  fun buildUpon(): MockspressoBuilder
-}
-
+/**
+ * An interface that represents a [MockspressoInstance] that has not yet been fully constructed/ensured. It allows us
+ * to make changes to the graph while also leveraging kotlin's delegated properties to grab lazy references from it
+ * (that will be available after the [MockspressoInstance] under the hood has been ensured).
+ *
+ * Most of the methods in the interface should be used in conjunction with Kotlin's delegated properties
+ * (aka "by") syntax.
+ */
 interface MockspressoProperties {
+
+  /**
+   * Add a callback that will fire when the [MockspressoInstance] is fully instantiated/ensured.
+   */
   fun onSetup(cmd: (MockspressoInstance) -> Unit)
+
+  /**
+   * Add a callback that will fire when/if the [MockspressoInstance] is eventually torn down. (Automatic tear-down
+   * is not supported by default but can be configured using plugins).
+   */
   fun onTeardown(cmd: () -> Unit)
-  fun <T : Any?> depOf(key: DependencyKey<T>, maker: Dependencies.() -> T): Lazy<T>
+
+  /**
+   * Register a dependency provided by [provider], bound in the mockspresso graph with [key] and return a [Lazy]
+   * of that object.
+   *
+   * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
+   * if it hasn't been already.
+   */
+  fun <T : Any?> depOf(key: DependencyKey<T>, provider: Dependencies.() -> T): Lazy<T>
+
+  /**
+   * Find an existing dependency in the underlying mockspresso instance (bound with [key]) and return a [Lazy] for it.
+   *
+   * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
+   * if it hasn't been already.
+   *
+   * If the dependency hasn't been cached or constructed then it will be generated on the fly and cached from that
+   * point forward. If the binding hasn't been declared in this mockspresso instance, then a fallback will be generated.
+   */
   fun <T : Any?> findDepOf(key: DependencyKey<T>): Lazy<T>
+
+  /**
+   * Register a request to create a real object of type [implementationToken] bound in the mockspresso graph with [key].
+   * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
+   * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
+   *
+   * Returns a [Lazy] of the resulting real object
+   * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
+   * if it hasn't been already.
+   */
   fun <BIND : Any?, IMPL : BIND> realImplOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
