@@ -72,8 +72,8 @@ private class MockspressoPropertiesContainer(
     builder.onTearDown(cmd)
   }
 
-  override fun <T> depOf(key: DependencyKey<T>, maker: Dependencies.() -> T): Lazy<T> {
-    builder.dependencyOf(key, maker)
+  override fun <T> depOf(key: DependencyKey<T>, provider: Dependencies.() -> T): Lazy<T> {
+    builder.dependencyOf(key, provider)
     return findDepOf(key)
   }
 

@@ -89,7 +89,7 @@ interface MockspressoBuilder {
 interface MockspressoProperties {
   fun onSetup(cmd: (MockspressoInstance) -> Unit)
   fun onTeardown(cmd: () -> Unit)
-  fun <T : Any?> depOf(key: DependencyKey<T>, maker: Dependencies.() -> T): Lazy<T>
+  fun <T : Any?> depOf(key: DependencyKey<T>, provider: Dependencies.() -> T): Lazy<T>
   fun <T : Any?> findDepOf(key: DependencyKey<T>): Lazy<T>
   fun <BIND : Any?, IMPL : BIND> realImplOf(
     key: DependencyKey<BIND>,
