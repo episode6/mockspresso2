@@ -32,6 +32,7 @@ interface Mockspresso : MockspressoInstance, MockspressoProperties {
  * A fully-constructed instance of a Mockspresso dependency map.
  */
 interface MockspressoInstance {
+
   /**
    * Create a new real object using the rules and dependencies in the mockspresso instance.
    *
