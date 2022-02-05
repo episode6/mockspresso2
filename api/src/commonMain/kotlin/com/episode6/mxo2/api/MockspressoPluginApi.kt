@@ -2,7 +2,15 @@ package com.episode6.mxo2.api
 
 import com.episode6.mxo2.reflect.DependencyKey
 
+/**
+ * An accessor into the mockspresso dependency map that is passed to real and dynamic object makers which enables
+ * them to inject dependencies into the objects they create.
+ */
 interface Dependencies {
+
+  /**
+   * Returns a dependency from mockspresso
+   */
   fun <T : Any?> get(key: DependencyKey<T>): T
 }
 
