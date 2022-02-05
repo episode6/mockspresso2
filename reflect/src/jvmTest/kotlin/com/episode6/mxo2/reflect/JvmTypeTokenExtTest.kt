@@ -1,7 +1,7 @@
 package com.episode6.mxo2.reflect
 
 import assertk.assertThat
-import assertk.assertions.isEqualTo
+import assertk.assertions.isDataClassEqualTo
 import org.junit.jupiter.api.Test
 import java.lang.reflect.Method
 
@@ -17,9 +17,9 @@ class JvmTypeTokenExtTest {
     val giveBToken = token.resolveReturnTypeFromMethod(giveB)
     val giveListAToken = token.resolveReturnTypeFromMethod(giveListA)
 
-    assertThat(giveAToken).isEqualTo(typeToken<String>())
-    assertThat(giveBToken).isEqualTo(typeToken<Int>())
-    assertThat(giveListAToken).isEqualTo(typeToken<List<String>>())
+    assertThat(giveAToken).isDataClassEqualTo(typeToken<String>())
+    assertThat(giveBToken).isDataClassEqualTo(typeToken<Int>())
+    assertThat(giveListAToken).isDataClassEqualTo(typeToken<List<String>>())
   }
 
   @Test fun testSecondLevel() {
@@ -34,10 +34,10 @@ class JvmTypeTokenExtTest {
     val giveListAToken = token.resolveReturnTypeFromMethod(giveListA)
     val giveMapXYToken = token.resolveReturnTypeFromMethod(giveMapXY)
 
-    assertThat(giveAToken).isEqualTo(typeToken<Int>())
-    assertThat(giveBToken).isEqualTo(typeToken<String>())
-    assertThat(giveListAToken).isEqualTo(typeToken<List<Int>>())
-    assertThat(giveMapXYToken).isEqualTo(typeToken<Map<String, Int>>())
+    assertThat(giveAToken).isDataClassEqualTo(typeToken<Int>())
+    assertThat(giveBToken).isDataClassEqualTo(typeToken<String>())
+    assertThat(giveListAToken).isDataClassEqualTo(typeToken<List<Int>>())
+    assertThat(giveMapXYToken).isDataClassEqualTo(typeToken<Map<String, Int>>())
   }
 
   private interface IFace<A, B> {
