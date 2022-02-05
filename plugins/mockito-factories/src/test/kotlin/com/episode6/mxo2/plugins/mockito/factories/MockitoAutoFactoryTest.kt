@@ -1,4 +1,4 @@
-package com.episode6.mxo2.plugins.mockito
+package com.episode6.mxo2.plugins.mockito.factories
 
 import assertk.assertThat
 import assertk.assertions.containsExactly

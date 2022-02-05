@@ -6,6 +6,7 @@ listOf(
   "junit4",
   "junit5",
   "mockito",
+  "mockito-factories",
   "mockk",
 ).forEach {
   include("$prefix-$it")
