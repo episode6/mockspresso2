@@ -16,7 +16,7 @@ class MockitoAutoFactoryTest {
 
   private val deps: Dependencies = mock()
 
-  private inline fun <reified T : Any> makeMock(): T = deps.autoFactoryMock()
+  private inline fun <reified T : Any> makeMock(): T = deps.autoFactoryMock(dependencyKey<T>())
 
   @Test fun testFirstLevel() {
     deps.stub {
