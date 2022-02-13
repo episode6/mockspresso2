@@ -1,6 +1,7 @@
 ## Project Setup
 Ideally, mockspresso should only be exposed to tests via a dedicated gradle module. This lets us define MockspressoBuilder with defaults appropriate to our project and prevents accidental usage of the default `MockspressoBuilder()` entry-point.
 
+**Gradle setup**
 ```groovy
 def mxoVersion = '0.2.0-alpha01-SNAPSHOT'
 
@@ -13,6 +14,15 @@ dependencies {
     // hide the core module from other modules
     implementation "com.episode6.mockspresso2:core:$mxoVersion"
 }
+```
+
+**Project entry point**
+```kotlin
+package com.sample.myproject.testsupport
+
+// simple custom entry-point for your project
+fun MockspressoBuilder(): MockspressoBuilder = com.episode6.mxo2.MockspressoBuilder()
+    .makeRealObjectsUsingPrimaryConstructor()
 ```
 
 #### Mock support modules
