@@ -2,6 +2,11 @@ plugins {
   id("org.jetbrains.dokka")
 }
 
+allprojects {
+  group = "com.episode6.mockspresso2"
+  version = "2.0.0-alpha01-SNAPSHOT"
+}
+
 tasks.register<Delete>("clean") {
   delete(rootProject.buildDir)
 }
@@ -9,11 +14,6 @@ tasks.register<Delete>("clean") {
 tasks.wrapper {
   gradleVersion = libs.versions.gradle.core.get()
   distributionType = Wrapper.DistributionType.ALL
-}
-
-allprojects {
-  group = "com.episode6.mockspresso2"
-  version = "2.0.0-alpha01-SNAPSHOT"
 }
 
 val dokkaDir = "docs/dokka"
