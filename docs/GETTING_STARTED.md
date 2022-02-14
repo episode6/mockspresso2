@@ -20,18 +20,33 @@ dependencies {
 ```kotlin
 package com.sample.myproject.testsupport
 
-// simple custom entry-point for your project
+// define a simple custom entry-point for your project
 fun MockspressoBuilder(): MockspressoBuilder = com.episode6.mxo2.MockspressoBuilder()
     .makeRealObjectsUsingPrimaryConstructor()
 ```
 
-#### Mock support modules
+**Mock & Auto-Mock support**
+
+Mockspresso is agnostic to mocks and should work with any mocking framework that works with kotlin, but we do offer plugin modules to support [Mockk](https://mockk.io/) and [Mockito](https://site.mockito.org/)
 
 ```groovy
-// pick a support module for your mocking framework of choice
-api "com.episode6.mockspresso2:plugins-mockito:$mxoVersion"
-api "com.episode6.mockspresso2:plugins-mockk:$mxoVersion"
+dependencies {
+    api "com.episode6.mockspresso2:plugins-mockito:$mxoVersion"
+    // OR
+    api "com.episode6.mockspresso2:plugins-mockk:$mxoVersion"
+}
+```
 
+Add auto-mock support to your `MockspressoBuilder()` entry-point
+```diff
+ fun MockspressoBuilder(): MockspressoBuilder = com.episode6.mxo2.MockspressoBuilder()
+     .makeRealObjectsUsingPrimaryConstructor()
++    .fallbackWithMockk() // or fallbackWithMockito()
+```
+
+## TODO
+
+```groovy
 // optionally include plugins for popular 3rd party libs/frameworks
 implementation "com.episode6.mockspresso2:plugins-dagger:$mxoVersion"
 implementation "com.episode6.mockspresso2:plugins-javax-inject:$mxoVersion"
