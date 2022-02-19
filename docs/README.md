@@ -9,16 +9,16 @@ The primary goal is to reduce the friction, boilerplate, brittleness and barrier
 ```diff
  class CoffeeMakerHeaterTest {
 +    val mxo = MockspressoBuilder().build()
-
-+    val heater: Heater by mxo.mock()
+ 
 -    val heater: Heater = mock()
++    val heater: Heater by mxo.mock()
 -    val filter: Filter = mock()
 -    val timer: Timer = mock()
 -    val analytics: Analytics = mock()
-
+ 
 +    val coffeeMaker: CoffeeMaker by mxo.realInstance()
 -    lateinit var coffeeMaker: CoffeeMaker
-
+ 
 -    @Before
 -    fun setup() {
 -      coffeeMaker = CoffeeMaker(heater, filter, timer, analytics)
