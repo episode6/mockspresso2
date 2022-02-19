@@ -2,9 +2,12 @@
 See the [Project Setup](PROJECT_SETUP.md) doc for current version & setup instructions.
 
 ## What & Why?
-Mockspresso2 acts like a single-use DI graph for kotlin unit and integration tests. Dependencies and mocks are registered in the graph during test setup and real objects are created using reflection, automatically injected with those dependencies. Any dependencies not explicitly registered can be automatically mocked. Created real objects are imported into the graph and can be combined to perform complex integration tests.
+Mockspresso2 acts like a smart, single-use DI graph for kotlin unit and integration tests where any missing dependencies can be mocked automatically. The goal is to reduce the friction, boilerplate, brittleness and barrier-to-entry when writing unit-tests, enabling engineers to focus on what matters.
 
-The primary goal is to reduce the friction, boilerplate, brittleness and barrier-to-entry when writing and updating unit-tests. Enabling engineers to focus on what matters...
+ - Avoid calling constructors (and the dreaded `lateinit var`)
+ - Only mention dependencies/mocks that have some bearing on the test
+ - Automatically handle common DI-related types (Provider, Lazy, Factories, etc.) 
+
 
 ```diff
  class CoffeeMakerHeaterTest {
@@ -12,16 +15,22 @@ The primary goal is to reduce the friction, boilerplate, brittleness and barrier
  
 -    val heater: Heater = mock()
 +    val heater: Heater by mxo.mock()
+ 
+-    // useless mocks that we only use to satisfy the constructor
 -    val filter: Filter = mock()
 -    val timer: Timer = mock()
 -    val analytics: Analytics = mock()
+-    val heaterProvider: Provider<Heater> = mock {
+-         on { get() } doReturn heater
+-    }
  
++    // let mockspresso construct the object-under-test lazily
 +    val coffeeMaker: CoffeeMaker by mxo.realInstance()
 -    lateinit var coffeeMaker: CoffeeMaker
  
 -    @Before
 -    fun setup() {
--      coffeeMaker = CoffeeMaker(heater, filter, timer, analytics)
+-      coffeeMaker = CoffeeMaker(heaterProvider, filter, timer, analytics)
 -    }
 -
      @Test fun testHeaterIsUser() {
@@ -32,7 +41,7 @@ The primary goal is to reduce the friction, boilerplate, brittleness and barrier
  }
 ```
 
-A secondary goal is to act as a vehicle to share common test code and utilities...
+A secondary goal is to act as a vehicle to share common test code and utilities. Because Mockspresso acts as in-place of a DI-graph, Mockspresso plugins are able to register/inject test objects or mocks into that graph (which will then be injected into a real object)...
 
 ```diff
 class CoffeeMakerHeaterTest {
