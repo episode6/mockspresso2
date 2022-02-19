@@ -1,7 +1,7 @@
 ## Project Setup
 Ideally, mockspresso should only be exposed to tests via a dedicated gradle module. This lets us define MockspressoBuilder with defaults appropriate to our project and prevents accidental usage of the default `MockspressoBuilder()` entry-point.
 
-**Gradle setup**
+#### Gradle setup
 ```groovy
 def mxoVersion = '0.2.0-alpha01-SNAPSHOT'
 
@@ -16,7 +16,7 @@ dependencies {
 }
 ```
 
-**Project entry point**
+#### Project entry point
 ```kotlin
 package com.sample.myproject.testsupport
 
@@ -25,7 +25,7 @@ fun MockspressoBuilder(): MockspressoBuilder = com.episode6.mxo2.MockspressoBuil
     .makeRealObjectsUsingPrimaryConstructor()
 ```
 
-**Mock & Auto-Mock support**
+#### Mock and Auto-Mock support
 
 Mockspresso is agnostic to mocks and should work with any mocking framework that works with kotlin, but we do offer plugin modules to add fallback support (a.k.a. auto-mocking) with [Mockk](https://mockk.io/) or [Mockito](https://site.mockito.org/)
 
@@ -43,6 +43,8 @@ Add auto-mock support to your `MockspressoBuilder()` entry-point
      .makeRealObjectsUsingPrimaryConstructor()
 +    .fallbackWithMockk() // or fallbackWithMockito()
 ```
+
+#### Inject & Dagger support
 
 ## TODO
 
