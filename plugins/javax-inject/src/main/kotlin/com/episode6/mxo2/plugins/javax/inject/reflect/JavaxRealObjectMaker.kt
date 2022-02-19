@@ -1,4 +1,4 @@
-package com.episode6.mxo2.plugins.javax.inject
+package com.episode6.mxo2.plugins.javax.inject.reflect
 
 import com.episode6.mxo2.MockspressoInstance
 import com.episode6.mxo2.api.Dependencies
