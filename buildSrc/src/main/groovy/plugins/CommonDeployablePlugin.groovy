@@ -13,6 +13,8 @@ class CommonDeployablePlugin implements Plugin<Project> {
         apply("signing")
       }
 
+      task("deploy", dependsOn: tasks.publish)
+
       task("javadocJar", type: Jar, dependsOn: tasks.dokkaHtml) {
         archiveClassifier.set('javadoc')
         from tasks.dokkaHtml
