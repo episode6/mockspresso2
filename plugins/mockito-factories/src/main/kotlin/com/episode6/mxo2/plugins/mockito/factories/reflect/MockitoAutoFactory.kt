@@ -1,4 +1,4 @@
-package com.episode6.mxo2.plugins.mockito.factories
+package com.episode6.mxo2.plugins.mockito.factories.reflect
 
 import com.episode6.mxo2.MockspressoBuilder
 import com.episode6.mxo2.MockspressoProperties

@@ -1,8 +1,8 @@
 package com.episode6.mxo2.plugins.dagger2
 
 import com.episode6.mxo2.MockspressoBuilder
-import com.episode6.mxo2.plugins.javax.inject.findExactlyOneInjectConstructor
-import com.episode6.mxo2.plugins.javax.inject.javaxRealObjectMaker
+import com.episode6.mxo2.plugins.javax.inject.reflect.findExactlyOneInjectConstructor
+import com.episode6.mxo2.plugins.javax.inject.reflect.javaxRealObjectMaker
 import dagger.assisted.AssistedInject
 import javax.inject.Inject
 import kotlin.reflect.full.hasAnnotation

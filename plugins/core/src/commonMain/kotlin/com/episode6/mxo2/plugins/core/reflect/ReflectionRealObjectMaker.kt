@@ -1,4 +1,4 @@
-package com.episode6.mxo2.plugins.core
+package com.episode6.mxo2.plugins.core.reflect
 
 import com.episode6.mxo2.api.RealObjectMaker
 import com.episode6.mxo2.reflect.*

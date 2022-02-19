@@ -6,6 +6,8 @@ import assertk.assertThat
 import assertk.assertions.hasClass
 import assertk.assertions.isFailure
 import com.episode6.mxo2.MockspressoBuilder
+import com.episode6.mxo2.plugins.javax.inject.reflect.MultipleInjectConstructorsException
+import com.episode6.mxo2.plugins.javax.inject.reflect.NoInjectConstructorsException
 import com.episode6.mxo2.realInstance
 import org.junit.jupiter.api.Test
 import javax.inject.Inject

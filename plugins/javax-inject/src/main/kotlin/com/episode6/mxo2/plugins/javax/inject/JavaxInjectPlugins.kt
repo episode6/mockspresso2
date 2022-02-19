@@ -2,6 +2,9 @@ package com.episode6.mxo2.plugins.javax.inject
 
 import com.episode6.mxo2.MockspressoBuilder
 import com.episode6.mxo2.MockspressoInstance
+import com.episode6.mxo2.plugins.javax.inject.reflect.asDependencies
+import com.episode6.mxo2.plugins.javax.inject.reflect.injectWithDependencies
+import com.episode6.mxo2.plugins.javax.inject.reflect.javaxRealObjectMaker
 import com.episode6.mxo2.reflect.TypeToken
 import kotlin.reflect.full.createType
 

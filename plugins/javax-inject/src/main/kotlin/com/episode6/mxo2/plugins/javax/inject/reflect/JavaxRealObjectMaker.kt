@@ -1,9 +1,9 @@
-package com.episode6.mxo2.plugins.javax.inject
+package com.episode6.mxo2.plugins.javax.inject.reflect
 
 import com.episode6.mxo2.MockspressoInstance
 import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.RealObjectMaker
-import com.episode6.mxo2.plugins.core.reflectionRealObjectMaker
+import com.episode6.mxo2.plugins.core.reflect.reflectionRealObjectMaker
 import com.episode6.mxo2.reflect.*
 import java.lang.reflect.AnnotatedElement
 import javax.inject.Inject
