@@ -102,17 +102,29 @@ Interfaces annotated with `@dagger.AssistedFactory` can also be handled automati
 
 **Note:** The `plugins-mockito-factories` requires mockito be included in the project, but does not require your tests know or care about it. It should work side-by-side with mockk (in jvm projects).
 
-## TODO
+### Integration with testing frameworks
 
+Mockspresso is totally agnostic to testing frameworks. Ensuring and tearing down mockspresso instances isn't even required for tests (ensuring will be done lazily and teardown callbacks will simply be omitted). However it's a best practice (especially in large projects) to integrate mockspresso's life-cycle with your test-framework's to ensure setup and teardown callbacks all fire at expected times. 
+
+We currently offer support plugins for JUnit 4 & 5 to assist with this.
 ```groovy
-// optionally include plugins for popular 3rd party libs/frameworks
-implementation "com.episode6.mockspresso2:plugins-dagger:$mxoVersion"
-implementation "com.episode6.mockspresso2:plugins-javax-inject:$mxoVersion"
+dependencies {
+    api "com.episode6.mockspresso2:plugins-junit4:$mxoVersion"
+    // OR
+    api "com.episode6.mockspresso2:plugins-junit5:$mxoVersion"
+}
+```
 
-// optionally include plugins for your test framework
-api "com.episode6.mockspresso2:plugins-junit4:$mxoVersion"
-api "com.episode6.mockspresso2:plugins-junit5:$mxoVersion"
+JUnit 4 Rule
+```kotlin
+@get:Rule val mxo = BuildMockspresso().build()
+    .junitRule() // returns an object that implements both 
+                 // Mockspresso and ClassRule interfaces
+```
 
-// other utility plugins include
-api "com.episode6.mockspresso2:plugins-mockito-factories:$mxoVersion"
+JUnit 5 Extension
+```kotlin
+@RegisterExtension val mxo = BuildMockspresso().build()
+    .junitExtension() // returns an object that implements both 
+                      // Mockspresso and Extension interfaces
 ```
