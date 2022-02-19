@@ -3,6 +3,7 @@ package com.episode6.mxo2.plugins.mockito.factories
 import com.episode6.mxo2.MockspressoBuilder
 import com.episode6.mxo2.MockspressoProperties
 import com.episode6.mxo2.api.DynamicObjectMaker
+import com.episode6.mxo2.plugins.mockito.factories.reflect.autoFactoryMock
 import com.episode6.mxo2.reflect.asKClass
 import com.episode6.mxo2.reflect.dependencyKey
 import kotlin.reflect.full.hasAnnotation

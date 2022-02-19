@@ -5,6 +5,7 @@ import assertk.assertions.containsExactly
 import assertk.assertions.containsOnly
 import assertk.assertions.isEqualTo
 import com.episode6.mxo2.api.Dependencies
+import com.episode6.mxo2.plugins.mockito.factories.reflect.autoFactoryMock
 import com.episode6.mxo2.reflect.dependencyKey
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.KStubbing
