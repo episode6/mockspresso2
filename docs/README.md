@@ -45,15 +45,17 @@ class CoffeeMakerHeaterTest {
 
 
 ## Why v2
-Mockspresso2 is a complete kotlin re-write of [Mockspresso1](https://episode6.github.io/mockspresso). The key differences include
+Mockspresso2 is a complete kotlin re-imagining of [Mockspresso1](https://episode6.github.io/mockspresso) (which was originally 100% Java). The key differences include...
 
 | v1 | v2 |
 | - | - |
-| Java only | Kotlin Mutli-Platform (currently only generating jvm modules but more platform support to come) |
+| Java / JVM only | Kotlin Mutli-Platform* |
 | Requires JUnit4 | Completely agnostic to test framework |
 | Uses annotation processing on tests | Uses kotlin delegated properties |
 
-See the [Translation Guide](TRANSLATION_GUIDE.md) for key syntax differences.
+\*We're currently only generating jvm modules but more platform support is coming soon.
+
+See the [Translation Guide](TRANSLATION_GUIDE.md) for key syntax differences between Mockspresso 1 vs 2.
 
 
 ## More Resources
