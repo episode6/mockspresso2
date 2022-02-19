@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.api.RealObjectMaker
+import com.episode6.mxo2.plugins.core.reflect.reflectionRealObjectMaker
 import com.episode6.mxo2.reflect.allConstructors
 import com.episode6.mxo2.reflect.asKClass
 import com.episode6.mxo2.reflect.dependencyKey

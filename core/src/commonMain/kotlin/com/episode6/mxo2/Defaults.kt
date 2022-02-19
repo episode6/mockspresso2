@@ -2,7 +2,7 @@ package com.episode6.mxo2
 
 import com.episode6.mxo2.api.FallbackObjectMaker
 import com.episode6.mxo2.api.RealObjectMaker
-import com.episode6.mxo2.plugins.core.reflectionRealObjectMaker
+import com.episode6.mxo2.plugins.core.reflect.reflectionRealObjectMaker
 import com.episode6.mxo2.reflect.DependencyKey
 
 /**
