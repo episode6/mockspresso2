@@ -27,7 +27,7 @@ fun MockspressoBuilder(): MockspressoBuilder = com.episode6.mxo2.MockspressoBuil
 
 **Mock & Auto-Mock support**
 
-Mockspresso is agnostic to mocks and should work with any mocking framework that works with kotlin, but we do offer plugin modules to support [Mockk](https://mockk.io/) and [Mockito](https://site.mockito.org/)
+Mockspresso is agnostic to mocks and should work with any mocking framework that works with kotlin, but we do offer plugin modules to add fallback support (a.k.a. auto-mocking) with [Mockk](https://mockk.io/) or [Mockito](https://site.mockito.org/)
 
 ```groovy
 dependencies {
