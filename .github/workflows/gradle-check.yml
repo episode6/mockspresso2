@@ -25,5 +25,10 @@ jobs:
       run: ./gradlew assemble
     - name: Check Project
       run: ./gradlew check
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1.28
+      if: always()
+      with:
+        files: test-results/**/*.xml
     - name: Generate Docs
       run: ./gradlew dokkaHtml
