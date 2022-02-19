@@ -1,5 +1,5 @@
 ## Installation
-See the [Getting Started](GETTING_STARTED.md) doc for current version & project setup instructions.
+See the [Project Setup](PROJECT_SETUP.md) doc for current version & setup instructions.
 
 ## What & Why?
 Mockspresso2 acts like a single-use DI graph for kotlin unit and integration tests. Dependencies and mocks are registered in the graph during test setup and real objects are created using reflection, automatically injected with those dependencies. Any dependencies not explicitly registered can be automatically mocked. Created real objects are imported into the graph and can be combined to perform complex integration tests.
@@ -58,6 +58,7 @@ See the [Translation Guide](TRANSLATION_GUIDE.md) for key syntax differences.
 
 ## More Resources
 
+- [Project Setup](PROJECT_SETUP.md)
 - [Getting Started](GETTING_STARTED.md)
 - [Plugins](PLUGINS.md)
 - [KDocs](dokka/)
