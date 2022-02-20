@@ -42,7 +42,7 @@ class MyTest {
 ```
 
 
-### Mock and Auto-Mock support
+### Auto-Mock support
 
 Mockspresso is agnostic to mocks and should work with any mocking framework that works with kotlin, but we do offer plugin modules to add fallback support (a.k.a. auto-mocking) with [Mockk](https://mockk.io/) (using [`plugins-mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html)) or [Mockito](https://site.mockito.org/) (using [`plugins-mockito`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html))
 
@@ -61,7 +61,7 @@ Add auto-mock support to your `MockspressoBuilder()` entry-point
 +    .fallbackWithMockk() // or fallbackWithMockito()
 ```
 
-### Inject & Dagger support
+### JSR-330 & Dagger2 support
 
 Mockspresso provides plugin modules to support [javax.inject](https://github.com/javax-inject/javax-inject)/[dagger2](https://dagger.dev/) constructor, field & method injection using either [`plugins-javax-inject`](dokka/plugins-javax-inject/com.episode6.mxo2.plugins.javax.inject/index.html) and/or [`plugins-dagger2`](dokka/plugins-dagger2/com.episode6.mxo2.plugins.dagger2/index.html).
 
