@@ -72,6 +72,21 @@ inline fun <reified T : Any?> MockspressoProperties.depOf(
 ): Lazy<T> = depOf(dependencyKey(qualifier), provider)
 
 /**
+ * Register a dependency provided by [provider] that is of type [IMPL] but bound in the mockspresso graph with a
+ * dependencyKey made from type [BIND] and [qualifier]. Returns a [Lazy] with access to that dependency as type [IMPL]
+ *
+ * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
+ * if it hasn't been already.
+ */
+@Suppress("UNCHECKED_CAST") inline fun <reified BIND : Any?, IMPL : BIND> MockspressoProperties.fakeOf(
+  qualifier: Annotation? = null,
+  noinline provider: Dependencies.() -> IMPL
+): Lazy<IMPL> {
+  val depLazy = depOf<BIND>(qualifier, provider)
+  return lazy(LazyThreadSafetyMode.NONE) { depLazy.value as IMPL }
+}
+
+/**
  * Find an existing dependency in the underlying mockspresso instance (bound with a dependencyKey of type
  * [T] + [qualifier]) and return a [Lazy] for access to it.
  *
@@ -115,4 +130,4 @@ inline fun <reified T : Any?> MockspressoProperties.realInstance(
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.realImplOf(
   qualifier: Annotation? = null,
   noinline interceptor: (IMPL) -> IMPL = { it }
-): Lazy<IMPL> = realImplOf(dependencyKey<BIND>(qualifier), typeToken(), interceptor)
+): Lazy<IMPL> = realImplOf(dependencyKey<BIND>(qualifier), typeToken<IMPL>(), interceptor)
