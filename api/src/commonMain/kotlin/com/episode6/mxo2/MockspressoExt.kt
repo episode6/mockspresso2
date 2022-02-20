@@ -28,10 +28,10 @@ inline fun <reified T : Any?> MockspressoInstance.findDependency(
  * Register a dependency provided by [provider], bound in the mockspresso graph with a dependencyKey made from
  * type [T] and [qualifier].
  */
-inline fun <reified T : Any?> MockspressoBuilder.addDependencyOf(
+inline fun <reified T : Any?> MockspressoBuilder.dependencyOf(
   qualifier: Annotation? = null,
   noinline provider: Dependencies.() -> T
-): MockspressoBuilder = addDependencyOf(dependencyKey(qualifier), provider)
+): MockspressoBuilder = dependencyOf(dependencyKey(qualifier), provider)
 
 /**
  * Register a request to create a real object of type [T] bound in the mockspresso graph with a dependencyKey made from
@@ -40,10 +40,10 @@ inline fun <reified T : Any?> MockspressoBuilder.addDependencyOf(
  * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
  * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
  */
-inline fun <reified T : Any?> MockspressoBuilder.useRealInstanceOf(
+inline fun <reified T : Any?> MockspressoBuilder.realInstanceOf(
   qualifier: Annotation? = null,
   noinline interceptor: (T) -> T = { it }
-): MockspressoBuilder = dependencyKey<T>(qualifier).let { useRealImplOf(it, it.token, interceptor) }
+): MockspressoBuilder = dependencyKey<T>(qualifier).let { realImplementationOf(it, it.token, interceptor) }
 
 /**
  * Register a request to create a real object of type [IMPL] bound in the mockspresso graph with a dependencyKey made
@@ -52,10 +52,10 @@ inline fun <reified T : Any?> MockspressoBuilder.useRealInstanceOf(
  * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
  * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
  */
-inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.useRealImplOf(
+inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImplementationOf(
   qualifier: Annotation? = null,
   noinline interceptor: (IMPL) -> BIND = { it }
-): MockspressoBuilder = useRealImplOf(dependencyKey<BIND>(qualifier), typeToken<IMPL>(), interceptor)
+): MockspressoBuilder = realImplementationOf(dependencyKey<BIND>(qualifier), typeToken<IMPL>(), interceptor)
 
 /**
  * Register a dependency provided by [provider], bound in the mockspresso graph with a dependencyKey made from

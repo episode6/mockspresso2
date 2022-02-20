@@ -9,9 +9,9 @@ class GenericDependenciesTest {
 
   @Test fun testSimpleGeneric() {
     val mxo = MockspressoBuilder()
-      .addDependencyOf { 5 }
-      .addDependencyOf { "hello" }
-      .addDependencyOf { 4.2f }
+      .dependencyOf { 5 }
+      .dependencyOf { "hello" }
+      .dependencyOf { 4.2f }
       .build()
 
     val obj = mxo.createRealObject<GenericObj<String, Int, Float>>()
@@ -23,10 +23,10 @@ class GenericDependenciesTest {
 
   @Test fun testGenericWithGeneric() {
     val mxo = MockspressoBuilder()
-      .useRealInstanceOf<GenericObj<Int, Float, Set<String>>>()
-      .addDependencyOf { 5 }
-      .addDependencyOf { setOf("str1", "str2") }
-      .addDependencyOf { 4.2f }
+      .realInstanceOf<GenericObj<Int, Float, Set<String>>>()
+      .dependencyOf { 5 }
+      .dependencyOf { setOf("str1", "str2") }
+      .dependencyOf { 4.2f }
       .build()
 
     val obj = mxo.createRealObject<GenericWithGeneric<Float, Int>>()
@@ -40,11 +40,11 @@ class GenericDependenciesTest {
 
   @Test fun testRidiculousGenerics() {
     val mxo = MockspressoBuilder()
-      .useRealInstanceOf<GenericObj<List<Map<String, Int>>, Map<String, Int>, Set<String>>>()
-      .useRealInstanceOf<GenericWithGeneric<Map<String, Int>, List<Map<String, Int>>>>()
-      .addDependencyOf { setOf("setStr1", "setStr2") }
-      .addDependencyOf { mapOf("str1" to 1) }
-      .addDependencyOf {
+      .realInstanceOf<GenericObj<List<Map<String, Int>>, Map<String, Int>, Set<String>>>()
+      .realInstanceOf<GenericWithGeneric<Map<String, Int>, List<Map<String, Int>>>>()
+      .dependencyOf { setOf("setStr1", "setStr2") }
+      .dependencyOf { mapOf("str1" to 1) }
+      .dependencyOf {
         listOf(
           mapOf("str2" to 2),
           mapOf("str3" to 3)

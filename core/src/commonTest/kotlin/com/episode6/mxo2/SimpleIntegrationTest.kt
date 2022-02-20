@@ -93,7 +93,7 @@ class SimpleIntegrationTest {
 
   @Test fun testInterceptSpyk() {
     val mxo = MockspressoBuilder()
-      .addDependencyOf { SomeDependency1() }
+      .dependencyOf { SomeDependency1() }
       .build()
 
     val dep2: SomeDependency2 by mxo.realInstance { spyk(it) }
@@ -106,7 +106,7 @@ class SimpleIntegrationTest {
 
   @Test fun testDynamicDependency() {
     val mxo = MockspressoBuilder()
-      .addDependencyOf { SomeObject(get(dependencyKey()), get(dependencyKey())) }
+      .dependencyOf { SomeObject(get(dependencyKey()), get(dependencyKey())) }
       .build()
 
     val dep1 by mxo.depOf { SomeDependency1() }

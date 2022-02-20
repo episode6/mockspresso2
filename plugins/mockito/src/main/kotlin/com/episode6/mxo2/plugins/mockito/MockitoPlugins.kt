@@ -42,7 +42,7 @@ inline fun <reified T : Any?> MockspressoBuilder.defaultMock(
   @Incubating useConstructor: UseConstructor? = null,
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false
-): MockspressoBuilder = addDependencyOf(qualifier) {
+): MockspressoBuilder = dependencyOf(qualifier) {
   Mockito.mock(
     T::class.java,
     withSettings(
@@ -82,7 +82,7 @@ inline fun <reified T : Any?> MockspressoBuilder.defaultMock(
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false,
   noinline stubbing: KStubbing<T>.(T) -> Unit
-): MockspressoBuilder = addDependencyOf(qualifier) {
+): MockspressoBuilder = dependencyOf(qualifier) {
   Mockito.mock(
     T::class.java,
     withSettings(

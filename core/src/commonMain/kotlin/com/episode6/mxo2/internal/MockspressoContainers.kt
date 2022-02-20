@@ -36,10 +36,10 @@ internal class MockspressoBuilderContainer(parent: Lazy<MxoInstance>? = null) : 
   override fun makeFallbackObjectsWith(fallbackMaker: FallbackObjectMaker): MockspressoBuilder =
     apply { builder.fallbackObjectMaker(fallbackMaker) }
 
-  override fun <T> addDependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder =
+  override fun <T> dependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder =
     apply { builder.dependencyOf(key, provider) }
 
-  override fun <BIND : Any?, IMPL : BIND> useRealImplOf(
+  override fun <BIND : Any?, IMPL : BIND> realImplementationOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> BIND

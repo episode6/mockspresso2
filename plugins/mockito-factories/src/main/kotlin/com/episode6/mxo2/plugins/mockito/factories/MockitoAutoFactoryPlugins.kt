@@ -26,7 +26,7 @@ inline fun <reified A : Annotation> MockspressoBuilder.autoFactoriesByAnnotation
  */
 inline fun <reified T : Any?> MockspressoBuilder.autoFactory(qualifier: Annotation? = null): MockspressoBuilder {
   val key = dependencyKey<T>(qualifier)
-  return addDependencyOf(key) { autoFactoryMock(key) }
+  return dependencyOf(key) { autoFactoryMock(key) }
 }
 
 /**
