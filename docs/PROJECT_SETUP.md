@@ -16,7 +16,7 @@ dependencies {
 }
 ```
 
-### Project entry point
+### Entry-point in dedicated gradle module
 ```kotlin
 package com.sample.myproject.testsupport
 
@@ -24,6 +24,23 @@ package com.sample.myproject.testsupport
 fun MockspressoBuilder(): MockspressoBuilder = com.episode6.mxo2.MockspressoBuilder()
     .makeRealObjectsUsingPrimaryConstructor()
 ```
+
+### Entry-point in single module project
+It may not be feasible to dedicate a module to mockspresso support. In that case it's better to avoid duplicating the `MockspressoBuilder()` entry-point and prefer defining a `withDefaults()` plugin for all tests to apply...
+```kotlin
+// test-support code
+fun MockspressoBuilder.withDefaults(): MockspressoBuilder = this
+    .makeRealObjectsUsingPrimaryConstructor()
+
+// Usage example:
+class MyTest {
+
+    // use built-in entry-point but require defaults plugin as a best-practice
+    val mxo = MockspressoBuilder().withDefaults()
+        .build()
+}
+```
+
 
 ### Mock and Auto-Mock support
 
@@ -65,26 +82,17 @@ Instruct your default `MockspressoBuilder()` to require `@Inject` annotations on
 ```
 **Note:** `Dagger2Rules` is a super-set of `JavaxInjectRules` that adds support for constructors with the `@AssistedInject` annotation.
 
-The `plugins-javax-inject` also includes a plugin to allow a `MockspressoInstance` to inject any pre-existing object with field / method injection. Than can be helpful in android development when running robolectric tests on Activities, Services, etc. that must be created by the system. example:
-
-```kotlin
-val mxo = BuildMockspresso().build()
-
-@Test fun testWelcomeActivity() {
-  val activity = Robolectric.setupActivity(WelcomeActivity::class.java)
-  mxo.inject(activity) // it's also possible to set this up automatically using a custom Application
-}
-```
+The `plugins-javax-inject` module also includes the `MockspressoInstance.inject(Any)` plugin to inject any pre-existing object with field / method injection. Than can be helpful in android development when running robolectric tests on Activities, Services, etc. that must be created by the system. 
 
 #### Automatic Provider, Lazy and AssistedFactory handling
 
-Included in the `javax-inject` and `dagger2` modules are plugins to automatically map `java.inject.Provider<T>` and `dagger.Lazy<T>` to their underlying dependencies.
+Included in the `plugins-javax-inject` and `plugins-dagger2` modules are plugins to automatically map `java.inject.Provider<T>` and `dagger.Lazy<T>` to their underlying dependencies.
 ```diff
  // dagger2 example
  fun MockspressoBuilder(): MockspressoBuilder = com.episode6.mxo2.MockspressoBuilder()
      .makeRealObjectsUsingDagger2Rules()
-+    .javaxProviderSupport()
-+    .dagger2LazySupport()
++    .javaxProviderSupport()    // provided by plugins-javax-inject module
++    .dagger2LazySupport()      // provided by plugins-dagger2 module
      .fallbackWithMockk()
 ```
 
@@ -96,11 +104,11 @@ Interfaces annotated with `@dagger.AssistedFactory` can also be handled automati
      .makeRealObjectsUsingDagger2Rules()
      .javaxProviderSupport()
      .dagger2LazySupport()
-+    .autoFactoriesByAnnotation<AssistedFactory>()
++    .autoFactoriesByAnnotation<AssistedFactory>()  // provided by plugins-mockito-factories module
      .fallbackWithMockk()
 ```
 
-**Note:** The `plugins-mockito-factories` requires mockito be included in the project, but does not require your tests know or care about it. It should work side-by-side with mockk (in jvm projects).
+**Note:** The `plugins-mockito-factories` module requires mockito be included in the project, but does not require your tests know or care about it. It should work side-by-side with mockk but is only applicable in jvm projects.
 
 ### Integration with testing frameworks
 
@@ -128,3 +136,6 @@ JUnit 5 Extension
     .junitExtension() // returns an object that implements both 
                       // Mockspresso and Extension interfaces
 ```
+
+### Get started writing tests
+See the [Getting Started](GETTING_STARTED.md) doc to start writing tests.
