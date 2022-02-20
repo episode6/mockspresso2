@@ -1,5 +1,6 @@
 package com.episode6.mxo2
 
+import assertk.all
 import assertk.assertThat
 import assertk.assertions.*
 import com.episode6.mxo2.reflect.dependencyKey
@@ -128,12 +129,31 @@ class SimpleIntegrationTest {
     assertThat(someObject.dependency2).isEqualTo(dep2)
   }
 
+  @Test fun testFakeOf() {
+    val mxo = MockspressoBuilder().build()
+
+    val ro: SomeObjectWithIFaceDep by mxo.realInstance()
+    val dep1 by mxo.depOf { SomeDependency1() }
+    val dep2 by mxo.fakeOf<SomeDependency2Interface, SomeDependency2> { SomeDependency2() }
+
+    dep2.doSomething() // method only exists on class
+    assertThat(ro.dependency1).isEqualTo(dep1)
+    assertThat(ro.dependency2).all {
+      isEqualTo(dep2)
+      isInstanceOf(SomeDependency2::class)
+    }
+  }
+
   private class SomeObject(val dependency1: SomeDependency1, val dependency2: SomeDependency2) {
     fun doSomething() {}
   }
 
+  private class SomeObjectWithIFaceDep(val dependency1: SomeDependency1, val dependency2: SomeDependency2Interface)
+
+  interface SomeDependency2Interface
+
   private class SomeDependency1
-  private class SomeDependency2 {
+  private class SomeDependency2 : SomeDependency2Interface {
     fun doSomething() {}
   }
 
