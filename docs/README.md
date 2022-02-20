@@ -1,6 +1,6 @@
 ## Get Up & Running
  - See the [Project Setup](PROJECT_SETUP.md) doc for current version & setup instructions.
- - See the [Getting Started](PROJECT_SETUP.md) doc to start writing tests.
+ - See the [Getting Started](GETTING_STARTED.md) doc to start writing tests.
 
 ## What & Why?
 Mockspresso2 acts like a smart, single-use DI graph for kotlin unit and integration tests where any missing dependencies can be mocked automatically. The goal is to reduce the friction, boilerplate, brittleness and barrier-to-entry when writing unit-tests, enabling engineers to focus on what matters.
