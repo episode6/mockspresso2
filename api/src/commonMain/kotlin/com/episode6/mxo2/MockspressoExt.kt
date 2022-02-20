@@ -9,9 +9,9 @@ import com.episode6.mxo2.reflect.typeToken
  *
  * Calling this method will ensure this [MockspressoInstance] is initialized.
  */
-inline fun <reified T : Any?> MockspressoInstance.createRealObject(
+inline fun <reified T : Any?> MockspressoInstance.createNow(
   qualifier: Annotation? = null
-): T = createRealObject(dependencyKey(qualifier))
+): T = createNow(dependencyKey(qualifier))
 
 /**
  * Find an existing dependency in this mockspresso instance of type [T] with the provided [qualifier]. If the
@@ -20,9 +20,9 @@ inline fun <reified T : Any?> MockspressoInstance.createRealObject(
  *
  * Calling this method will ensure this [MockspressoInstance] is initialized.
  */
-inline fun <reified T : Any?> MockspressoInstance.findDependency(
+inline fun <reified T : Any?> MockspressoInstance.findNow(
   qualifier: Annotation? = null
-): T = findDependency(dependencyKey(qualifier))
+): T = findNow(dependencyKey(qualifier))
 
 /**
  * Register a dependency provided by [provider], bound in the mockspresso graph with a dependencyKey made from

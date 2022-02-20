@@ -38,7 +38,7 @@ interface MockspressoInstance {
    *
    * Calling this method will ensure this [MockspressoInstance] is initialized.
    */
-  fun <T : Any?> createRealObject(key: DependencyKey<T>): T
+  fun <T : Any?> createNow(key: DependencyKey<T>): T
 
   /**
    * Find an existing dependency in this mockspresso instance. If the dependency hasn't been cached or constructed then
@@ -47,7 +47,7 @@ interface MockspressoInstance {
    *
    * Calling this method will ensure this [MockspressoInstance] is initialized.
    */
-  fun <T : Any?> findDependency(key: DependencyKey<T>): T
+  fun <T : Any?> findNow(key: DependencyKey<T>): T
 
   /**
    * Returns a new [MockspressoBuilder] using this Mockspresso instance as a parent.

@@ -14,7 +14,7 @@ class GenericDependenciesTest {
       .dependencyOf { 4.2f }
       .build()
 
-    val obj = mxo.createRealObject<GenericObj<String, Int, Float>>()
+    val obj = mxo.createNow<GenericObj<String, Int, Float>>()
 
     assertThat(obj.a).isEqualTo("hello")
     assertThat(obj.b).isEqualTo(5)
@@ -29,7 +29,7 @@ class GenericDependenciesTest {
       .dependencyOf { 4.2f }
       .build()
 
-    val obj = mxo.createRealObject<GenericWithGeneric<Float, Int>>()
+    val obj = mxo.createNow<GenericWithGeneric<Float, Int>>()
 
     with(obj.child) {
       assertThat(a).isEqualTo(5)
@@ -52,7 +52,7 @@ class GenericDependenciesTest {
       }
       .build()
 
-    val obj = mxo.createRealObject<ConcreteWithGenerics>()
+    val obj = mxo.createNow<ConcreteWithGenerics>()
 
     with(obj.child.child) {
       assertThat(a).isEqualTo(listOf(mapOf("str2" to 2), mapOf("str3" to 3)))

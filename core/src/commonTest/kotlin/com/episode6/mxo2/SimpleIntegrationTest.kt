@@ -75,8 +75,8 @@ class SimpleIntegrationTest {
   @Test fun testCreateRealObjectGetsNewInstances() {
     val mxo = MockspressoBuilder().build()
 
-    val obj1: SomeDependency1 = mxo.createRealObject()
-    val obj2: SomeDependency1 = mxo.createRealObject()
+    val obj1: SomeDependency1 = mxo.createNow()
+    val obj2: SomeDependency1 = mxo.createNow()
 
     assertThat(obj1).isNotEqualTo(obj2)
   }
@@ -84,10 +84,10 @@ class SimpleIntegrationTest {
   @Test fun testCreateRealObjectIsntCachedAsDep() {
     val mxo = MockspressoBuilder().build()
 
-    val obj1: SomeDependency1 = mxo.createRealObject()
+    val obj1: SomeDependency1 = mxo.createNow()
 
     assertThat {
-      mxo.findDependency<SomeDependency1>()
+      mxo.findNow<SomeDependency1>()
     }.isFailure().hasClass(NoFallbackMakerProvidedError::class)
   }
 

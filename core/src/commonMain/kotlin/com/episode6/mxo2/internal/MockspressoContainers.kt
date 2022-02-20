@@ -52,8 +52,8 @@ internal class MockspressoBuilderContainer(parent: Lazy<MxoInstance>? = null) : 
 }
 
 internal class MockspressoInstanceContainer(private val instance: MxoInstance) : MockspressoInstance {
-  override fun <T> findDependency(key: DependencyKey<T>): T = instance.get(key)
-  override fun <T> createRealObject(key: DependencyKey<T>): T = instance.create(key)
+  override fun <T> findNow(key: DependencyKey<T>): T = instance.get(key)
+  override fun <T> createNow(key: DependencyKey<T>): T = instance.create(key)
   override fun buildUpon(): MockspressoBuilder = MockspressoBuilderContainer(mlazy { instance })
 }
 
@@ -96,8 +96,8 @@ private class MockspressoContainer(
 ) : Mockspresso, MockspressoProperties by properties {
   private val instance get() = instanceLazy.value
   override fun ensureInit() = instance.ensureInit()
-  override fun <T> findDependency(key: DependencyKey<T>): T = instance.get(key)
-  override fun <T> createRealObject(key: DependencyKey<T>): T = instance.create(key)
+  override fun <T> findNow(key: DependencyKey<T>): T = instance.get(key)
+  override fun <T> createNow(key: DependencyKey<T>): T = instance.create(key)
 
   override fun teardown() {
     instance.teardown()
