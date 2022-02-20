@@ -43,7 +43,7 @@ class CoffeeMakerTest {
 
 ### Declaring mock dependencies
 
-The [`plugins-mockito`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html) and [`plugins-mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html) modules (aside from providing auto-mock support) include a few plugins to assist with mocking dependencies. 
+The [`plugins-mockito`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html) and [`plugins-mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html) modules include a few plugins to assist with mocking dependencies. 
 
  - [`MockspressoBuilder.defaultMock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#-1930091915%2FFunctions%2F37435277) / [`defaultMockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#210609015%2FFunctions%2F147516529)
  - [`MockspressoProperties.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1781692779%2FFunctions%2F37435277) / [`mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#2054217256%2FFunctions%2F147516529)
@@ -75,3 +75,22 @@ class CoffeeMakerTest {
   }
 }
 ```
+
+### Integration tests
+
+When we create or declare any real object in mockspresso, that object becomes part of the underlying dependency graph. This means we can declare multiple real objects and run complex integration tests w/o ever worrying about constructor or dependency order. It also means our integrations tests won't break by default just because dependencies have changed.
+
+```kotlin
+class CoffeeMakerTest {
+  val mxo = MockspressoBuilder()
+    .realInstanceOf<Filter>() // a real Filter will be constructed
+    .realImplementationOf<Heater, HeaterImpl>() // a real HeaterImpl will be constructed
+    .build()
+
+  val coffeeMaker: CoffeeMaker by mxo.realInstance()
+
+  // a real FastGrinder will be constructed
+  val grinder: FastGrinder by mxo.realImplOf<Grinder, FastGrinder>()
+}
+```
+
