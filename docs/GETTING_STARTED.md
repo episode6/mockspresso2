@@ -3,7 +3,7 @@ See the [Project Setup](PROJECT_SETUP) doc for current version & setup instructi
 
 ## Declaring a real object
 
-In unit tests we're usually forced to declare all our dependencies first before we can declare our unit-under-test. With mockspresso, every unit test can declare it's real object(s) up front using the [`realInstance()`](dokka/api/com.episode6.mxo2/real-instance.html) method.
+In unit tests we're usually forced to declare all our dependencies first before we can declare our unit-under-test. With mockspresso, every unit test can declare it's real object(s) up front using the [`MockspressoProperties.realInstance()`](dokka/api/com.episode6.mxo2/-mockspresso-properties/index.html#202506020%2FExtensions%2F2089714443) method.
 
 ```kotlin
 class CoffeeMakerTest {
@@ -15,7 +15,7 @@ class CoffeeMakerTest {
 }
 ```
 
-Assuming we've set up [fallback mocking](PROJECT_SETUP#auto-mock-support), we can actually start writing tests immediately and only add dependencies as we start requiring them. The CoffeeMaker will be supplied with all mocks until we star declaring dependencies.
+Assuming we've set up [fallback mocking](PROJECT_SETUP#auto-mock-support), we can actually start writing tests immediately and only add dependencies as we start requiring them. The CoffeeMaker will be supplied with all mocks until we start declaring dependencies.
 
 ### Declaring dependencies
 
@@ -43,8 +43,35 @@ class CoffeeMakerTest {
 
 ### Declaring mock dependencies
 
-The [`plugins-mockito`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html) and [`plugins-mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html) modules (aside from providing auto-mock support) include a few plugins to assist with mocking dependencies.
+The [`plugins-mockito`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html) and [`plugins-mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html) modules (aside from providing auto-mock support) include a few plugins to assist with mocking dependencies. 
 
- - `MockspressoBuilder.defaultMock` / `defaultMockk`
- - `MockspressoProperties.mock` / `mockk`
- - `MockspressoProperties.spy` / `spyk`
+ - [`MockspressoBuilder.defaultMock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#-1930091915%2FFunctions%2F37435277) / [`defaultMockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#210609015%2FFunctions%2F147516529)
+ - [`MockspressoProperties.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1781692779%2FFunctions%2F37435277) / [`mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#2054217256%2FFunctions%2F147516529)
+ - [`MockspressoProperties.spy`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#-1963645221%2FFunctions%2F37435277) / [`spyk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#-1266070436%2FFunctions%2F147516529)
+
+ In each case the plugin signature mirrors what is supplied by the mocking framework. Example (using mockito):
+
+ ```kotlin
+class CoffeeMakerTest {
+  val mxo = MockspressoBuilder()
+     // mock an executor that we don't need a reference to but needs some setup
+    .defaultMock<Executor> {
+      on { execute(any()) } doAnswer { it.getArgument(0).run() }
+    }.build()
+
+  val coffeeMaker: CoffeeMaker by mxo.realInstance()
+
+  // let mockspresso create a real Filter, then wrap it with Mockito.spy
+  val filter: Filter by mxo.spy()
+
+  // mock a heater and include it as a dependency
+  val heater: Heater by mxo.mock()
+
+  @Test fun testHeater() {
+    coffeeMaker.brew()
+
+    verify(filter).clean()
+    verify(heater).heat(any())
+  }
+}
+```
