@@ -36,10 +36,10 @@ internal class MockspressoBuilderContainer(parent: Lazy<MxoInstance>? = null) : 
   override fun makeFallbackObjectsWith(fallbackMaker: FallbackObjectMaker): MockspressoBuilder =
     apply { builder.fallbackObjectMaker(fallbackMaker) }
 
-  override fun <T> addDependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder =
+  override fun <T> dependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder =
     apply { builder.dependencyOf(key, provider) }
 
-  override fun <BIND : Any?, IMPL : BIND> useRealImplOf(
+  override fun <BIND : Any?, IMPL : BIND> realImplementationOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> BIND
@@ -52,8 +52,8 @@ internal class MockspressoBuilderContainer(parent: Lazy<MxoInstance>? = null) : 
 }
 
 internal class MockspressoInstanceContainer(private val instance: MxoInstance) : MockspressoInstance {
-  override fun <T> findDependency(key: DependencyKey<T>): T = instance.get(key)
-  override fun <T> createRealObject(key: DependencyKey<T>): T = instance.create(key)
+  override fun <T> findNow(key: DependencyKey<T>): T = instance.get(key)
+  override fun <T> createNow(key: DependencyKey<T>): T = instance.create(key)
   override fun buildUpon(): MockspressoBuilder = MockspressoBuilderContainer(mlazy { instance })
 }
 
@@ -96,8 +96,8 @@ private class MockspressoContainer(
 ) : Mockspresso, MockspressoProperties by properties {
   private val instance get() = instanceLazy.value
   override fun ensureInit() = instance.ensureInit()
-  override fun <T> findDependency(key: DependencyKey<T>): T = instance.get(key)
-  override fun <T> createRealObject(key: DependencyKey<T>): T = instance.create(key)
+  override fun <T> findNow(key: DependencyKey<T>): T = instance.get(key)
+  override fun <T> createNow(key: DependencyKey<T>): T = instance.create(key)
 
   override fun teardown() {
     instance.teardown()

@@ -75,8 +75,8 @@ class SimpleIntegrationTest {
   @Test fun testCreateRealObjectGetsNewInstances() {
     val mxo = MockspressoBuilder().build()
 
-    val obj1: SomeDependency1 = mxo.createRealObject()
-    val obj2: SomeDependency1 = mxo.createRealObject()
+    val obj1: SomeDependency1 = mxo.createNow()
+    val obj2: SomeDependency1 = mxo.createNow()
 
     assertThat(obj1).isNotEqualTo(obj2)
   }
@@ -84,16 +84,16 @@ class SimpleIntegrationTest {
   @Test fun testCreateRealObjectIsntCachedAsDep() {
     val mxo = MockspressoBuilder().build()
 
-    val obj1: SomeDependency1 = mxo.createRealObject()
+    val obj1: SomeDependency1 = mxo.createNow()
 
     assertThat {
-      mxo.findDependency<SomeDependency1>()
+      mxo.findNow<SomeDependency1>()
     }.isFailure().hasClass(NoFallbackMakerProvidedError::class)
   }
 
   @Test fun testInterceptSpyk() {
     val mxo = MockspressoBuilder()
-      .addDependencyOf { SomeDependency1() }
+      .dependencyOf { SomeDependency1() }
       .build()
 
     val dep2: SomeDependency2 by mxo.realInstance { spyk(it) }
@@ -106,7 +106,7 @@ class SimpleIntegrationTest {
 
   @Test fun testDynamicDependency() {
     val mxo = MockspressoBuilder()
-      .addDependencyOf { SomeObject(get(dependencyKey()), get(dependencyKey())) }
+      .dependencyOf { SomeObject(get(dependencyKey()), get(dependencyKey())) }
       .build()
 
     val dep1 by mxo.depOf { SomeDependency1() }

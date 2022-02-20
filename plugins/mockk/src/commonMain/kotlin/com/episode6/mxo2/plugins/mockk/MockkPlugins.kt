@@ -46,7 +46,7 @@ inline fun <reified T : Any?> MockspressoBuilder.defaultMockk(
   vararg moreInterfaces: KClass<*>,
   relaxUnitFun: Boolean = true,
   noinline block: T.() -> Unit = {}
-) = addDependencyOf<T>(qualifier) {
+) = dependencyOf<T>(qualifier) {
   _mockk(
     name = name,
     relaxed = relaxed,

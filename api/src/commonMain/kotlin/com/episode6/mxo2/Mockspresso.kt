@@ -38,7 +38,7 @@ interface MockspressoInstance {
    *
    * Calling this method will ensure this [MockspressoInstance] is initialized.
    */
-  fun <T : Any?> createRealObject(key: DependencyKey<T>): T
+  fun <T : Any?> createNow(key: DependencyKey<T>): T
 
   /**
    * Find an existing dependency in this mockspresso instance. If the dependency hasn't been cached or constructed then
@@ -47,7 +47,7 @@ interface MockspressoInstance {
    *
    * Calling this method will ensure this [MockspressoInstance] is initialized.
    */
-  fun <T : Any?> findDependency(key: DependencyKey<T>): T
+  fun <T : Any?> findNow(key: DependencyKey<T>): T
 
   /**
    * Returns a new [MockspressoBuilder] using this Mockspresso instance as a parent.
@@ -100,14 +100,14 @@ interface MockspressoBuilder {
   /**
    * Register a dependency provided by [provider], bound in the mockspresso graph with [key].
    */
-  fun <T : Any?> addDependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder
+  fun <T : Any?> dependencyOf(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder
 
   /**
    * Register a request to create a real object of type [implementationToken] bound in the mockspresso graph with [key].
    * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
    * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
    */
-  fun <BIND : Any?, IMPL : BIND> useRealImplOf(
+  fun <BIND : Any?, IMPL : BIND> realImplementationOf(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> BIND = { it }

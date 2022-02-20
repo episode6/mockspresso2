@@ -82,7 +82,7 @@ Instruct your default `MockspressoBuilder()` to require `@Inject` annotations on
 ```
 **Note:** [`Dagger2Rules`](dokka/plugins-dagger2/com.episode6.mxo2.plugins.dagger2/make-real-objects-using-dagger2-rules.html) is a super-set of [`JavaxInjectRules`](dokka/plugins-javax-inject/com.episode6.mxo2.plugins.javax.inject/make-real-objects-using-javax-inject-rules.html) that adds support for constructors with the `@AssistedInject` annotation.
 
-The [`plugins-javax-inject`](dokka/plugins-javax-inject/com.episode6.mxo2.plugins.javax.inject/index.html) module also includes the [`MockspressoInstance.inject(Any)`](dokka/plugins-javax-inject/com.episode6.mxo2.plugins.javax.inject/inject.html) plugin to inject any pre-existing object with field / method injection. Than can be helpful in android development when running robolectric tests on Activities, Services, etc. that must be created by the system. 
+The [`plugins-javax-inject`](dokka/plugins-javax-inject/com.episode6.mxo2.plugins.javax.inject/index.html) module also includes the [`MockspressoInstance.injectNow(Any)`](dokka/plugins-javax-inject/com.episode6.mxo2.plugins.javax.inject/inject-now.html) plugin to inject any pre-existing object with field / method injection. Than can be helpful in android development when running robolectric tests on Activities, Services, etc. that must be created by the system. 
 
 #### Automatic Provider, Lazy and AssistedFactory handling
 

@@ -20,7 +20,7 @@ class JavaxInjectTest {
   @Test fun testPropertyInject() {
     val ro = PropertiesInject()
 
-    mxo.inject(ro)
+    mxo.injectNow(ro)
 
     assertThat(ro.d1).isEqualTo(dep1)
     assertThat(ro.d2).isEqualTo(dep2)
@@ -29,7 +29,7 @@ class JavaxInjectTest {
   @Test fun testPropertySetInject() {
     val ro = PropertiesSetInject()
 
-    mxo.inject(ro)
+    mxo.injectNow(ro)
 
     assertThat(ro.d1).isEqualTo(dep1)
     assertThat(ro.d2).isEqualTo(dep2)
@@ -38,7 +38,7 @@ class JavaxInjectTest {
   @Test fun testPropertyFieldInject() {
     val ro = PropertiesFieldInject()
 
-    mxo.inject(ro)
+    mxo.injectNow(ro)
 
     assertThat(ro.d1).isEqualTo(dep1)
     assertThat(ro.d2).isEqualTo(dep2)
@@ -47,7 +47,7 @@ class JavaxInjectTest {
   @Test fun testMethodInject() {
     val ro = MethodInject()
 
-    mxo.inject(ro)
+    mxo.injectNow(ro)
 
     assertThat(ro.d1).isEqualTo(dep1)
     assertThat(ro.d2).isEqualTo(dep2)
@@ -56,13 +56,13 @@ class JavaxInjectTest {
   @Test fun testGenericFail() {
     val ro = GenericInject<Dependency1, Dependency2>()
 
-    assertThat { mxo.inject(ro) }.isFailure().hasClass(IllegalArgumentException::class)
+    assertThat { mxo.injectNow(ro) }.isFailure().hasClass(IllegalArgumentException::class)
   }
 
   @Test fun testGenericSuccess() {
     val ro = GenericInject<Dependency1, Dependency2>()
 
-    mxo.inject(ro, typeToken())
+    mxo.injectNow(ro, typeToken())
 
     assertThat(ro.d1).isEqualTo(dep1)
     assertThat(ro.d2).isEqualTo(dep2)

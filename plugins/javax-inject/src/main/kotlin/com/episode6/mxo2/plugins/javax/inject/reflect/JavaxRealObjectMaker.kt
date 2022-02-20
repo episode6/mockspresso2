@@ -72,7 +72,7 @@ internal fun Any.injectWithDependencies(
 }
 
 internal fun MockspressoInstance.asDependencies(): Dependencies = object : Dependencies {
-  override fun <T> get(key: DependencyKey<T>): T = findDependency(key)
+  override fun <T> get(key: DependencyKey<T>): T = findNow(key)
 }
 
 private fun KCallable<*>.returnTypeKey(context: TypeToken<*>): DependencyKey<*> = DependencyKey(
