@@ -9,7 +9,7 @@ While we rarely interacted with the result of `MockspressoBuilder.build()` in v1
 
 ```diff
 -val mockspresso = BuildMockspresso().build()
-+val mxo = MockspressoBuilder().build() // function and val name have changed
++val mxo = MockspressoBuilder().build() // function and val name both changed
 ```
 
 #### Builder methods
