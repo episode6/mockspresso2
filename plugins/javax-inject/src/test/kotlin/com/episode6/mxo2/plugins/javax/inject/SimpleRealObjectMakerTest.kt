@@ -3,7 +3,7 @@ package com.episode6.mxo2.plugins.javax.inject
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.episode6.mxo2.MockspressoBuilder
-import com.episode6.mxo2.depOf
+import com.episode6.mxo2.dep
 import com.episode6.mxo2.realInstance
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
@@ -13,8 +13,8 @@ class SimpleRealObjectMakerTest {
   @Test fun testConstructorInject() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
     val ro: ConstructorInject by mxo.realInstance()
-    val d1 by mxo.depOf { Dependency1() }
-    val d2 by mxo.depOf { Dependency2() }
+    val d1 by mxo.dep { Dependency1() }
+    val d2 by mxo.dep { Dependency2() }
 
     assertThat(ro.d1).isEqualTo(d1)
     assertThat(ro.d2).isEqualTo(d2)
@@ -23,8 +23,8 @@ class SimpleRealObjectMakerTest {
   @Test fun testPropertyInject() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
     val ro: PropertiesInject by mxo.realInstance()
-    val d1 by mxo.depOf { Dependency1() }
-    val d2 by mxo.depOf { Dependency2() }
+    val d1 by mxo.dep { Dependency1() }
+    val d2 by mxo.dep { Dependency2() }
 
     assertThat(ro.d1).isEqualTo(d1)
     assertThat(ro.d2).isEqualTo(d2)
@@ -33,8 +33,8 @@ class SimpleRealObjectMakerTest {
   @Test fun testPropertySetInject() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
     val ro: PropertiesSetInject by mxo.realInstance()
-    val d1 by mxo.depOf { Dependency1() }
-    val d2 by mxo.depOf { Dependency2() }
+    val d1 by mxo.dep { Dependency1() }
+    val d2 by mxo.dep { Dependency2() }
 
     assertThat(ro.d1).isEqualTo(d1)
     assertThat(ro.d2).isEqualTo(d2)
@@ -43,8 +43,8 @@ class SimpleRealObjectMakerTest {
   @Test fun testPropertyFieldInject() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
     val ro: PropertiesFieldInject by mxo.realInstance()
-    val d1 by mxo.depOf { Dependency1() }
-    val d2 by mxo.depOf { Dependency2() }
+    val d1 by mxo.dep { Dependency1() }
+    val d2 by mxo.dep { Dependency2() }
 
     assertThat(ro.d1).isEqualTo(d1)
     assertThat(ro.d2).isEqualTo(d2)
@@ -53,8 +53,8 @@ class SimpleRealObjectMakerTest {
   @Test fun testJavaFieldInject() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
     val ro: FieldInjectTestClass by mxo.realInstance()
-    val d1 by mxo.depOf { FieldInjectTestClass.Dep1() }
-    val d2 by mxo.depOf { FieldInjectTestClass.Dep2() }
+    val d1 by mxo.dep { FieldInjectTestClass.Dep1() }
+    val d2 by mxo.dep { FieldInjectTestClass.Dep2() }
 
     assertThat(ro.d1).isEqualTo(d1)
     assertThat(ro.d2).isEqualTo(d2)
@@ -63,8 +63,8 @@ class SimpleRealObjectMakerTest {
   @Test fun testMethodInject() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
     val ro: MethodInject by mxo.realInstance()
-    val d1 by mxo.depOf { Dependency1() }
-    val d2 by mxo.depOf { Dependency2() }
+    val d1 by mxo.dep { Dependency1() }
+    val d2 by mxo.dep { Dependency2() }
 
     assertThat(ro.d1).isEqualTo(d1)
     assertThat(ro.d2).isEqualTo(d2)

@@ -13,8 +13,8 @@ class SimpleIntegrationTest {
   @Test fun testSimpleWorkingCase() {
     val mxo = MockspressoBuilder().build()
     val objUnderTest: SomeObject by mxo.realInstance()
-    val dep1 by mxo.depOf { SomeDependency1() }
-    val dep2 by mxo.depOf { SomeDependency2() }
+    val dep1 by mxo.dep { SomeDependency1() }
+    val dep2 by mxo.dep { SomeDependency2() }
 
     assertThat(objUnderTest).isNotNull()
     assertThat(objUnderTest.dependency1).isEqualTo(dep1)
@@ -24,8 +24,8 @@ class SimpleIntegrationTest {
   @Test fun testAccessDepFirst() {
     val mxo = MockspressoBuilder().build()
     val objUnderTest: SomeObject by mxo.realInstance()
-    val dep1 by mxo.depOf { SomeDependency1() }
-    val dep2 by mxo.depOf { SomeDependency2() }
+    val dep1 by mxo.dep { SomeDependency1() }
+    val dep2 by mxo.dep { SomeDependency2() }
 
     dep2.doSomething()
 
@@ -37,17 +37,17 @@ class SimpleIntegrationTest {
   @Test fun testFailsWithMultipleDepsOfSameKey() {
     val mxo = MockspressoBuilder().build()
     val objUnderTest: SomeObject by mxo.realInstance()
-    val dep1 by mxo.depOf { SomeDependency1() }
+    val dep1 by mxo.dep { SomeDependency1() }
 
     assertThat {
-      val dep2 by mxo.depOf { SomeDependency1() }
+      val dep2 by mxo.dep { SomeDependency1() }
     }.isFailure().hasClass(DependencyAlreadyMappedError::class)
   }
 
   @Test fun testFailsWithMultipleDepsOfSameKey_real_over_dep() {
     val mxo = MockspressoBuilder().build()
     val objUnderTest: SomeObject by mxo.realInstance()
-    val dep1 by mxo.depOf { SomeDependency1() }
+    val dep1 by mxo.dep { SomeDependency1() }
 
     assertThat {
       val dep2: SomeDependency1 by mxo.realInstance()
@@ -66,7 +66,7 @@ class SimpleIntegrationTest {
   @Test fun testMultipleSameDepGetsSameInstance() {
     val mxo = MockspressoBuilder().build()
     val objUnderTest: SomeBadObjectWithSameDepMultipleTimes by mxo.realInstance()
-    val dep by mxo.depOf { SomeDependency1() }
+    val dep by mxo.dep { SomeDependency1() }
 
     assertThat(objUnderTest).isNotNull()
     assertThat(objUnderTest.dependency1).isEqualTo(objUnderTest.dependency2)
@@ -94,7 +94,7 @@ class SimpleIntegrationTest {
 
   @Test fun testInterceptSpyk() {
     val mxo = MockspressoBuilder()
-      .dependencyOf { SomeDependency1() }
+      .dependency { SomeDependency1() }
       .build()
 
     val dep2: SomeDependency2 by mxo.realInstance { spyk(it) }
@@ -107,11 +107,11 @@ class SimpleIntegrationTest {
 
   @Test fun testDynamicDependency() {
     val mxo = MockspressoBuilder()
-      .dependencyOf { SomeObject(get(dependencyKey()), get(dependencyKey())) }
+      .dependency { SomeObject(get(dependencyKey()), get(dependencyKey())) }
       .build()
 
-    val dep1 by mxo.depOf { SomeDependency1() }
-    val dep2 by mxo.depOf { SomeDependency2() }
+    val dep1 by mxo.dep { SomeDependency1() }
+    val dep2 by mxo.dep { SomeDependency2() }
     val someObject: SomeObject by mxo.findDep()
 
     assertThat(someObject.dependency1).isEqualTo(dep1)
@@ -121,9 +121,9 @@ class SimpleIntegrationTest {
   @Test fun testDynamicDependencyInProp() {
     val mxo = MockspressoBuilder().build()
 
-    val someObject by mxo.depOf { SomeObject(get(dependencyKey()), get(dependencyKey())) }
-    val dep1 by mxo.depOf { SomeDependency1() }
-    val dep2 by mxo.depOf { SomeDependency2() }
+    val someObject by mxo.dep { SomeObject(get(dependencyKey()), get(dependencyKey())) }
+    val dep1 by mxo.dep { SomeDependency1() }
+    val dep2 by mxo.dep { SomeDependency2() }
 
     assertThat(someObject.dependency1).isEqualTo(dep1)
     assertThat(someObject.dependency2).isEqualTo(dep2)
@@ -133,8 +133,8 @@ class SimpleIntegrationTest {
     val mxo = MockspressoBuilder().build()
 
     val ro: SomeObjectWithIFaceDep by mxo.realInstance()
-    val dep1 by mxo.depOf { SomeDependency1() }
-    val dep2 by mxo.fakeOf<SomeDependency2Interface, SomeDependency2> { SomeDependency2() }
+    val dep1 by mxo.dep { SomeDependency1() }
+    val dep2 by mxo.fake<SomeDependency2Interface, SomeDependency2> { SomeDependency2() }
 
     dep2.doSomething() // method only exists on class
     assertThat(ro.dependency1).isEqualTo(dep1)

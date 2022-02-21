@@ -4,7 +4,7 @@ import assertk.all
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.episode6.mxo2.MockspressoBuilder
-import com.episode6.mxo2.depOf
+import com.episode6.mxo2.dep
 import com.episode6.mxo2.realInstance
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
@@ -14,9 +14,9 @@ class GenericRealObjectMakerTest {
   @Test fun testSimpleDirectGeneric() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
     val ro: GenericObj<String, Int, Long> by mxo.realInstance()
-    val depA: String by mxo.depOf { "hi" }
-    val depB: Int by mxo.depOf { 4 }
-    val depC: Long by mxo.depOf { 12L }
+    val depA: String by mxo.dep { "hi" }
+    val depB: Int by mxo.dep { 4 }
+    val depC: Long by mxo.dep { 12L }
 
     assertThat(ro.a).all {
       isEqualTo(depA)
@@ -35,9 +35,9 @@ class GenericRealObjectMakerTest {
   @Test fun testSimpleSubclassDirectGeneric() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
     val ro: SubClass<String, Int, Long> by mxo.realInstance()
-    val depC: String by mxo.depOf { "hi" }
-    val depB: Int by mxo.depOf { 4 }
-    val depA: Long by mxo.depOf { 12L }
+    val depC: String by mxo.dep { "hi" }
+    val depB: Int by mxo.dep { 4 }
+    val depA: Long by mxo.dep { 12L }
 
     assertThat(ro.a).all {
       isEqualTo(depA)
@@ -56,9 +56,9 @@ class GenericRealObjectMakerTest {
   @Test fun testSimpleDirectGeneric_methodInject() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
     val ro: GenericObjMethodInject<String, Int, Long> by mxo.realInstance()
-    val depA: String by mxo.depOf { "hi" }
-    val depB: Int by mxo.depOf { 4 }
-    val depC: Long by mxo.depOf { 12L }
+    val depA: String by mxo.dep { "hi" }
+    val depB: Int by mxo.dep { 4 }
+    val depC: Long by mxo.dep { 12L }
 
     assertThat(ro.a).all {
       isEqualTo(depA)
@@ -77,9 +77,9 @@ class GenericRealObjectMakerTest {
   @Test fun testSimpleSubclassDirectGeneric_methodInject() {
     val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
     val ro: SubClassMethodInject<String, Int, Long> by mxo.realInstance()
-    val depC: String by mxo.depOf { "hi" }
-    val depB: Int by mxo.depOf { 4 }
-    val depA: Long by mxo.depOf { 12L }
+    val depC: String by mxo.dep { "hi" }
+    val depB: Int by mxo.dep { 4 }
+    val depA: Long by mxo.dep { 12L }
 
     assertThat(ro.a).all {
       isEqualTo(depA)

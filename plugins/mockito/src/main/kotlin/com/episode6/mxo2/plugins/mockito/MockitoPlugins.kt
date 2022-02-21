@@ -42,7 +42,7 @@ inline fun <reified T : Any?> MockspressoBuilder.defaultMock(
   @Incubating useConstructor: UseConstructor? = null,
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false
-): MockspressoBuilder = dependencyOf(qualifier) {
+): MockspressoBuilder = dependency(qualifier) {
   Mockito.mock(
     T::class.java,
     withSettings(
@@ -82,7 +82,7 @@ inline fun <reified T : Any?> MockspressoBuilder.defaultMock(
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false,
   noinline stubbing: KStubbing<T>.(T) -> Unit
-): MockspressoBuilder = dependencyOf(qualifier) {
+): MockspressoBuilder = dependency(qualifier) {
   Mockito.mock(
     T::class.java,
     withSettings(
@@ -120,7 +120,7 @@ inline fun <reified T : Any?> MockspressoProperties.mock(
   @Incubating useConstructor: UseConstructor? = null,
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false
-): Lazy<T> = depOf(qualifier) {
+): Lazy<T> = dep(qualifier) {
   Mockito.mock(
     T::class.java,
     withSettings(
@@ -159,7 +159,7 @@ inline fun <reified T : Any?> MockspressoProperties.mock(
   @Incubating outerInstance: Any? = null,
   @Incubating lenient: Boolean = false,
   noinline stubbing: KStubbing<T>.(T) -> Unit
-): Lazy<T> = depOf(qualifier) {
+): Lazy<T> = dep(qualifier) {
   Mockito.mock(
     T::class.java,
     withSettings(
@@ -202,7 +202,7 @@ inline fun <reified T : Any?> MockspressoProperties.spy(
  * (and then verified in test code).
  */
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(qualifier: Annotation? = null): Lazy<IMPL> =
-  realImplOf<BIND, IMPL>(qualifier) { spy(it) }
+  realImpl<BIND, IMPL>(qualifier) { spy(it) }
 
 /**
  * Create a real object of type [IMPL] using mockspresso then wrap it in a mockito [spy] (the object will be bound
@@ -213,4 +213,4 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyI
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(
   qualifier: Annotation? = null,
   noinline stubbing: KStubbing<IMPL>.(IMPL) -> Unit
-): Lazy<IMPL> = realImplOf<BIND, IMPL>(qualifier) { spy(it, stubbing) }
+): Lazy<IMPL> = realImpl<BIND, IMPL>(qualifier) { spy(it, stubbing) }
