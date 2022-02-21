@@ -10,10 +10,10 @@ class RealImplIntegrationTest {
   @Test fun testRealImplOf() {
     val unexpectedTestClass = TestClass()
     val mxo = MockspressoBuilder()
-      .dependencyOf { unexpectedTestClass }
+      .dependency { unexpectedTestClass }
       .build()
 
-    val obj by mxo.realImplOf<TestInterface, TestClass>()
+    val obj by mxo.realImplementation<TestInterface, TestClass>()
 
     assertThat(obj)
       .isInstanceOf(TestClass::class)

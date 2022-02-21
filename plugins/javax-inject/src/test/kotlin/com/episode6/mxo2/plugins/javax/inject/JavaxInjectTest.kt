@@ -5,7 +5,7 @@ import assertk.assertions.hasClass
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFailure
 import com.episode6.mxo2.MockspressoBuilder
-import com.episode6.mxo2.depOf
+import com.episode6.mxo2.dependency
 import com.episode6.mxo2.reflect.typeToken
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
@@ -14,8 +14,8 @@ class JavaxInjectTest {
 
   val mxo = MockspressoBuilder().build()
 
-  private val dep1 by mxo.depOf { Dependency1() }
-  private val dep2 by mxo.depOf { Dependency2() }
+  private val dep1 by mxo.dependency { Dependency1() }
+  private val dep2 by mxo.dependency { Dependency2() }
 
   @Test fun testPropertyInject() {
     val ro = PropertiesInject()

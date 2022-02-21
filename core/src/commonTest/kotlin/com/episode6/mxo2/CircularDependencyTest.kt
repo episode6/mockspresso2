@@ -12,11 +12,11 @@ class CircularDependencyTest {
 
   @Test fun testCircularDependency() {
     val mxo = MockspressoBuilder()
-      .realInstanceOf<A?>()
-      .realInstanceOf<B?>()
+      .realInstance<A?>()
+      .realInstance<B?>()
       .build()
 
-    val c by mxo.realImplOf<C?, C>()
+    val c by mxo.realImplementation<C?, C>()
 
     assertThat {
       c.a
@@ -25,11 +25,11 @@ class CircularDependencyTest {
 
   @Test fun testWorksWhenChainIsBroken() {
     val mxo = MockspressoBuilder()
-      .realInstanceOf<A?>()
+      .realInstance<A?>()
       .build()
 
-    val b by mxo.depOf<B?> { B(null) }
-    val c by mxo.realImplOf<C?, C>()
+    val b by mxo.dependency<B?> { B(null) }
+    val c by mxo.realImplementation<C?, C>()
 
     assertThat(c.a).isNotNull()
     assertThat(c.a!!.b).isEqualTo(b)
@@ -37,11 +37,11 @@ class CircularDependencyTest {
 
   @Test fun testCircularDependency_stillFailsOnDynamicDependency() {
     val mxo = MockspressoBuilder()
-      .realInstanceOf<A?>()
-      .dependencyOf<B?> { B(get(dependencyKey())) }
+      .realInstance<A?>()
+      .dependency<B?> { B(get(dependencyKey())) }
       .build()
 
-    val c by mxo.realImplOf<C?, C>()
+    val c by mxo.realImplementation<C?, C>()
 
     assertThat {
       c.a

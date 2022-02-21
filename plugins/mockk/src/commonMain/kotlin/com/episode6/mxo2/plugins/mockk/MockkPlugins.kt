@@ -46,7 +46,7 @@ inline fun <reified T : Any?> MockspressoBuilder.defaultMockk(
   vararg moreInterfaces: KClass<*>,
   relaxUnitFun: Boolean = true,
   noinline block: T.() -> Unit = {}
-) = dependencyOf<T>(qualifier) {
+) = dependency<T>(qualifier) {
   _mockk(
     name = name,
     relaxed = relaxed,
@@ -67,7 +67,7 @@ inline fun <reified T : Any?> MockspressoProperties.mockk(
   vararg moreInterfaces: KClass<*>,
   relaxUnitFun: Boolean = false,
   noinline block: T.() -> Unit = {}
-): Lazy<T> = depOf<T>(qualifier) {
+): Lazy<T> = dependency<T>(qualifier) {
   _mockk(
     name = name,
     relaxed = relaxed,
@@ -108,7 +108,7 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyk
   vararg moreInterfaces: KClass<*>,
   recordPrivateCalls: Boolean = false,
   noinline block: IMPL.() -> Unit = {}
-): Lazy<IMPL> = realImplOf<BIND, IMPL>(qualifier) {
+): Lazy<IMPL> = realImplementation<BIND, IMPL>(qualifier) {
   _spyk(
     objToCopy = it!!,
     name = name,

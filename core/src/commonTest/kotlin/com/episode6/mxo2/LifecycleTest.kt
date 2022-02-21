@@ -21,8 +21,8 @@ class LifecycleTest {
   private val mxo = MockspressoBuilder()
     .onSetup(builderSetup)
     .onTeardown(builderTeardown)
-    .dependencyOf { testDependency1 }
-    .dependencyOf { testDependency2 }
+    .dependency { testDependency1 }
+    .dependency { testDependency2 }
     .build()
 
   init {
