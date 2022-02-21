@@ -56,7 +56,7 @@ class CoffeeMakerTest {
 
 The [`plugins-mockito`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html) and [`plugins-mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html) modules include a few plugins to assist with mocking dependencies. 
 
- - [`MockspressoBuilder.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1522507340%2FFunctions%2F37435277) / [`mock`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#1757865668%2FFunctions%2F147516529) if the reference **is not** needed for the test
+ - [`MockspressoBuilder.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1522507340%2FFunctions%2F37435277) / [`mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#1757865668%2FFunctions%2F147516529) if the reference **is not** needed for the test
  - [`MockspressoProperties.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1522507340%2FFunctions%2F37435277) / [`mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#1757865668%2FFunctions%2F147516529) if the reference **is** needed for the test
  - [`MockspressoProperties.spy`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#-1963645221%2FFunctions%2F37435277) / [`spyk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#-1266070436%2FFunctions%2F147516529) wrap a real object with a spy
 
