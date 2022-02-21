@@ -13,7 +13,7 @@ import kotlin.test.Test
 class MockkMockingTest {
 
   val mxo = MockspressoBuilder()
-    .defaultMockk<TestDepOne> {
+    .mockk<TestDepOne> {
       every { doSomething() } throws RuntimeException()
     }
     .build()
