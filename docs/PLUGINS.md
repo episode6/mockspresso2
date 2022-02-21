@@ -24,7 +24,9 @@ Mockspresso ships the following plugin modules...
  - [`com.episode6.mockspresso2:plugins-junit5`](dokka/plugins-junit5/com.episode6.mxo2.plugins.junit5/index.html)
     - Lifecycle plugin for [JUnit 5](https://junit.org/junit5/)
 
+
 #### DI Framework Support
+
  - [`com.episode6.mockspresso2:plugins-javax-inject`](dokka/plugins-javax-inject/com.episode6.mxo2.plugins.javax.inject/index.html)
     - RealObjectMaker that supports field and method injection
     - Plugin to support automatic mapping of `Provider<T> -> T`
@@ -33,6 +35,8 @@ Mockspresso ships the following plugin modules...
     - RealObjectMaker that adds support for `dagger.@AssistedInject`
     - Plugin to support automatic mapping of `Lazy<T> -> T`
 
+
 #### Misc
+
  - [`com.episode6.mockspresso2:plugins-mockito-factories`](dokka/plugins-mockito-factories/com.episode6.mxo2.plugins.mockito.factories/index.html)
     - Plugins to generate automatic factories using [Mockito](http://mockito.org/) under the hood.
