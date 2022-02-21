@@ -1,7 +1,7 @@
 ## Installation
 See the [Project Setup](PROJECT_SETUP) doc for current version & setup instructions.
 
-## Declaring a real object
+### Declaring a real object
 
 In unit tests we're usually forced to declare all our dependencies first before we can declare our unit-under-test. With mockspresso, every unit test can declare it's real object(s) up front using the [`MockspressoProperties.realInstance()`](dokka/api/com.episode6.mxo2/-mockspresso-properties/index.html#202506020%2FExtensions%2F2089714443) method.
 
