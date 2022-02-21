@@ -5,7 +5,7 @@ This guide is intended to ease the transition from Mockspresso v1 -> v2. We will
 This is not a replacement for checking the [Api KDocs](dokka/api/com.episode6.mxo2/index.html#616616919%2FClasslikes%2F2089714443)
 
 #### Entry-point
-While we rarely interacted with the result of `MockspressoBuilder.build()` in v1, but in v2 we build delegated properties from it. Because of this we recommending shortening the name of your `val mockspresso`
+While we rarely interacted with the result of `MockspressoBuilder.build()` in v1, in v2 we build delegated properties from it. Because of this we recommending shortening the name of your `val mockspresso`. We've been using `mxo`.
 
 ```diff
 -val mockspresso = BuildMockspresso().build()
