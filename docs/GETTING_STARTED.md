@@ -31,23 +31,23 @@ Assuming we've set up [fallback mocking](PROJECT_SETUP#auto-mock-support), we ca
 ### Declaring dependencies
 
 Dependencies for the real object can be declared using either
- - [`MockspressoBuilder.dependencyOf`](dokka/api/com.episode6.mxo2/-mockspresso-builder/index.html#1507930812%2FExtensions%2F2089714443): if the reference **is not** needed for the test 
- - [`MockspressoProperties.depOf`](dokka/api/com.episode6.mxo2/-mockspresso-properties/index.html#27288324%2FExtensions%2F2089714443): if the reference **is** needed for the test
- - [`MockspressoProperties.fakeOf<BIND, IMPL>`](dokka/api/com.episode6.mxo2/-mockspresso-properties/index.html#-1175481446%2FExtensions%2F2089714443): if the reference needed by the test must be of a different type than the type of dependency bound in the real object
+ - [`MockspressoBuilder.dependency`](dokka/api/com.episode6.mxo2/-mockspresso-builder/index.html#1844956165%2FExtensions%2F2089714443): if the reference **is not** needed for the test 
+ - [`MockspressoProperties.dependency`](dokka/api/com.episode6.mxo2/-mockspresso-properties/index.html#-1592709513%2FExtensions%2F2089714443): if the reference **is** needed for the test
+ - [`MockspressoProperties.fake<BIND, IMPL>`](dokka/api/com.episode6.mxo2/-mockspresso-properties/index.html#685862321%2FExtensions%2F2089714443): if the reference needed by the test must be of a different type than the type of dependency bound in the real object
 
 ```kotlin
 class CoffeeMakerTest {
   val mxo = MockspressoBuilder()
-    .dependencyOf<Timer> { FakeTimer() }
+    .dependency<Timer> { FakeTimer() }
     .build()
 
   val coffeeMaker: CoffeeMaker by mxo.realInstance()
 
   // TestFilter doesn't have any special methods we need
-  val filter: Filter by mxo.depOf<Filter> { TestFilter() }
+  val filter: Filter by mxo.dependency<Filter> { TestFilter() }
 
   // We need access to TestHeater.finishHeating()
-  val heater: TestHeater by mxo.fakeOf<Heater, TestHeater> { TestHeater() }
+  val heater: TestHeater by mxo.fake<Heater, TestHeater> { TestHeater() }
 }
 ```
 **Note:** The `filter` and `heater` examples above should be rare in actual tests and would usually be substituted by plugins.
@@ -56,9 +56,9 @@ class CoffeeMakerTest {
 
 The [`plugins-mockito`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html) and [`plugins-mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html) modules include a few plugins to assist with mocking dependencies. 
 
- - [`MockspressoBuilder.defaultMock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#-1930091915%2FFunctions%2F37435277) / [`defaultMockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#210609015%2FFunctions%2F147516529)
- - [`MockspressoProperties.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1781692779%2FFunctions%2F37435277) / [`mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#2054217256%2FFunctions%2F147516529)
- - [`MockspressoProperties.spy`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#-1963645221%2FFunctions%2F37435277) / [`spyk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#-1266070436%2FFunctions%2F147516529)
+ - [`MockspressoBuilder.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1522507340%2FFunctions%2F37435277) / [`mock`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#1757865668%2FFunctions%2F147516529) if the reference **is not** needed for the test
+ - [`MockspressoProperties.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1522507340%2FFunctions%2F37435277) / [`mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#1757865668%2FFunctions%2F147516529) if the reference **is** needed for the test
+ - [`MockspressoProperties.spy`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#-1963645221%2FFunctions%2F37435277) / [`spyk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#-1266070436%2FFunctions%2F147516529) wrap a real object with a spy
 
  In each case the plugin signature mirrors what is supplied by the mocking framework. Example (using mockito):
 
@@ -66,7 +66,7 @@ The [`plugins-mockito`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/
 class CoffeeMakerTest {
   val mxo = MockspressoBuilder()
      // mock an executor that we don't need a reference to but needs some setup
-    .defaultMock<Executor> {
+    .mockock<Executor> {
       on { execute(any()) } doAnswer { it.getArgument(0).run() }
     }.build()
 
@@ -94,14 +94,14 @@ When we create or declare any real object in mockspresso, that object becomes pa
 ```kotlin
 class CoffeeMakerTest {
   val mxo = MockspressoBuilder()
-    .realInstanceOf<Filter>() // a real Filter will be constructed
-    .realImplementationOf<Heater, HeaterImpl>() // a real HeaterImpl will be constructed
+    .realInstance<Filter>() // a real Filter will be constructed
+    .realImplementation<Heater, HeaterImpl>() // a real HeaterImpl will be constructed
     .build()
 
   val coffeeMaker: CoffeeMaker by mxo.realInstance()
 
   // a real FastGrinder will be constructed
-  val grinder: FastGrinder by mxo.realImplOf<Grinder, FastGrinder>()
+  val grinder: FastGrinder by mxo.realImplementation<Grinder, FastGrinder>()
 }
 ```
 
@@ -119,7 +119,7 @@ class MyRealClass @Inject constructor(
 // test class
 class MyRealClassTest {
   val mxo = MockspressoBuilder()
-    .dependencyOf<CoroutineContext>(createAnnotation<Named>("IO")) { EmptyCoroutineContext }
+    .dependency<CoroutineContext>(createAnnotation<Named>("IO")) { EmptyCoroutineContext }
     .build()
 
   // will have EmptyCoroutineContext injected as dependency
@@ -145,7 +145,7 @@ More Common
 // MockspressoBuilder plugin to inject an EmptyCoroutineContext that is bound 
 // in DI as CoroutineContext
 fun MockspressoBuilder.emptyCoroutineContext(qualifier: Annotation? = null): MockspressoBuilder = 
-  dependencyOf<CoroutineContext>(qualifier) { EmptyCoroutineContext }
+  dependency<CoroutineContext>(qualifier) { EmptyCoroutineContext }
 
 // Usage: 
 val mxo = MockspressoBuilder()
@@ -158,7 +158,7 @@ val mxo = MockspressoBuilder()
 // MockspressoProperties plugin to return a lazy of a TestCoroutineContext that is bound 
 // in DI as CoroutineContext
 fun MockspressoProperties.testCoroutineContext(qualifier: Annotation? = null): Lazy<TestCoroutineContext> = 
-  fakeOf<CoroutineContext, TestCoroutineContext>(qualifier) { TestCoroutineContext() }
+  fake<CoroutineContext, TestCoroutineContext>(qualifier) { TestCoroutineContext() }
 
 // Usage: (in the real tests we could drop the type)
 val context: TestCoroutineContext by mxo.testCoroutineContext(createAnnotation<Named>("IO"))
