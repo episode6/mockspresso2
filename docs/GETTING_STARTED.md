@@ -94,3 +94,61 @@ class CoffeeMakerTest {
 }
 ```
 
+### Qualifier Annotations
+All of the methods shown above actually include an optional qualifier `Annotation?` as their first parameter. That is because every DI binding in mockspresso (aka [`DependencyKey`](dokka/api/com.episode6.mxo2.reflect/index.html#-1902283991%2FClasslikes%2F2089714443)) is made up of both a [`TypeToken`](dokka/api/com.episode6.mxo2.reflect/index.html#-873316418%2FClasslikes%2F2089714443) and an optional qualifier `Annotation?`. In the JVM, this means the annotation must, itself, be annotated with `javax.inject.Qualifier`.
+
+Example:
+```kotlin
+// real class
+class MyRealClass @Inject constructor(
+  // Named is stock qualifier annotation included in jsr-330
+  @Named("IO") ioDispatcher: CoroutineContext
+)
+
+// test class
+class MyRealClassTest {
+  val mxo = MockspressoBuilder()
+    .dependencyOf<CoroutineContext>(createAnnotation<Named>("IO")) { EmptyCoroutineContext }
+    .build()
+
+  // will have EmptyCoroutineContext injected as dependency
+  val myRealClass: MyRealClass by mxo.realInstance()
+}
+```
+**Note:** The `createAnnotation()` method is part of `kotlin-reflect`
+
+### Developing Plugins
+
+Mockspresso plugins are just kotlin extension functions targeting one of Mockspresso's primary interfaces.
+
+More Common
+ - [`MockspressoBuilder`](dokka/api/com.episode6.mxo2/index.html#-1308321104%2FClasslikes%2F2089714443) for plugins that add to the dependency graph but don't need to return anything (builder plugins must always return the builder).
+ - [`MockspressoProperties`](dokka/api/com.episode6.mxo2/index.html#1185097316%2FClasslikes%2F2089714443) for plugins that need to add the dependency graph but also return a (lazy) reference.
+
+ Less Common
+ - [`MockspressoInstance`](dokka/api/com.episode6.mxo2/index.html#-1651402046%2FClasslikes%2F2089714443) for plugins that only need to pull from the dependency graph but do not need to add to it.
+ - [`Mockspresso`](dokka/api/com.episode6.mxo2/index.html#616616919%2FClasslikes%2F2089714443) for test-framework support plugins that control the test lifecycle
+
+ Some plugin examples...
+ ```kotlin
+// MockspressoBuilder plugin to inject an EmptyCoroutineContext that is bound 
+// in DI as CoroutineContext
+fun MockspressoBuilder.emptyCoroutineContext(qualifier: Annotation? = null): MockspressoBuilder = 
+  dependencyOf<CoroutineContext>(qualifier) { EmptyCoroutineContext }
+
+// Usage: 
+val mxo = MockspressoBuilder()
+  .emptyCoroutineContext(createAnnotation<Named>("IO"))
+  .build()
+```
+
+
+```kotlin
+// MockspressoProperties plugin to return a lazy of a TestCoroutineContext that is bound 
+// in DI as CoroutineContext
+fun MockspressoProperties.testCoroutineContext(qualifier: Annotation? = null): Lazy<TestCoroutineContext> = 
+  fakeOf<CoroutineContext, TestCoroutineContext>(qualifier) { TestCoroutineContext() }
+
+// Usage: (in the real tests we could drop the type)
+val context: TestCoroutineContext by mxo.testCoroutineContext(createAnnotation<Named>("IO"))
+```
