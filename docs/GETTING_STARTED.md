@@ -152,3 +152,10 @@ fun MockspressoProperties.testCoroutineContext(qualifier: Annotation? = null): L
 // Usage: (in the real tests we could drop the type)
 val context: TestCoroutineContext by mxo.testCoroutineContext(createAnnotation<Named>("IO"))
 ```
+ 
+There are also 3 types of plugins that can only be applied to [`MockspressoBuilder`](dokka/api/com.episode6.mxo2/index.html#-1308321104%2FClasslikes%2F2089714443)
+ - [`RealObjectMaker`](dokka/api/com.episode6.mxo2/-mockspresso-builder/index.html#-473334580%2FFunctions%2F2089714443) creates real objects using some pre-defined ruleset
+ - [`FallbackObjectMaker`](dokka/api/com.episode6.mxo2/-mockspresso-builder/index.html#653129548%2FFunctions%2F2089714443) creates objects (usually mocks) that aren't explicitly registered in the graph
+ - [`DynamicObjectMaker`](dokka/api/com.episode6.mxo2/-mockspresso-builder/index.html#-281366160%2FFunctions%2F2089714443) gets a chance to create any objects that aren't explicitly registered in the graph
+
+ The [`DynamicObjectMaker`](dokka/api/com.episode6.mxo2.api/-dynamic-object-maker/index.html) is worth calling out as it's one of mockspresso's more powerful concepts and powers the support of [`javax.inject.Provider`](dokka/plugins-javax-inject/com.episode6.mxo2.plugins.javax.inject/index.html#-870338652%2FFunctions%2F-1937516557), [`dagger.Lazy`](dokka/plugins-dagger2/com.episode6.mxo2.plugins.dagger2/index.html#364970602%2FFunctions%2F341024319) and [`@dagger.AssistedFactory`](dokka/plugins-mockito-factories/com.episode6.mxo2.plugins.mockito.factories/index.html#-1170205750%2FFunctions%2F1534461010).
