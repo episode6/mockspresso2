@@ -170,3 +170,7 @@ There are also 3 types of plugins that can only be applied to [`MockspressoBuild
  - [`DynamicObjectMaker`](dokka/api/com.episode6.mxo2/-mockspresso-builder/index.html#-281366160%2FFunctions%2F2089714443) gets a chance to create any objects that aren't explicitly registered in the graph
 
  The [`DynamicObjectMaker`](dokka/api/com.episode6.mxo2.api/-dynamic-object-maker/index.html) is worth calling out as it's one of mockspresso's more powerful concepts and powers the support of [`javax.inject.Provider`](dokka/plugins-javax-inject/com.episode6.mxo2.plugins.javax.inject/index.html#-870338652%2FFunctions%2F-1937516557), [`dagger.Lazy`](dokka/plugins-dagger2/com.episode6.mxo2.plugins.dagger2/index.html#364970602%2FFunctions%2F341024319) and [`@dagger.AssistedFactory`](dokka/plugins-mockito-factories/com.episode6.mxo2.plugins.mockito.factories/index.html#-1170205750%2FFunctions%2F1534461010).
+
+
+### Included Plugins
+See the [Plugin Modules](PLUGINS.md) doc for a full list of the plugin modules mockspresso2 ships with 

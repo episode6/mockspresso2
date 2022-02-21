@@ -72,7 +72,7 @@ See the [Translation Guide](TRANSLATION_GUIDE.md) for key syntax differences bet
 
 - [Project Setup](PROJECT_SETUP.md)
 - [Getting Started](GETTING_STARTED.md)
-- [Plugins](PLUGINS.md)
+- [Plugin Modules](PLUGINS.md)
 - [KDocs](dokka/)
 - [ChangeLog](CHANGELOG.md)
 
