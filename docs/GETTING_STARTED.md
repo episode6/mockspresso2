@@ -56,7 +56,7 @@ class CoffeeMakerTest {
 
 The [`plugins-mockito`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html) and [`plugins-mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html) modules include a few plugins to assist with mocking dependencies. 
 
- - [`MockspressoBuilder.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1522507340%2FFunctions%2F37435277) / [`mock`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#1757865668%2FFunctions%2F147516529) if the reference **is not** needed for the test
+ - [`MockspressoBuilder.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1522507340%2FFunctions%2F37435277) / [`mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#1757865668%2FFunctions%2F147516529) if the reference **is not** needed for the test
  - [`MockspressoProperties.mock`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#1522507340%2FFunctions%2F37435277) / [`mockk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#1757865668%2FFunctions%2F147516529) if the reference **is** needed for the test
  - [`MockspressoProperties.spy`](dokka/plugins-mockito/com.episode6.mxo2.plugins.mockito/index.html#-1963645221%2FFunctions%2F37435277) / [`spyk`](dokka/plugins-mockk/com.episode6.mxo2.plugins.mockk/index.html#-1266070436%2FFunctions%2F147516529) wrap a real object with a spy
 
@@ -170,3 +170,7 @@ There are also 3 types of plugins that can only be applied to [`MockspressoBuild
  - [`DynamicObjectMaker`](dokka/api/com.episode6.mxo2/-mockspresso-builder/index.html#-281366160%2FFunctions%2F2089714443) gets a chance to create any objects that aren't explicitly registered in the graph
 
  The [`DynamicObjectMaker`](dokka/api/com.episode6.mxo2.api/-dynamic-object-maker/index.html) is worth calling out as it's one of mockspresso's more powerful concepts and powers the support of [`javax.inject.Provider`](dokka/plugins-javax-inject/com.episode6.mxo2.plugins.javax.inject/index.html#-870338652%2FFunctions%2F-1937516557), [`dagger.Lazy`](dokka/plugins-dagger2/com.episode6.mxo2.plugins.dagger2/index.html#364970602%2FFunctions%2F341024319) and [`@dagger.AssistedFactory`](dokka/plugins-mockito-factories/com.episode6.mxo2.plugins.mockito.factories/index.html#-1170205750%2FFunctions%2F1534461010).
+
+
+### Included Plugins
+See the [Plugin Modules](PLUGINS.md) doc for a full list of the plugin modules mockspresso2 ships with 
