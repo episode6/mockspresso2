@@ -54,7 +54,7 @@ Mockspresso2 replaces annotation processing with delegated properties...
 -@RealObject(implementation = CoffeeMakerImpl::class) lateinit var coffeeMaker: CoffeeMaker
 +val coffeeMaker by mxo.realImplementation<CoffeeMaker, CoffeeMakerImpl>()
  
- // add mocks
+ // add mocks (requires one of the mock support modules)
  
 -@Mock lateinit var mockThing: Thing 
 +val mockThing: Thing by mxo.mock()
