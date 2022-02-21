@@ -13,7 +13,7 @@ class RealImplIntegrationTest {
       .dependency { unexpectedTestClass }
       .build()
 
-    val obj by mxo.realImpl<TestInterface, TestClass>()
+    val obj by mxo.realImplementation<TestInterface, TestClass>()
 
     assertThat(obj)
       .isInstanceOf(TestClass::class)

@@ -157,7 +157,7 @@ interface MockspressoProperties {
    * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
    * if it hasn't been already.
    */
-  fun <T : Any?> dep(key: DependencyKey<T>, provider: Dependencies.() -> T): Lazy<T>
+  fun <T : Any?> dependency(key: DependencyKey<T>, provider: Dependencies.() -> T): Lazy<T>
 
   /**
    * Find an existing dependency in the underlying mockspresso instance (bound with [key]) and return a [Lazy] for it.
@@ -168,7 +168,7 @@ interface MockspressoProperties {
    * If the dependency hasn't been cached or constructed then it will be generated on the fly and cached from that
    * point forward. If the binding hasn't been declared in this mockspresso instance, then a fallback will be generated.
    */
-  fun <T : Any?> findDep(key: DependencyKey<T>): Lazy<T>
+  fun <T : Any?> findDependency(key: DependencyKey<T>): Lazy<T>
 
   /**
    * Register a request to create a real object of type [implementationToken] bound in the mockspresso graph with [key].
@@ -179,7 +179,7 @@ interface MockspressoProperties {
    * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
    * if it hasn't been already.
    */
-  fun <BIND : Any?, IMPL : BIND> realImpl(
+  fun <BIND : Any?, IMPL : BIND> realImplementation(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> IMPL = { it }

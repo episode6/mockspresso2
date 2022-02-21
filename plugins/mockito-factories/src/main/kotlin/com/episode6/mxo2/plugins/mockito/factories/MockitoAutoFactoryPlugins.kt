@@ -35,5 +35,5 @@ inline fun <reified T : Any?> MockspressoBuilder.autoFactory(qualifier: Annotati
  */
 inline fun <reified T : Any?> MockspressoProperties.autoFactory(qualifier: Annotation? = null): Lazy<T> {
   val key = dependencyKey<T>(qualifier)
-  return dep(key) { autoFactoryMock(key) }
+  return dependency(key) { autoFactoryMock(key) }
 }

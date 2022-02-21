@@ -16,7 +16,7 @@ class CircularDependencyTest {
       .realInstance<B?>()
       .build()
 
-    val c by mxo.realImpl<C?, C>()
+    val c by mxo.realImplementation<C?, C>()
 
     assertThat {
       c.a
@@ -28,8 +28,8 @@ class CircularDependencyTest {
       .realInstance<A?>()
       .build()
 
-    val b by mxo.dep<B?> { B(null) }
-    val c by mxo.realImpl<C?, C>()
+    val b by mxo.dependency<B?> { B(null) }
+    val c by mxo.realImplementation<C?, C>()
 
     assertThat(c.a).isNotNull()
     assertThat(c.a!!.b).isEqualTo(b)
@@ -41,7 +41,7 @@ class CircularDependencyTest {
       .dependency<B?> { B(get(dependencyKey())) }
       .build()
 
-    val c by mxo.realImpl<C?, C>()
+    val c by mxo.realImplementation<C?, C>()
 
     assertThat {
       c.a

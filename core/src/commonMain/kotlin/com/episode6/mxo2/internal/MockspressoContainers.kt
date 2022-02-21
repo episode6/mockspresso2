@@ -72,13 +72,13 @@ private class MockspressoPropertiesContainer(
     builder.onTearDown(cmd)
   }
 
-  override fun <T> dep(key: DependencyKey<T>, provider: Dependencies.() -> T): Lazy<T> {
+  override fun <T> dependency(key: DependencyKey<T>, provider: Dependencies.() -> T): Lazy<T> {
     builder.dependencyOf(key, provider)
-    return findDep(key)
+    return findDependency(key)
   }
 
   @Suppress("UNCHECKED_CAST")
-  override fun <BIND, IMPL : BIND> realImpl(
+  override fun <BIND, IMPL : BIND> realImplementation(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> IMPL
@@ -87,7 +87,7 @@ private class MockspressoPropertiesContainer(
     return mlazy { instance.get(key) as IMPL }
   }
 
-  override fun <T> findDep(key: DependencyKey<T>): Lazy<T> = mlazy { instance.get(key) }
+  override fun <T> findDependency(key: DependencyKey<T>): Lazy<T> = mlazy { instance.get(key) }
 }
 
 private class MockspressoContainer(

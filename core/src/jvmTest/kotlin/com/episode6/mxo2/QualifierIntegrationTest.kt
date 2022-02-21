@@ -15,8 +15,8 @@ class QualifierIntegrationTest {
   @Test fun testSimpleWorkingCaseWithQualifier() {
     val mxo = MockspressoBuilder().build()
     val objUnderTest: SomeObjectWithQualifier by mxo.realInstance()
-    val dep1 by mxo.dep { SomeDependency1() }
-    val dep2 by mxo.dep(qualifier = SomeQualifier::class.createInstance()) { SomeDependency1() }
+    val dep1 by mxo.dependency { SomeDependency1() }
+    val dep2 by mxo.dependency(qualifier = SomeQualifier::class.createInstance()) { SomeDependency1() }
 
     assertThat(objUnderTest).isNotNull()
     assertThat(objUnderTest.dependency1).isEqualTo(dep1)

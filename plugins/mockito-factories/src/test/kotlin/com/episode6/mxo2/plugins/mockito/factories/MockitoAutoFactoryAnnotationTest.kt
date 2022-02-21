@@ -3,7 +3,7 @@ package com.episode6.mxo2.plugins.mockito.factories
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.episode6.mxo2.MockspressoBuilder
-import com.episode6.mxo2.dep
+import com.episode6.mxo2.dependency
 import com.episode6.mxo2.realInstance
 import org.junit.jupiter.api.Test
 
@@ -14,7 +14,7 @@ class MockitoAutoFactoryAnnotationTest {
     .build()
 
   val ro by mxo.realInstance<RealObject>()
-  val dep by mxo.dep { Dependency() }
+  val dep by mxo.dependency { Dependency() }
 
   @Test fun testDependencyIsFromMap() {
     assertThat(ro.dependency).isEqualTo(dep)
