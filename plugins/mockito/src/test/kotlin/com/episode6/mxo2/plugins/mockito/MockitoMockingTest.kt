@@ -13,7 +13,7 @@ import org.mockito.kotlin.verify
 class MockitoMockingTest {
 
   val mxo = MockspressoBuilder()
-    .defaultMock<TestDepOne> {
+    .mock<TestDepOne> {
       on { doSomething() } doThrow RuntimeException()
     }
     .build()

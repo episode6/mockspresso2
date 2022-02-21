@@ -39,7 +39,7 @@ fun MockspressoBuilder.fallbackWithMockk(
  *
  * IMPORTANT: we default [relaxed] and [relaxUnitFun] to true for defaultMocks.
  */
-inline fun <reified T : Any?> MockspressoBuilder.defaultMockk(
+inline fun <reified T : Any?> MockspressoBuilder.mockk(
   qualifier: Annotation? = null,
   name: String? = null,
   relaxed: Boolean = true,

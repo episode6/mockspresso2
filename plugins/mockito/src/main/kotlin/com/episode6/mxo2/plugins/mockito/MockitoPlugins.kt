@@ -28,7 +28,7 @@ fun MockspressoBuilder.fallbackWithMockito(): MockspressoBuilder =
  * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mock]
  * instead.
  */
-inline fun <reified T : Any?> MockspressoBuilder.defaultMock(
+inline fun <reified T : Any?> MockspressoBuilder.mock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
   name: String? = null,
@@ -67,7 +67,7 @@ inline fun <reified T : Any?> MockspressoBuilder.defaultMock(
  * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mock]
  * instead.
  */
-inline fun <reified T : Any?> MockspressoBuilder.defaultMock(
+inline fun <reified T : Any?> MockspressoBuilder.mock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
   name: String? = null,
