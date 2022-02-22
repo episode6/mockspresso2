@@ -39,6 +39,14 @@ The names methods on the builder have changed slightly...
    .build()
 ```
 
+#### JUnit4 Rule
+Mockspresso1 had junit4 rule support baked in. Mockspresso2 includes junit4 rule support in the [`plugins-junit4`](dokka/plugins-junit4/com.episode6.mxo2.plugins.junit4/index.html#918458742%2FFunctions%2F991293141) module instead.
+
+```diff
+-@get:Rule val mockspresso = BuildMockspresso.with().buildRule()
++@get:Rule val mxo = MockspressoBuilder().build().junitRule()
+```
+
 #### Delegated Properties
 Mockspresso2 replaces annotation processing with delegated properties...
 
