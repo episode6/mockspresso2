@@ -8,7 +8,7 @@ This is not a replacement for checking the [Api KDocs](dokka/api/com.episode6.mx
 While we rarely interacted with the result of `MockspressoBuilder.build()` in v1, in v2 we build delegated properties from it. Because of this we recommending shortening the name of your `val mockspresso`. We've been using `mxo`.
 
 ```diff
--val mockspresso = BuildMockspresso().build()
+-val mockspresso = BuildMockspresso.with().build()
 +val mxo = MockspressoBuilder().build() // function and val name both changed
 ```
 
