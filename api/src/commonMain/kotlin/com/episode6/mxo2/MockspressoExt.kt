@@ -30,7 +30,7 @@ inline fun <reified T : Any?> MockspressoInstance.findNow(
 inline fun <reified T : Any?> MockspressoBuilder.dependency(
   qualifier: Annotation? = null,
   noinline provider: () -> T
-): MockspressoBuilder = dependency(dependencyKey(qualifier), provider = { provider() })
+): MockspressoBuilder = dependency(dependencyKey(qualifier)) { provider() }
 
 /**
  * Register a request to create a real object of type [T] bound in the mockspresso graph with a dependencyKey made from
@@ -69,7 +69,7 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImp
 inline fun <reified T : Any?> MockspressoProperties.dependency(
   qualifier: Annotation? = null,
   noinline provider: () -> T
-): Lazy<T> = dependency(dependencyKey(qualifier), provider = { provider() })
+): Lazy<T> = dependency(dependencyKey(qualifier)) { provider() }
 
 /**
  * Register a dependency provided by [provider] that is of type [IMPL] but bound in the mockspresso graph with a
