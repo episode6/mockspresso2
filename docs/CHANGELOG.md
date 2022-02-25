@@ -1,5 +1,8 @@
 # ChangeLog
 
+### v2.0.0-alpha03-SNAPSHOT - Unreleased
+
+
 ### v2.0.0-alpha02-SNAPSHOT - Unreleased
 
 - Remove mention of `Dependencies` and real object interceptors from the standard extension functions in the api. The
