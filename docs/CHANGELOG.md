@@ -1,6 +1,6 @@
 # ChangeLog
 
-### v2.0.0-alpha02-SNAPSHOT - Unreleased
+### v2.0.0-alpha02 - Release 2/24/2022
 
 - Remove mention of `Dependencies` and real object interceptors from the standard extension functions in the api. The
   interceptors specifically are a bit too powerful and easy to mis-use / misunderstand. Replace the interceptors with
