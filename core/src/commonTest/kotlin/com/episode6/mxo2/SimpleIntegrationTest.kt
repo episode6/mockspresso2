@@ -98,7 +98,7 @@ class SimpleIntegrationTest {
       .dependency { SomeDependency1() }
       .build()
 
-    val dep2: SomeDependency2 by mxo.realImplementation(dependencyKey(), typeToken()) { spyk(it) }
+    val dep2: SomeDependency2 by mxo.interceptRealImplementation(dependencyKey(), typeToken()) { spyk(it) }
     val objUnderTest: SomeObject by mxo.realInstance()
 
     assertThat(dep2).isEqualTo(objUnderTest.dependency2)

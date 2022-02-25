@@ -89,7 +89,7 @@ inline fun <reified T : Any?> MockspressoProperties.spyk(
   vararg moreInterfaces: KClass<*>,
   recordPrivateCalls: Boolean = false,
   noinline block: T.() -> Unit = {}
-): Lazy<T> = realImplementation(dependencyKey<T>(qualifier), typeToken<T>()) {
+): Lazy<T> = interceptRealImplementation(dependencyKey<T>(qualifier), typeToken<T>()) {
   _spyk(
     objToCopy = it!!,
     name = name,
@@ -110,7 +110,7 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyk
   vararg moreInterfaces: KClass<*>,
   recordPrivateCalls: Boolean = false,
   noinline block: IMPL.() -> Unit = {}
-): Lazy<IMPL> = realImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) {
+): Lazy<IMPL> = interceptRealImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) {
   _spyk(
     objToCopy = it!!,
     name = name,

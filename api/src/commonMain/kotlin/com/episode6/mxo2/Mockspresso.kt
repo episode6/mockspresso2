@@ -107,7 +107,7 @@ interface MockspressoBuilder {
    * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
    * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
    */
-  fun <BIND : Any?, IMPL : BIND> realImplementation(
+  fun <BIND : Any?, IMPL : BIND> interceptRealImplementation(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> BIND = { it }
@@ -179,7 +179,7 @@ interface MockspressoProperties {
    * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
    * if it hasn't been already.
    */
-  fun <BIND : Any?, IMPL : BIND> realImplementation(
+  fun <BIND : Any?, IMPL : BIND> interceptRealImplementation(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> IMPL = { it }

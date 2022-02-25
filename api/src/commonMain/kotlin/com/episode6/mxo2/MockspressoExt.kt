@@ -42,7 +42,7 @@ inline fun <reified T : Any?> MockspressoBuilder.realInstance(
   qualifier: Annotation? = null,
   noinline init: (T) -> Unit = { }
 ): MockspressoBuilder = dependencyKey<T>(qualifier).let { key ->
-  realImplementation(key, key.token, interceptor = { it.apply(init) })
+  interceptRealImplementation(key, key.token) { it.apply(init) }
 }
 
 /**
@@ -55,7 +55,7 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImp
   qualifier: Annotation? = null,
   noinline init: (IMPL) -> Unit = { }
 ): MockspressoBuilder =
-  realImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>(), interceptor = { it.apply(init) })
+  interceptRealImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) { it.apply(init) }
 
 /**
  * Register a dependency provided by [provider], bound in the mockspresso graph with a dependencyKey made from
@@ -114,7 +114,7 @@ inline fun <reified T : Any?> MockspressoProperties.realInstance(
   qualifier: Annotation? = null,
   noinline init: (T) -> Unit = { }
 ): Lazy<T> = dependencyKey<T>(qualifier).let { key ->
-  realImplementation(key, key.token, interceptor = { it.apply(init) })
+  interceptRealImplementation(key, key.token) { it.apply(init) }
 }
 
 /**
@@ -130,4 +130,4 @@ inline fun <reified T : Any?> MockspressoProperties.realInstance(
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.realImplementation(
   qualifier: Annotation? = null,
   noinline init: (IMPL) -> Unit = { }
-): Lazy<IMPL> = realImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>(), interceptor = { it.apply(init) })
+): Lazy<IMPL> = interceptRealImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) { it.apply(init) }
