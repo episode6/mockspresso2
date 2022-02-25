@@ -1,6 +1,5 @@
 package com.episode6.mxo2
 
-import com.episode6.mxo2.api.Dependencies
 import com.episode6.mxo2.reflect.dependencyKey
 import com.episode6.mxo2.reflect.typeToken
 
@@ -30,32 +29,33 @@ inline fun <reified T : Any?> MockspressoInstance.findNow(
  */
 inline fun <reified T : Any?> MockspressoBuilder.dependency(
   qualifier: Annotation? = null,
-  noinline provider: Dependencies.() -> T
-): MockspressoBuilder = dependency(dependencyKey(qualifier), provider)
+  noinline provider: () -> T
+): MockspressoBuilder = dependency(dependencyKey(qualifier), provider = { provider() })
 
 /**
  * Register a request to create a real object of type [T] bound in the mockspresso graph with a dependencyKey made from
  * type [T] and [qualifier].
  *
- * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
- * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
+ * The supplied [init] lambda will be called when the real object is created.
  */
 inline fun <reified T : Any?> MockspressoBuilder.realInstance(
   qualifier: Annotation? = null,
-  noinline interceptor: (T) -> T = { it }
-): MockspressoBuilder = dependencyKey<T>(qualifier).let { realImplementation(it, it.token, interceptor) }
+  noinline init: (T) -> Unit = { }
+): MockspressoBuilder = dependencyKey<T>(qualifier).let { key ->
+  realImplementation(key, key.token, interceptor = { it.apply(init) })
+}
 
 /**
  * Register a request to create a real object of type [IMPL] bound in the mockspresso graph with a dependencyKey made
  * from type [BIND] and [qualifier].
  *
- * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
- * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
+ * The supplied [init] lambda will be called when the real object is created.
  */
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImplementation(
   qualifier: Annotation? = null,
-  noinline interceptor: (IMPL) -> BIND = { it }
-): MockspressoBuilder = realImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>(), interceptor)
+  noinline init: (IMPL) -> Unit = { }
+): MockspressoBuilder =
+  realImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>(), interceptor = { it.apply(init) })
 
 /**
  * Register a dependency provided by [provider], bound in the mockspresso graph with a dependencyKey made from
@@ -68,8 +68,8 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImp
  */
 inline fun <reified T : Any?> MockspressoProperties.dependency(
   qualifier: Annotation? = null,
-  noinline provider: Dependencies.() -> T
-): Lazy<T> = dependency(dependencyKey(qualifier), provider)
+  noinline provider: () -> T
+): Lazy<T> = dependency(dependencyKey(qualifier), provider = { provider() })
 
 /**
  * Register a dependency provided by [provider] that is of type [IMPL] but bound in the mockspresso graph with a
@@ -80,7 +80,7 @@ inline fun <reified T : Any?> MockspressoProperties.dependency(
  */
 @Suppress("UNCHECKED_CAST") inline fun <reified BIND : Any?, IMPL : BIND> MockspressoProperties.fake(
   qualifier: Annotation? = null,
-  noinline provider: Dependencies.() -> IMPL
+  noinline provider: () -> IMPL
 ): Lazy<IMPL> {
   val depLazy = dependency<BIND>(qualifier, provider)
   return lazy(LazyThreadSafetyMode.NONE) { depLazy.value as IMPL }
@@ -104,8 +104,7 @@ inline fun <reified T : Any?> MockspressoProperties.findDependency(
  * Register a request to create a real object of type [T] bound in the mockspresso graph with a dependencyKey made from
  * type [T] and [qualifier].
  *
- * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
- * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
+ * The supplied [init] lambda will be called when the real object is created.
  *
  * Returns a [Lazy] of the resulting real object
  * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
@@ -113,15 +112,16 @@ inline fun <reified T : Any?> MockspressoProperties.findDependency(
  */
 inline fun <reified T : Any?> MockspressoProperties.realInstance(
   qualifier: Annotation? = null,
-  noinline interceptor: (T) -> T = { it }
-): Lazy<T> = dependencyKey<T>(qualifier).let { realImplementation(it, it.token, interceptor) }
+  noinline init: (T) -> Unit = { }
+): Lazy<T> = dependencyKey<T>(qualifier).let { key ->
+  realImplementation(key, key.token, interceptor = { it.apply(init) })
+}
 
 /**
  * Register a request to create a real object of type [IMPL] bound in the mockspresso graph with a dependencyKey made
  * from type [BIND] and [qualifier].
  *
- * The supplied [interceptor] lambda will be called when the real object is created and allows the test code to wrap
- * the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.
+ * The supplied [init] lambda will be called when the real object is created.
  *
  * Returns a [Lazy] of the resulting real object
  * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
@@ -129,5 +129,5 @@ inline fun <reified T : Any?> MockspressoProperties.realInstance(
  */
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.realImplementation(
   qualifier: Annotation? = null,
-  noinline interceptor: (IMPL) -> IMPL = { it }
-): Lazy<IMPL> = realImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>(), interceptor)
+  noinline init: (IMPL) -> Unit = { }
+): Lazy<IMPL> = realImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>(), interceptor = { it.apply(init) })

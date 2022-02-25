@@ -4,6 +4,7 @@ import assertk.all
 import assertk.assertThat
 import assertk.assertions.*
 import com.episode6.mxo2.reflect.dependencyKey
+import com.episode6.mxo2.reflect.typeToken
 import io.mockk.spyk
 import io.mockk.verify
 import kotlin.test.Test
@@ -97,7 +98,7 @@ class SimpleIntegrationTest {
       .dependency { SomeDependency1() }
       .build()
 
-    val dep2: SomeDependency2 by mxo.realInstance { spyk(it) }
+    val dep2: SomeDependency2 by mxo.realImplementation(dependencyKey(), typeToken()) { spyk(it) }
     val objUnderTest: SomeObject by mxo.realInstance()
 
     assertThat(dep2).isEqualTo(objUnderTest.dependency2)
@@ -107,7 +108,7 @@ class SimpleIntegrationTest {
 
   @Test fun testDynamicDependency() {
     val mxo = MockspressoBuilder()
-      .dependency { SomeObject(get(dependencyKey()), get(dependencyKey())) }
+      .dependency(dependencyKey()) { SomeObject(get(dependencyKey()), get(dependencyKey())) }
       .build()
 
     val dep1 by mxo.dependency { SomeDependency1() }
@@ -121,7 +122,7 @@ class SimpleIntegrationTest {
   @Test fun testDynamicDependencyInProp() {
     val mxo = MockspressoBuilder().build()
 
-    val someObject by mxo.dependency { SomeObject(get(dependencyKey()), get(dependencyKey())) }
+    val someObject by mxo.dependency(dependencyKey()) { SomeObject(get(dependencyKey()), get(dependencyKey())) }
     val dep1 by mxo.dependency { SomeDependency1() }
     val dep2 by mxo.dependency { SomeDependency2() }
 

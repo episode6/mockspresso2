@@ -38,7 +38,7 @@ class CircularDependencyTest {
   @Test fun testCircularDependency_stillFailsOnDynamicDependency() {
     val mxo = MockspressoBuilder()
       .realInstance<A?>()
-      .dependency<B?> { B(get(dependencyKey())) }
+      .dependency<B?>(dependencyKey()) { B(get(dependencyKey())) }
       .build()
 
     val c by mxo.realImplementation<C?, C>()
