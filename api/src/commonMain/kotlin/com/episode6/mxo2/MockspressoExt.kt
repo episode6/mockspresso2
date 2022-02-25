@@ -10,7 +10,7 @@ import com.episode6.mxo2.reflect.typeToken
  */
 inline fun <reified T : Any?> MockspressoInstance.createNow(
   qualifier: Annotation? = null
-): T = createNow(dependencyKey(qualifier))
+): T = createNow(dependencyKey<T>(qualifier))
 
 /**
  * Find an existing dependency in this mockspresso instance of type [T] with the provided [qualifier]. If the
@@ -21,7 +21,7 @@ inline fun <reified T : Any?> MockspressoInstance.createNow(
  */
 inline fun <reified T : Any?> MockspressoInstance.findNow(
   qualifier: Annotation? = null
-): T = findNow(dependencyKey(qualifier))
+): T = findNow(dependencyKey<T>(qualifier))
 
 /**
  * Register a dependency provided by [provider], bound in the mockspresso graph with a dependencyKey made from
@@ -30,7 +30,7 @@ inline fun <reified T : Any?> MockspressoInstance.findNow(
 inline fun <reified T : Any?> MockspressoBuilder.dependency(
   qualifier: Annotation? = null,
   noinline provider: () -> T
-): MockspressoBuilder = dependency(dependencyKey(qualifier)) { provider() }
+): MockspressoBuilder = dependency(dependencyKey<T>(qualifier)) { provider() }
 
 /**
  * Register a request to create a real object of type [T] bound in the mockspresso graph with a dependencyKey made from
@@ -69,7 +69,7 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImp
 inline fun <reified T : Any?> MockspressoProperties.dependency(
   qualifier: Annotation? = null,
   noinline provider: () -> T
-): Lazy<T> = dependency(dependencyKey(qualifier)) { provider() }
+): Lazy<T> = dependency(dependencyKey<T>(qualifier)) { provider() }
 
 /**
  * Register a dependency provided by [provider] that is of type [IMPL] but bound in the mockspresso graph with a
@@ -98,7 +98,7 @@ inline fun <reified T : Any?> MockspressoProperties.dependency(
  */
 inline fun <reified T : Any?> MockspressoProperties.findDependency(
   qualifier: Annotation? = null
-): Lazy<T> = findDependency(dependencyKey(qualifier))
+): Lazy<T> = findDependency(dependencyKey<T>(qualifier))
 
 /**
  * Register a request to create a real object of type [T] bound in the mockspresso graph with a dependencyKey made from
