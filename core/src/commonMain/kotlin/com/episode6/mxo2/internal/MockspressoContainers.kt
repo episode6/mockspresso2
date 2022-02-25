@@ -39,7 +39,7 @@ internal class MockspressoBuilderContainer(parent: Lazy<MxoInstance>? = null) : 
   override fun <T> dependency(key: DependencyKey<T>, provider: Dependencies.() -> T): MockspressoBuilder =
     apply { builder.dependencyOf(key, provider) }
 
-  override fun <BIND : Any?, IMPL : BIND> realImplementation(
+  override fun <BIND : Any?, IMPL : BIND> interceptRealImplementation(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> BIND
@@ -78,7 +78,7 @@ private class MockspressoPropertiesContainer(
   }
 
   @Suppress("UNCHECKED_CAST")
-  override fun <BIND, IMPL : BIND> realImplementation(
+  override fun <BIND, IMPL : BIND> interceptRealImplementation(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
     interceptor: (IMPL) -> IMPL

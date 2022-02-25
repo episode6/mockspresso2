@@ -6,6 +6,8 @@ import com.episode6.mxo2.*
 import com.episode6.mxo2.api.FallbackObjectMaker
 import com.episode6.mxo2.reflect.DependencyKey
 import com.episode6.mxo2.reflect.asKClass
+import com.episode6.mxo2.reflect.dependencyKey
+import com.episode6.mxo2.reflect.typeToken
 import io.mockk.MockK
 import io.mockk.MockKGateway
 import kotlin.reflect.KClass
@@ -87,7 +89,7 @@ inline fun <reified T : Any?> MockspressoProperties.spyk(
   vararg moreInterfaces: KClass<*>,
   recordPrivateCalls: Boolean = false,
   noinline block: T.() -> Unit = {}
-): Lazy<T> = realInstance<T>(qualifier) {
+): Lazy<T> = interceptRealImplementation(dependencyKey<T>(qualifier), typeToken<T>()) {
   _spyk(
     objToCopy = it!!,
     name = name,
@@ -108,7 +110,7 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyk
   vararg moreInterfaces: KClass<*>,
   recordPrivateCalls: Boolean = false,
   noinline block: IMPL.() -> Unit = {}
-): Lazy<IMPL> = realImplementation<BIND, IMPL>(qualifier) {
+): Lazy<IMPL> = interceptRealImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) {
   _spyk(
     objToCopy = it!!,
     name = name,
