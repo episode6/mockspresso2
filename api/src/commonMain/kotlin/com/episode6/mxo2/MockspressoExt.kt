@@ -40,7 +40,7 @@ inline fun <reified T : Any?> MockspressoBuilder.dependency(
  */
 inline fun <reified T : Any?> MockspressoBuilder.realInstance(
   qualifier: Annotation? = null,
-  noinline init: (T) -> Unit = { }
+  noinline init: T.() -> Unit = { }
 ): MockspressoBuilder = dependencyKey<T>(qualifier).let { key ->
   interceptRealImplementation(key, key.token) { it.apply(init) }
 }
@@ -53,7 +53,7 @@ inline fun <reified T : Any?> MockspressoBuilder.realInstance(
  */
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImplementation(
   qualifier: Annotation? = null,
-  noinline init: (IMPL) -> Unit = { }
+  noinline init: IMPL.() -> Unit = { }
 ): MockspressoBuilder =
   interceptRealImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) { it.apply(init) }
 
@@ -112,7 +112,7 @@ inline fun <reified T : Any?> MockspressoProperties.findDependency(
  */
 inline fun <reified T : Any?> MockspressoProperties.realInstance(
   qualifier: Annotation? = null,
-  noinline init: (T) -> Unit = { }
+  noinline init: T.() -> Unit = { }
 ): Lazy<T> = dependencyKey<T>(qualifier).let { key ->
   interceptRealImplementation(key, key.token) { it.apply(init) }
 }
@@ -129,5 +129,5 @@ inline fun <reified T : Any?> MockspressoProperties.realInstance(
  */
 inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.realImplementation(
   qualifier: Annotation? = null,
-  noinline init: (IMPL) -> Unit = { }
+  noinline init: IMPL.() -> Unit = { }
 ): Lazy<IMPL> = interceptRealImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) { it.apply(init) }
