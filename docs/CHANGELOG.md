@@ -1,7 +1,8 @@
 # ChangeLog
 
-### v2.0.0-alpha03-SNAPSHOT - Unreleased
+### v2.0.0-alpha03 - Released 2/26/2022
 
+- Tweak lambda syntax in `realInstance` / `realImpl` extension functions so receiver is used instead of parameter. 
 
 ### v2.0.0-alpha02 - Released 2/24/2022
 
