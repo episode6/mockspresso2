@@ -3,10 +3,11 @@
 ### v2.0.0-alpha04-SNAPSHOT - Unreleased
 
 
-### v2.0.0-alpha03-SNAPSHOT - Unreleased
+### v2.0.0-alpha03 - Released 2/26/2022
 
+- Tweak lambda syntax in `realInstance` / `realImpl` extension functions so receiver is used instead of parameter. 
 
-### v2.0.0-alpha02 - Release 2/24/2022
+### v2.0.0-alpha02 - Released 2/24/2022
 
 - Remove mention of `Dependencies` and real object interceptors from the standard extension functions in the api. The
   interceptors specifically are a bit too powerful and easy to mis-use / misunderstand. Replace the interceptors with

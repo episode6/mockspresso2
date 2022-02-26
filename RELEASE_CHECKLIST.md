@@ -31,4 +31,5 @@
 1. Wait for green builds
 2. `git flow release finish` (tag with `v<version>`)
 3. Resolve merge conflicts on develop
+   1. replace repo in `docs/PROJECT_SETUP.md` - `maven { url "https://oss.sonatype.org/content/repositories/snapshots" }`
 4. Push branches
