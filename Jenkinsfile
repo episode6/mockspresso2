@@ -10,7 +10,7 @@ node {
     gradleRunner = fileLoader.fromGit(
         'gradle/GradleRunner',
         'git@github.com:episode6/jenkins-pipelines.git',
-        'support-trunk-based',
+        'split-deploy',
         null,
         '')
   }
