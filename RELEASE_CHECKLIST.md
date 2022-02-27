@@ -1,5 +1,7 @@
 ## Mockspresso2 Release Checklist
 
+maybe converting to trunk-based eventually, but for now...
+
 **Start Release**
 
 1. Ensure `develop` branch is green
