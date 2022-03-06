@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
   group = "com.episode6.mockspresso2"
-  version = "2.0.0-alpha04-SNAPSHOT"
+  version = "2.0.0-alpha05-SNAPSHOT"
 }
 
 tasks.register<Delete>("clean") {
