@@ -1,5 +1,6 @@
 ## Get Up & Running
- - See the [Project Setup](PROJECT_SETUP.md) doc for current version & setup instructions.
+[![Maven Central](https://img.shields.io/maven-central/v/com.episode6.mockspresso2/core.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.episode6.mockspresso2%22)
+ - See the [Project Setup](PROJECT_SETUP.md) doc for setup instructions.
  - See the [Getting Started](GETTING_STARTED.md) doc to start writing tests.
 
 ## What & Why?
