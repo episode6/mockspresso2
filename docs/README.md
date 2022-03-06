@@ -1,7 +1,7 @@
 ## Get Up & Running
-[![Maven Central](https://img.shields.io/maven-central/v/com.episode6.mockspresso2/core.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.episode6.mockspresso2%22)
- - See the [Project Setup](PROJECT_SETUP.md) doc for setup instructions.
- - See the [Getting Started](GETTING_STARTED.md) doc to start writing tests.
+ - Current Version: [![Maven Central](https://img.shields.io/maven-central/v/com.episode6.mockspresso2/core.svg?style=flat-square)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.episode6.mockspresso2%22)
+ - See [Project Setup](PROJECT_SETUP.md) for setup instructions.
+ - See [Getting Started](GETTING_STARTED.md) to start writing tests.
 
 ## What & Why?
 Mockspresso2 acts like a smart, single-use DI graph for kotlin unit and integration tests where any missing dependencies can be mocked automatically. The goal is to reduce the friction, boilerplate, brittleness and barrier-to-entry when writing unit-tests, enabling engineers to focus on what matters.
