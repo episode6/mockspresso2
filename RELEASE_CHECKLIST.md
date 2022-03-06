@@ -1,35 +1,47 @@
 ## Mockspresso2 Release Checklist
 
-**Start Release**
+(we should be able to automate most of this eventually)
 
-1. Ensure `develop` branch is green
-2. `git flow release start v<version>`
-3. Update version in `build.gradle.kts`
-4. Update version in `docs/CHANGELOG.md`
-5. Update version in `docs/PROJECT_SETUP.md`
-7. Commit changes with message `[VERSION] Release v<version>`
-8. **DO NOT PUSH**
+### Cut new Release Branch
 
-**Bump Snapshot Version**
+1. Ensure main branch is green
+2. `git checkout -b release/v<VERSION>`
+3. Push/track empty branch
 
-1. Checkout `develp` branch
-2. Update SNAPSHOT version in `build.gradle`
-3. Update SNAPSHOT version in `docs/CHANGELOG.md`
-4. Update SNAPSHOT version in `docs/PROJECT_SETUP.md`
-5. Commit changes with message `[VERSION] Snapshot v<version>`
-6. **Push both branches**
+### Version bump PRs
 
-**Sync Docs**
+- Create 2 PRs to bump version
+    - `[VERSION] Snapshot v<version>` points at `main`
+    - `[VERSION] Release v<version>` points at new release branch
+    - Update version in files:
+        - `build.gradle.kts`
+        - `docs/CHANGELOG.md`
+        - `docs/PROJECT_SETUP.md`
 
-1. Checkout release branch
+### Harden Release Branch
+
+- Fix any bugs on the `main` branch first then cherry-pick (via PR) into release branch
+
+### Release
+
+1. Wait for green builds on release branch
+2. Fetch tags: `git fetch origin --tags`
+3. Create new release tag: `git tag -a v<VERSION>`
+4. Push tags: `git push --tags`
+5. Build tag on jenkins and deploy result on sonatype
+
+### Sync Docs PR
+
+1. **IMPORTANT** POINT GITHUB PAGES TO NEW BRANCH NOW
+    - pages will not re-publish until we push to the branch again
 2. Run `./gradlew syncDocs`
-3. Commit changes with message `[DOCS] Sync v<version>`
-4. Push branch
+3. If there are no changes in docs, make a non-visible change to a README
+    - we need a commit to trigger github pages generation
+4. Point PR to new release branch: `[DOCS] Sync v<version>`
 
-**Release**
+### Hotfixes
 
-1. Wait for green builds
-2. `git flow release finish` (tag with `v<version>`)
-3. Resolve merge conflicts on develop
-   1. replace repo in `docs/PROJECT_SETUP.md` - `maven { url "https://oss.sonatype.org/content/repositories/snapshots" }`
-4. Push branches
+- We do not cut new release branches for hotfixes, instead we append to the effected release branch and add a new
+  release tag
+- All fixes (including hotfixes) should be applied to the `main` branch first whenever possible and cherry-picked onto
+  the appropriate release-branch for a hotfix.
