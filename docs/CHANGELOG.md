@@ -1,5 +1,9 @@
 # ChangeLog
 
+### v2.0.0-alpha04-SNAPSHOT - Unreleased
+
+- Transition from git-flow to trunk based development / releases
+
 ### v2.0.0-alpha03 - Released 2/26/2022
 
 - Tweak lambda syntax in `realInstance` / `realImpl` extension functions so receiver is used instead of parameter. 

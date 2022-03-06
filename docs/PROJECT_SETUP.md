@@ -3,9 +3,9 @@ Ideally, mockspresso should only be exposed to tests via a dedicated gradle modu
 
 ### Gradle setup
 ```groovy
-def mxoVersion = '2.0.0-alpha03'
+def mxoVersion = '2.0.0-alpha04-SNAPSHOT'
 
-repositories { mavenCentral() }
+repositories { maven { url "https://oss.sonatype.org/content/repositories/snapshots" } }
 dependencies {
 
     // expose the api to other modules
