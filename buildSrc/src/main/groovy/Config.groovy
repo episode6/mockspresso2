@@ -17,7 +17,7 @@ class Config {
         licenses {
           license {
             name = "The MIT License (MIT)"
-            url = "https://github.com/episode6/mockspresso2/blob/master/LICENSE"
+            url = "https://github.com/episode6/mockspresso2/blob/main/LICENSE"
             distribution = "repo"
           }
         }
