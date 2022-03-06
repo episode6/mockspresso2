@@ -1,6 +1,6 @@
 # ChangeLog
 
-### v2.0.0-alpha04-SNAPSHOT - Unreleased
+### v2.0.0-alpha04 - Released 3/6/2022
 
 - Transition from git-flow to trunk based development / releases
 
