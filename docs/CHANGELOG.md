@@ -1,6 +1,9 @@
 # ChangeLog
 
-### v2.0.0-alpha05-SNAPSHOT - Unreleased
+### v2.0.0-alpha06-SNAPSHOT - Unreleased
+
+
+### v2.0.0-alpha05 - Released/3/13/2022
 
 - Renamed package from `com.episode6.mxo2` -> `com.episode6.mockspresso2` for clarity
 
