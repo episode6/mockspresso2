@@ -2,6 +2,7 @@
 
 ### v2.0.0-alpha05-SNAPSHOT - Unreleased
 
+- Renamed package from `com.episode6.mxo2` -> `com.episode6.mockspresso2` for clarity
 
 ### v2.0.0-alpha04 - Released 3/6/2022
 
