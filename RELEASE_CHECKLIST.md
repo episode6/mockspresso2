@@ -24,7 +24,7 @@
 
 ### Release
 
-1. Create new release with new tag on github
+1. Create new release with new tag on github (pointing to release branch)
 2. Build new tag on jenkins (will deploy)
 3. Release/Close new repo on [sonatype](https://oss.sonatype.org/)
 
