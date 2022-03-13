@@ -23,4 +23,3 @@ node {
 
   gradleRunner.deploy()
 }
-
