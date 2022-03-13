@@ -10,7 +10,7 @@ node {
     gradleRunner = fileLoader.fromGit(
         'gradle/GradleRunner',
         'git@github.com:episode6/jenkins-pipelines.git',
-        'v0.0.10',
+        'feature/only-deploy-tag-jobs',
         null,
         '')
   }
