@@ -35,9 +35,9 @@ tasks.create("configDocs") {
       """
         theme: jekyll-theme-cayman
         title: mockspresso2
-        description: $description
+        description: ${rootProject.description}
         version: $version
-        docsDir: https://episode6.github.io/mockspresso2/docs/${ if (Config.Maven.isReleaseBuild(project)) "v$version" else "main" }
+        docsDir: https://episode6.github.io/mockspresso2/docs/${if (Config.Maven.isReleaseBuild(project)) "v$version" else "main"}
         kotlinVersion: ${libs.versions.kotlin.core.get()}
       """.trimIndent()
     )
