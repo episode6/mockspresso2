@@ -1,5 +1,5 @@
 ## Project Setup
-Ideally, mockspresso should only be exposed to tests via a dedicated gradle module. This lets us define MockspressoBuilder with defaults appropriate to our project and prevents accidental usage of the default [`MockspressoBuilder()`](dokka/core/com.episode6.mockspresso2/-mockspresso-builder.html) entry-point.
+Ideally, mockspresso should only be exposed to tests via a dedicated gradle module. This lets us define MockspressoBuilder with defaults appropriate to our project and prevents accidental usage of the default [`MockspressoBuilder()`]({{ site.docsDir }}/core/com.episode6.mockspresso2/-mockspresso-builder.html) entry-point.
 
 ### Gradle setup
 ```groovy
@@ -26,7 +26,7 @@ fun MockspressoBuilder(): MockspressoBuilder = com.episode6.mockspresso2.Mockspr
 ```
 
 ### Entry-point in single module project
-It may not be feasible to dedicate a module to mockspresso support. In that case it's better to avoid duplicating the [`MockspressoBuilder()`](dokka/core/com.episode6.mockspresso2/-mockspresso-builder.html) entry-point and prefer defining a `withDefaults()` plugin for all tests to apply...
+It may not be feasible to dedicate a module to mockspresso support. In that case it's better to avoid duplicating the [`MockspressoBuilder()`]({{ site.docsDir }}/core/com.episode6.mockspresso2/-mockspresso-builder.html) entry-point and prefer defining a `withDefaults()` plugin for all tests to apply...
 ```kotlin
 // test-support code
 fun MockspressoBuilder.withDefaults(): MockspressoBuilder = this
@@ -44,7 +44,7 @@ class MyTest {
 
 ### Auto-Mock support
 
-Mockspresso is agnostic to mocks and should work with any mocking framework that works with kotlin, but we do offer plugin modules to add fallback support (a.k.a. auto-mocking) with [Mockk](https://mockk.io/) (using [`plugins-mockk`](dokka/plugins-mockk/com.episode6.mockspresso2.plugins.mockk/index.html)) or [Mockito](https://site.mockito.org/) (using [`plugins-mockito`](dokka/plugins-mockito/com.episode6.mockspresso2.plugins.mockito/index.html))
+Mockspresso is agnostic to mocks and should work with any mocking framework that works with kotlin, but we do offer plugin modules to add fallback support (a.k.a. auto-mocking) with [Mockk](https://mockk.io/) (using [`plugins-mockk`]({{ site.docsDir }}/plugins-mockk/com.episode6.mockspresso2.plugins.mockk/index.html)) or [Mockito](https://site.mockito.org/) (using [`plugins-mockito`]({{ site.docsDir }}/plugins-mockito/com.episode6.mockspresso2.plugins.mockito/index.html))
 
 ```groovy
 dependencies {
@@ -63,7 +63,7 @@ Add auto-mock support to your `MockspressoBuilder()` entry-point
 
 ### JSR-330 & Dagger2 support
 
-Mockspresso provides plugin modules to support [javax.inject](https://github.com/javax-inject/javax-inject)/[dagger2](https://dagger.dev/) constructor, field & method injection using either [`plugins-javax-inject`](dokka/plugins-javax-inject/com.episode6.mockspresso2.plugins.javax.inject/index.html) and/or [`plugins-dagger2`](dokka/plugins-dagger2/com.episode6.mockspresso2.plugins.dagger2/index.html).
+Mockspresso provides plugin modules to support [javax.inject](https://github.com/javax-inject/javax-inject)/[dagger2](https://dagger.dev/) constructor, field & method injection using either [`plugins-javax-inject`]({{ site.docsDir }}/plugins-javax-inject/com.episode6.mockspresso2.plugins.javax.inject/index.html) and/or [`plugins-dagger2`]({{ site.docsDir }}/plugins-dagger2/com.episode6.mockspresso2.plugins.dagger2/index.html).
 
 ```groovy
 dependencies {
@@ -80,13 +80,13 @@ Instruct your default `MockspressoBuilder()` to require `@Inject` annotations on
 +    .makeRealObjectsUsingJavaxInjectRules() // or makeRealObjectsUsingDagger2Rules()
      .fallbackWithMockk()
 ```
-**Note:** [`Dagger2Rules`](dokka/plugins-dagger2/com.episode6.mockspresso2.plugins.dagger2/make-real-objects-using-dagger2-rules.html) is a super-set of [`JavaxInjectRules`](dokka/plugins-javax-inject/com.episode6.mockspresso2.plugins.javax.inject/make-real-objects-using-javax-inject-rules.html) that adds support for constructors with the `@AssistedInject` annotation.
+**Note:** [`Dagger2Rules`]({{ site.docsDir }}/plugins-dagger2/com.episode6.mockspresso2.plugins.dagger2/make-real-objects-using-dagger2-rules.html) is a super-set of [`JavaxInjectRules`]({{ site.docsDir }}/plugins-javax-inject/com.episode6.mockspresso2.plugins.javax.inject/make-real-objects-using-javax-inject-rules.html) that adds support for constructors with the `@AssistedInject` annotation.
 
-The [`plugins-javax-inject`](dokka/plugins-javax-inject/com.episode6.mockspresso2.plugins.javax.inject/index.html) module also includes the [`MockspressoInstance.injectNow(Any)`](dokka/plugins-javax-inject/com.episode6.mockspresso2.plugins.javax.inject/inject-now.html) plugin to inject any pre-existing object with field / method injection. Than can be helpful in android development when running robolectric tests on Activities, Services, etc. that must be created by the system. 
+The [`plugins-javax-inject`]({{ site.docsDir }}/plugins-javax-inject/com.episode6.mockspresso2.plugins.javax.inject/index.html) module also includes the [`MockspressoInstance.injectNow(Any)`]({{ site.docsDir }}/plugins-javax-inject/com.episode6.mockspresso2.plugins.javax.inject/inject-now.html) plugin to inject any pre-existing object with field / method injection. Than can be helpful in android development when running robolectric tests on Activities, Services, etc. that must be created by the system. 
 
 #### Automatic Provider, Lazy and AssistedFactory handling
 
-Included in the [`plugins-javax-inject`](dokka/plugins-javax-inject/com.episode6.mockspresso2.plugins.javax.inject/index.html) and [`plugins-dagger2`](dokka/plugins-dagger2/com.episode6.mockspresso2.plugins.dagger2/index.html) modules are plugins to automatically map `java.inject.Provider<T>` and `dagger.Lazy<T>` to their underlying dependencies.
+Included in the [`plugins-javax-inject`]({{ site.docsDir }}/plugins-javax-inject/com.episode6.mockspresso2.plugins.javax.inject/index.html) and [`plugins-dagger2`]({{ site.docsDir }}/plugins-dagger2/com.episode6.mockspresso2.plugins.dagger2/index.html) modules are plugins to automatically map `java.inject.Provider<T>` and `dagger.Lazy<T>` to their underlying dependencies.
 ```diff
  // dagger2 example
  fun MockspressoBuilder(): MockspressoBuilder = com.episode6.mockspresso2.MockspressoBuilder()
@@ -96,7 +96,7 @@ Included in the [`plugins-javax-inject`](dokka/plugins-javax-inject/com.episode6
      .fallbackWithMockk()
 ```
 
-Interfaces annotated with `@dagger.AssistedFactory` can also be handled automatically using an additional plugin provided by [`com.episode6.mockspresso2:plugins-mockito-factories`](dokka/plugins-mockito-factories/com.episode6.mockspresso2.plugins.mockito.factories/index.html).
+Interfaces annotated with `@dagger.AssistedFactory` can also be handled automatically using an additional plugin provided by [`com.episode6.mockspresso2:plugins-mockito-factories`]({{ site.docsDir }}/plugins-mockito-factories/com.episode6.mockspresso2.plugins.mockito.factories/index.html).
 
 ```diff
  // dagger2 example
@@ -108,13 +108,13 @@ Interfaces annotated with `@dagger.AssistedFactory` can also be handled automati
      .fallbackWithMockk()
 ```
 
-**Note:** The [`plugins-mockito-factories`](dokka/plugins-mockito-factories/com.episode6.mockspresso2.plugins.mockito.factories/index.html) module requires mockito be included in the project, but does not require your tests know or care about it. It should work side-by-side with mockk but is only applicable in jvm projects.
+**Note:** The [`plugins-mockito-factories`]({{ site.docsDir }}/plugins-mockito-factories/com.episode6.mockspresso2.plugins.mockito.factories/index.html) module requires mockito be included in the project, but does not require your tests know or care about it. It should work side-by-side with mockk but is only applicable in jvm projects.
 
 ### Integration with testing frameworks
 
 Mockspresso is totally agnostic to testing frameworks. Ensuring and tearing down mockspresso instances isn't even required for tests (ensuring will be done lazily and teardown callbacks will simply be omitted). However it's a best practice (especially in large projects) to integrate mockspresso's life-cycle with your test-framework's to ensure setup and teardown callbacks all fire at expected times. 
 
-We currently offer support plugins [`plugins-junit4`](dokka/plugins-junit4/com.episode6.mockspresso2.plugins.junit4/index.html) and [`plugins-junit5`](dokka/plugins-junit5/com.episode6.mockspresso2.plugins.junit5/index.html) to assist with this.
+We currently offer support plugins [`plugins-junit4`]({{ site.docsDir }}/plugins-junit4/com.episode6.mockspresso2.plugins.junit4/index.html) and [`plugins-junit5`]({{ site.docsDir }}/plugins-junit5/com.episode6.mockspresso2.plugins.junit5/index.html) to assist with this.
 ```groovy
 dependencies {
     api "com.episode6.mockspresso2:plugins-junit4:$mxoVersion"

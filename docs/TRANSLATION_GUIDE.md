@@ -2,7 +2,7 @@
 
 This guide is intended to ease the transition from Mockspresso v1 -> v2. We will mainly focus on the kotlin extensions in v1, since java tests are not supported by v2.
 
-This is not a replacement for checking the [Api KDocs](dokka/api/com.episode6.mockspresso2/index.html)
+This is not a replacement for checking the [Api KDocs]({{ site.docsDir }}/api/com.episode6.mockspresso2/index.html)
 
 #### Entry-point
 While we rarely interacted with the result of `MockspressoBuilder.build()` in v1, in v2 we build delegated properties from it. Because of this we recommending shortening the name of your `val mockspresso`. We've been using `mxo`.
@@ -40,7 +40,7 @@ The names methods on the builder have changed slightly...
 ```
 
 #### JUnit4 Rule
-Mockspresso1 had junit4 rule support baked in. Mockspresso2 includes junit4 rule support in the [`plugins-junit4`](dokka/plugins-junit4/com.episode6.mockspresso2.plugins.junit4/index.html#918458742%2FFunctions%2F991293141) module instead.
+Mockspresso1 had junit4 rule support baked in. Mockspresso2 includes junit4 rule support in the [`plugins-junit4`]({{ site.docsDir }}/plugins-junit4/com.episode6.mockspresso2.plugins.junit4/index.html#918458742%2FFunctions%2F991293141) module instead.
 
 ```diff
 -@get:Rule val mockspresso = BuildMockspresso.with().buildRule()
