@@ -16,7 +16,6 @@
     - Update version in files:
         - `build.gradle.kts`
         - `docs/CHANGELOG.md`
-        - `docs/PROJECT_SETUP.md`
 
 ### Harden Release Branch
 
@@ -25,15 +24,7 @@
 ### Release
 
 1. Create new release with new tag on github (pointing to release branch)
-2. Build new tag on jenkins (will deploy)
-3. Release/Close new repo on [sonatype](https://oss.sonatype.org/)
-
-### Sync Docs PR
-
-1. Point github pages to the new release branch
-2. Run `./gradlew syncDocs`
-3. If there are no changes in docs, you can skip this
-4. Point PR to new release branch: `[DOCS] Sync v<version>`
+2. Release/Close new repo on [sonatype](https://oss.sonatype.org/)
 
 ### Hotfixes
 
