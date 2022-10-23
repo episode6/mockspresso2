@@ -1,5 +1,5 @@
 [versions]
-gradle-core = "7.1"
+gradle-core = "7.2"
 kotlin-core = "1.5.32"
 dokka-core = "1.5.31"
 dagger2-core = "2.40.5"
