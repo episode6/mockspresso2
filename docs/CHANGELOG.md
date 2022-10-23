@@ -2,11 +2,11 @@
 
 ### v2.0.0-alpha07-SNAPSHOT - Unreleased
 
-
 ### v2.0.0-alpha06 - Released 9/23/2022
 
+- Build system updates (no code changes)
 
-### v2.0.0-alpha05 - Released/3/13/2022
+### v2.0.0-alpha05 - Released 3/13/2022
 
 - Renamed package from `com.episode6.mxo2` -> `com.episode6.mockspresso2` for clarity
 
@@ -16,7 +16,7 @@
 
 ### v2.0.0-alpha03 - Released 2/26/2022
 
-- Tweak lambda syntax in `realInstance` / `realImpl` extension functions so receiver is used instead of parameter. 
+- Tweak lambda syntax in `realInstance` / `realImpl` extension functions so receiver is used instead of parameter.
 
 ### v2.0.0-alpha02 - Released 2/24/2022
 
