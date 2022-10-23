@@ -34,7 +34,7 @@ class Config {
         }
       }
       project.afterEvaluate {
-        pom.description = project.description ?: "A testing tool designed to reduce friction, boiler-plate and brittleness in unit tests."
+        pom.description = project.description ?: project.rootProject.description
       }
     }
 
