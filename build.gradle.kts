@@ -32,13 +32,19 @@ tasks.dokkaHtmlMultiModule {
   outputDirectory.set(file(dokkaDir))
 }
 
+tasks.create<Copy>("copySiteConfig") {
+  from(file("siteConfig/"))
+  into(file(siteDir))
+}
+
 tasks.create<Copy>("copyReadmes") {
-  from(file("docs/"))
-  destinationDir = file(siteDir)
+  from(rootProject.projectDir)
+  exclude { it.file.isDirectory || !it.name.endsWith(".md") }
+  into(file(siteDir))
 }
 
 tasks.create("configDocs") {
-  dependsOn("copyReadmes")
+  dependsOn("copySiteConfig", "copyReadmes")
   doLast {
     file("$siteDir/_config.yml").writeText(
       """

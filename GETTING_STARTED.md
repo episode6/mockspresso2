@@ -1,5 +1,5 @@
 ## Installation
-See the [Project Setup](PROJECT_SETUP) doc for current version & setup instructions.
+See the [Project Setup](PROJECT_SETUP.md) doc for current version & setup instructions.
 
 ### Understanding the basics
 
@@ -26,7 +26,7 @@ class CoffeeMakerTest {
 }
 ```
 
-Assuming we've set up [fallback mocking](PROJECT_SETUP#auto-mock-support), we can actually start writing tests immediately and only add dependencies as we start requiring them. The CoffeeMaker will be supplied with all mocks until we start declaring dependencies.
+Assuming we've set up [fallback mocking](PROJECT_SETUP.md#auto-mock-support), we can actually start writing tests immediately and only add dependencies as we start requiring them. The CoffeeMaker will be supplied with all mocks until we start declaring dependencies.
 
 ### Declaring dependencies
 
