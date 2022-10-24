@@ -1,5 +1,6 @@
 plugins {
-  id("org.jetbrains.dokka")
+  kotlin("multiplatform") version (libs.versions.kotlin.core.get()) apply (false)
+  id("org.jetbrains.dokka") version (libs.versions.dokka.core.get())
 }
 
 allprojects {
@@ -18,17 +19,17 @@ tasks.wrapper {
   distributionType = Wrapper.DistributionType.ALL
 }
 
-val dokkaDir = "$buildDir/dokka/html"
-val siteDir = "$buildDir/site"
+val dokkaDir = "${rootProject.buildDir}/dokka/html"
+val siteDir = "${rootProject.buildDir}/site"
 
 tasks.create<Delete>("clearDokkaDir") {
   delete(dokkaDir)
-  doLast { file("$rootDir/$dokkaDir").mkdirs() }
+  doLast { file(dokkaDir).mkdirs() }
 }
 
 tasks.dokkaHtmlMultiModule {
   dependsOn("clearDokkaDir")
-  outputDirectory.set(file("$rootDir/$dokkaDir"))
+  outputDirectory.set(file(dokkaDir))
 }
 
 tasks.create<Copy>("copyReadmes") {
