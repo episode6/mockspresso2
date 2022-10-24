@@ -1,6 +1,8 @@
 # ChangeLog
 
-### v2.0.0-SNAPSHOT - Unreleased
+### v2.0.0-beta01 - Released 10/24/2022
+
+- No code changes
 
 ### v2.0.0-alpha06 - Released 10/23/2022
 
