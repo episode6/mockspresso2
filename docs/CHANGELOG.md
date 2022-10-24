@@ -1,6 +1,6 @@
 # ChangeLog
 
-### v2.0.0-alpha07-SNAPSHOT - Unreleased
+### v2.0.0-SNAPSHOT - Unreleased
 
 ### v2.0.0-alpha06 - Released 10/23/2022
 
