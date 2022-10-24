@@ -1,6 +1,6 @@
 theme: jekyll-theme-cayman
 title: mockspresso2
 description: A testing tool designed to reduce friction, boiler-plate and brittleness in unit tests. It's like dependency injection for your tests!
-version: 2.0.0-alpha07-SNAPSHOT
-docsDir: https://episode6.github.io/mockspresso2/docs/main
+version: 2.0.0-beta01
+docsDir: https://episode6.github.io/mockspresso2/docs/v2.0.0-beta01
 kotlinVersion: 1.5.32
