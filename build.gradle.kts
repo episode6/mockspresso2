@@ -6,7 +6,8 @@ allprojects {
   group = "com.episode6.mockspresso2"
   version = "2.0.0-alpha07-SNAPSHOT"
 }
-description = "A testing tool designed to reduce friction, boiler-plate and brittleness in unit tests. It's like dependency injection for your tests!"
+description =
+  "A testing tool designed to reduce friction, boiler-plate and brittleness in unit tests. It's like dependency injection for your tests!"
 
 tasks.register<Delete>("clean") {
   delete(rootProject.buildDir)
@@ -17,21 +18,28 @@ tasks.wrapper {
   distributionType = Wrapper.DistributionType.ALL
 }
 
-val dokkaDir = "build/dokka/html"
+val dokkaDir = "$buildDir/dokka/html"
+val siteDir = "$buildDir/site"
 
-tasks.create<Delete>("clearDocsDir") {
+tasks.create<Delete>("clearDokkaDir") {
   delete(dokkaDir)
   doLast { file("$rootDir/$dokkaDir").mkdirs() }
 }
 
 tasks.dokkaHtmlMultiModule {
-  dependsOn("clearDocsDir")
+  dependsOn("clearDokkaDir")
   outputDirectory.set(file("$rootDir/$dokkaDir"))
 }
 
+tasks.create<Copy>("copyReadmes") {
+  from(file("docs/"))
+  destinationDir = file(siteDir)
+}
+
 tasks.create("configDocs") {
+  dependsOn("copyReadmes")
   doLast {
-    file("$rootDir/docs/_config.yml").writeText(
+    file("$siteDir/_config.yml").writeText(
       """
         theme: jekyll-theme-cayman
         title: mockspresso2
