@@ -27,14 +27,21 @@ tasks.create<Delete>("clearDokkaDir") {
   doLast { file(dokkaDir).mkdirs() }
 }
 
+tasks.create<Delete>("clearSiteDir") {
+  delete(siteDir)
+  doLast { file(siteDir).mkdirs() }
+}
+
 tasks.dokkaHtmlMultiModule {
   dependsOn("clearDokkaDir")
   outputDirectory.set(file(dokkaDir))
 }
 
 tasks.create<Copy>("copyReadmes") {
+  dependsOn("clearSiteDir")
   from(file("docs/"))
-  destinationDir = file(siteDir)
+  exclude(".gitignore")
+  into(file(siteDir))
 }
 
 tasks.create("configDocs") {
