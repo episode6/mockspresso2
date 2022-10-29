@@ -16,6 +16,11 @@ class ConfigSitePlugin implements Plugin<Project> {
       def dokkaDir = "${rootProject.buildDir}/dokka/html"
       def siteDir = "${rootProject.buildDir}/site"
 
+      if (tasks.findByName("clean") == null) {
+        tasks.create("clean", Delete) {
+          delete(rootProject.buildDir)
+        }
+      }
 
       tasks.create("clearDokkaDir", Delete) {
         delete(dokkaDir)
