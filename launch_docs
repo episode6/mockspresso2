@@ -3,7 +3,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $SCRIPT_DIR
-./gradlew configDocs
+./gradlew configReadmes
 
 cp build/site/_config.yml docs/
 

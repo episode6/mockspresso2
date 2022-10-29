@@ -43,7 +43,7 @@ tasks.create<Copy>("copyReadmes") {
   into(file(siteDir))
 }
 
-tasks.create("configDocs") {
+tasks.create("configReadmes") {
   dependsOn("copyReadmes")
   doLast {
     file("$siteDir/_config.yml").writeText(
@@ -60,5 +60,5 @@ tasks.create("configDocs") {
 }
 
 tasks.create("syncDocs") {
-  dependsOn("dokkaHtmlMultiModule", "configDocs")
+  dependsOn("dokkaHtmlMultiModule", "configReadmes")
 }
