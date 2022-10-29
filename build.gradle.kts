@@ -27,6 +27,11 @@ tasks.create<Delete>("clearDokkaDir") {
   doLast { file(dokkaDir).mkdirs() }
 }
 
+tasks.create<Delete>("clearSiteDir") {
+  delete(siteDir)
+  doLast { file(siteDir).mkdirs() }
+}
+
 tasks.dokkaHtmlMultiModule {
   dependsOn("clearDokkaDir")
   outputDirectory.set(file(dokkaDir))
@@ -34,10 +39,11 @@ tasks.dokkaHtmlMultiModule {
 
 tasks.create<Copy>("copyReadmes") {
   from(file("docs/"))
-  destinationDir = file(siteDir)
+  exclude(".gitignore", "_site/", "_config.yml")
+  into(file(siteDir))
 }
 
-tasks.create("configDocs") {
+tasks.create("configSite") {
   dependsOn("copyReadmes")
   doLast {
     file("$siteDir/_config.yml").writeText(
@@ -54,5 +60,5 @@ tasks.create("configDocs") {
 }
 
 tasks.create("syncDocs") {
-  dependsOn("dokkaHtmlMultiModule", "configDocs")
+  dependsOn("dokkaHtmlMultiModule", "configSite")
 }
