@@ -40,7 +40,7 @@ tasks.dokkaHtmlMultiModule {
 tasks.create<Copy>("copyReadmes") {
   dependsOn("clearSiteDir")
   from(file("docs/"))
-  exclude(".gitignore")
+  exclude(".gitignore", "_site/", "_config.yml")
   into(file(siteDir))
 }
 
