@@ -4,6 +4,10 @@ plugins {
 
 gradlePlugin {
   plugins {
+    create("ConfigureSitePlugin") {
+      id = "config-site"
+      implementationClass = "plugins.ConfigSitePlugin"
+    }
     create("ConfigureJvmPlugin") {
       id = "config-jvm"
       implementationClass = "plugins.ConfigJvmPlugin"
