@@ -15,3 +15,16 @@ tasks.wrapper {
   gradleVersion = libs.versions.gradle.core.get()
   distributionType = Wrapper.DistributionType.ALL
 }
+
+val chopChangelog = tasks.create("chopChangelog") {
+  val versionContent = file("$rootDir/docs/CHANGELOG.md").readLines()
+    .let { list -> list.drop(list.indexOfFirst { it.startsWith("###") }+1) }
+    .let { list -> list.subList(0, list.indexOfFirst { it.startsWith("###") }) }
+    .let { listOf("### Changelog") + it }
+    .joinToString(separator = "\n")
+  file("$rootDir/VERSION_CHANGELOG.md").writeText(versionContent)
+}
+
+tasks.getByName("syncDocs") {
+  dependsOn(chopChangelog)
+}
