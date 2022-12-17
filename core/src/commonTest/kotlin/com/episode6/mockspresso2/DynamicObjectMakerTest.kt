@@ -7,6 +7,13 @@ import kotlin.test.Test
 
 class DynamicObjectMakerTest {
 
+  private fun defaultTestInterfaceMaker() = DynamicObjectMaker { key, _ ->
+    when (key.token.type.classifier) {
+      TestInterface::class -> DynamicObjectMaker.Answer.Yes(TestObject("default"))
+      else                 -> DynamicObjectMaker.Answer.No
+    }
+  }
+
   @Test fun testUsageInBuilder() {
     val mxo = MockspressoBuilder()
       .addDynamicObjectMaker(defaultTestInterfaceMaker())
@@ -44,13 +51,6 @@ class DynamicObjectMakerTest {
 
     assertThat(parent.testObject.id).isEqualTo("override")
     assertThat(parent.testObject).isEqualTo(override)
-  }
-
-  private fun defaultTestInterfaceMaker() = DynamicObjectMaker { key, _ ->
-    when (key.token.type.classifier) {
-      TestInterface::class -> DynamicObjectMaker.Answer.Yes(TestObject("default"))
-      else                 -> DynamicObjectMaker.Answer.No
-    }
   }
 
   private interface TestInterface {
