@@ -17,12 +17,12 @@ tasks.wrapper {
 }
 
 val chopChangelog = tasks.create("chopChangelog") {
-  val allContent = file("$rootDir/docs/CHANGELOG.md").readLines()
-  val firstHeaderIndex = allContent.indexOfFirst { it.startsWith("###") }
-  val topContent = allContent.drop(firstHeaderIndex+1)
-  val nextHeaderIndex = topContent.indexOfFirst { it.startsWith("###") }
-  val versionContent = listOf("### Changelog") + topContent.subList(0, nextHeaderIndex)
-  file("$rootDir/VERSION_CHANGELOG.md").writeText(versionContent.joinToString(separator = "\n"))
+  val versionContent = file("$rootDir/docs/CHANGELOG.md").readLines()
+    .let { list -> list.drop(list.indexOfFirst { it.startsWith("###") }+1) }
+    .let { list -> list.subList(0, list.indexOfFirst { it.startsWith("###") }) }
+    .let { listOf("### Changelog") + it }
+    .joinToString(separator = "\n")
+  file("$rootDir/VERSION_CHANGELOG.md").writeText(versionContent)
 }
 
 tasks.getByName("syncDocs") {
