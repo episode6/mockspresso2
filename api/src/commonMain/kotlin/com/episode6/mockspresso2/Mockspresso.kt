@@ -93,7 +93,7 @@ interface MockspressoBuilder {
    * Adds a [DynamicObjectMaker] to this [MockspressoInstance]. A [DynamicObjectMaker] gets a chance to supply any
    * un-cached/undefined dependency before the request goes to the [FallbackObjectMaker]. This enables mockspresso
    * plugins supply dependencies based on properties other than concrete types (i.e. generic types, class annotations,
-   * etc.).
+   * etc.). It also allows for "default" instances for bindings, which can be overridden by an explicit dependency.
    */
   fun addDynamicObjectMaker(dynamicMaker: DynamicObjectMaker): MockspressoBuilder // formerly special object makers
 
@@ -149,6 +149,14 @@ interface MockspressoProperties {
    * is not supported by default but can be configured using plugins).
    */
   fun onTeardown(cmd: () -> Unit)
+
+  /**
+   * Adds a [DynamicObjectMaker] to this [MockspressoInstance]. A [DynamicObjectMaker] gets a chance to supply any
+   * un-cached/undefined dependency before the request goes to the [FallbackObjectMaker]. This enables mockspresso
+   * plugins supply dependencies based on properties other than concrete types (i.e. generic types, class annotations,
+   * etc.). It also allows for "default" instances for bindings, which can be overridden by an explicit dependency.
+   */
+  fun addDynamicObjectMaker(dynamicMaker: DynamicObjectMaker)
 
   /**
    * Register a dependency provided by [provider], bound in the mockspresso graph with [key] and return a [Lazy]
