@@ -2,6 +2,8 @@
 
 ### v2.0.0-SNAPSHOT - Unreleased
 
+- Added `fun MockspressoProperties.addDynamicObjectMaker`
+
 ### v2.0.0-rc1 - Released 10/24/2022
 
 - No code changes
