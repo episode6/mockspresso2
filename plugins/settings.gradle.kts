@@ -8,6 +8,7 @@ listOf(
   "mockito",
   "mockito-factories",
   "mockk",
+  "mockk-factories",
 ).forEach {
   include("$prefix-$it")
   project(":$prefix-$it").projectDir = file(it)
