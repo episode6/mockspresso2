@@ -2,6 +2,7 @@
 
 ### v2.0.0-SNAPSHOT - Unreleased
 
+- Update mockito -> 4.11.0
 - Update mockk -> 1.13.3
 - Build configuration updates
 
