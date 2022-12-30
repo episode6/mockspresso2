@@ -2,6 +2,7 @@
 
 ### v2.0.0-SNAPSHOT - Unreleased
 
+- Build configuration updates
 
 ### v2.0.0-rc2 - Released 12/17/2022
 
