@@ -54,7 +54,7 @@ class ConfigSitePlugin implements Plugin<Project> {
           def list = project.file("$rootDir/docs/CHANGELOG.md").readLines()
           def indices = list.findIndexValues { it.startsWith("###") }
           def newList = list.subList(indices.get(0).toInteger()+1, indices.get(1).toInteger())
-          def newContent = "### Changelog\n" + newList.join("\n")
+          def newContent = "### Changelog\n" + newList.join("\n") + "\n\nFull changelog available at https://episode6.github.io/mockspresso2/CHANGELOG.html"
           project.file(rootProject.buildDir).mkdirs()
           def choppedFile = project.file("$rootProject.buildDir/VERSION_CHANGELOG.md")
           choppedFile.createNewFile()
