@@ -2,6 +2,7 @@
 
 ### v2.0.0-SNAPSHOT - Unreleased
 
+- Update mockk -> 1.13.3
 - Build configuration updates
 
 ### v2.0.0-rc2 - Released 12/17/2022
