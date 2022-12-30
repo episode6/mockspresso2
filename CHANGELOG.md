@@ -1,5 +1,13 @@
 # ChangeLog
 
+### v2.0.0 - Released 12/30/2020
+
+- Update junit5 -> 5.9.1
+- Update dagger2 -> 2.44.2
+- Update mockito -> 4.11.0
+- Update mockk -> 1.13.3
+- Build configuration updates
+
 ### v2.0.0-rc2 - Released 12/17/2022
 
 - Added `fun MockspressoProperties.addDynamicObjectMaker`
