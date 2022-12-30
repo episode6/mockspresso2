@@ -49,8 +49,21 @@ class ConfigSitePlugin implements Plugin<Project> {
         }
       }
 
+      tasks.create("chopChangelog") {
+        doLast {
+          def list = project.file("$rootDir/docs/CHANGELOG.md").readLines()
+          def indices = list.findIndexValues { it.startsWith("###") }
+          def newList = list.subList(indices.get(0).toInteger()+1, indices.get(1).toInteger())
+          def newContent = "### Changelog\n" + newList.join("\n")
+          project.file(rootProject.buildDir).mkdirs()
+          def choppedFile = project.file("$rootProject.buildDir/VERSION_CHANGELOG.md")
+          choppedFile.createNewFile()
+          choppedFile.write(newContent)
+        }
+      }
+
       tasks.create("syncDocs") {
-        dependsOn("dokkaHtmlMultiModule", "configSite")
+        dependsOn("dokkaHtmlMultiModule", "configSite", "chopChangelog")
       }
     }
   }
