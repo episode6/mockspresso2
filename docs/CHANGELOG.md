@@ -1,6 +1,10 @@
 # ChangeLog
 
-### v2.0.0-SNAPSHOT - Unreleased
+### v2.0.1-SNAPSHOT - Unreleased
+
+
+
+### v2.0.0 - Released 12/30/2022
 
 - Update junit5 -> 5.9.1
 - Update dagger2 -> 2.44.2
