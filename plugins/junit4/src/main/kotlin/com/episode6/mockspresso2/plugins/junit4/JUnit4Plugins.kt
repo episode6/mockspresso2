@@ -15,8 +15,11 @@ fun Mockspresso.junitRule(): MockspressoJUnit4Rule = object : MockspressoJUnit4R
   override fun apply(base: Statement, description: Description): Statement = object : Statement() {
     override fun evaluate() {
       ensureInit()
-      base.evaluate()
-      teardown()
+      try {
+        base.evaluate()
+      } finally {
+        teardown()
+      }
     }
   }
 }

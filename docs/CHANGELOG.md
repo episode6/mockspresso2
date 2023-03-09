@@ -2,7 +2,7 @@
 
 ### v2.0.1-SNAPSHOT - Unreleased
 
-
+- Update junit4 rule to ensure teardown is called even when the test fails/throws
 
 ### v2.0.0 - Released 12/30/2022
 
