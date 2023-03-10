@@ -17,6 +17,10 @@ internal class DependencyCache {
     it.validator.absorb(validator)
     it.lazy.value as T
   }
+
+  fun warmCache() {
+    map.values.forEach { it.lazy.value }
+  }
 }
 
 private class CacheEntry(val lazy: Lazy<*>, val validator: DependencyValidator)
