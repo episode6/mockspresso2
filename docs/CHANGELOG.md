@@ -3,7 +3,7 @@
 ### v2.0.1-SNAPSHOT - Unreleased
 
 - Update junit4 rule to ensure teardown is called even when the test fails/throws
-- All dependencies are now created when the mockspresso instance is ensured (not just those required by real objects).
+- All dependencies are now created when the mockspresso instance is ensured (not just those required by real objects)
 
 ### v2.0.0 - Released 12/30/2022
 
