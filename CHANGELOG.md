@@ -1,6 +1,11 @@
 # ChangeLog
 
-### v2.0.0 - Released 12/30/2020
+### v2.0.1 - Released 3/9/2023
+
+- Update junit4 rule to ensure teardown is called even when the test fails/throws
+- All dependencies are now created when the mockspresso instance is ensured (not just those required by real objects)
+
+### v2.0.0 - Released 12/30/2022
 
 - Update junit5 -> 5.9.1
 - Update dagger2 -> 2.44.2
