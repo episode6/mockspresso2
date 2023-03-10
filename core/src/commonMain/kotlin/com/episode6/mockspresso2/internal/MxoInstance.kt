@@ -36,6 +36,8 @@ internal class MxoInstance(
       }
     }
 
+    dependencies.warmCache()
+    
     // fire setup callbacks
     val container = MockspressoInstanceContainer(this)
     setupCallbacks.forEach { it.invoke(container) }
