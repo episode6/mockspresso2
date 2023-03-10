@@ -6,7 +6,7 @@ plugins {
 
 allprojects {
   group = "com.episode6.mockspresso2"
-  version = "2.0.1-SNAPSHOT"
+  version = "2.0.1"
 }
 description =
   "A testing tool designed to reduce friction, boiler-plate and brittleness in unit tests. It's like dependency injection for your tests!"
