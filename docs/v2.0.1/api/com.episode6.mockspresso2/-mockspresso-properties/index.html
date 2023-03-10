@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>MockspressoProperties</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>mockspresso2</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="api::com.episode6.mockspresso2/MockspressoProperties///PointingToDeclaration//2089714443">
+  <div class="breadcrumbs"><a href="../../index.html">api</a><span class="delimiter">/</span><a href="../index.html">com.episode6.mockspresso2</a><span class="delimiter">/</span><a href="index.html">MockspressoProperties</a></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Mockspresso</span><wbr><span><span>Properties</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">MockspressoProperties</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">An interface that represents a <a href="../-mockspresso-instance/index.html">MockspressoInstance</a> that has not yet been fully constructed/ensured. It allows us to make changes to the graph while also leveraging kotlin's delegated properties to grab lazy references from it (that will be available after the <a href="../-mockspresso-instance/index.html">MockspressoInstance</a> under the hood has been ensured).</p><p class="paragraph">Most of the methods in the interface should be used in conjunction with Kotlin's delegated properties (aka "by") syntax.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Extensions">Extensions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
+    <div class="tabs-section-body">
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="1841642564%2FFunctions%2F2089714443" anchor-label="addDynamicObjectMaker" id="1841642564%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="add-dynamic-object-maker.html"><span>add</span><wbr><span>Dynamic</span><wbr><span>Object</span><wbr><span><span>Maker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1841642564%2FFunctions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="add-dynamic-object-maker.html"><span class="token function">addDynamicObjectMaker</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dynamicMaker<span class="token operator">: </span><a href="../../com.episode6.mockspresso2.api/-dynamic-object-maker/index.html">DynamicObjectMaker</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Adds a <a href="../../com.episode6.mockspresso2.api/-dynamic-object-maker/index.html">DynamicObjectMaker</a> to this <a href="../-mockspresso-instance/index.html">MockspressoInstance</a>. A <a href="../../com.episode6.mockspresso2.api/-dynamic-object-maker/index.html">DynamicObjectMaker</a> gets a chance to supply any un-cached/undefined dependency before the request goes to the <a href="../../com.episode6.mockspresso2.api/-fallback-object-maker/index.html">FallbackObjectMaker</a>. This enables mockspresso plugins supply dependencies based on properties other than concrete types (i.e. generic types, class annotations, etc.). It also allows for "default" instances for bindings, which can be overridden by an explicit dependency.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="749484878%2FFunctions%2F2089714443" anchor-label="dependency" id="749484878%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="dependency.html"><span><span>dependency</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="749484878%2FFunctions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="dependency.html">T</a><span class="token operator">&gt; </span><a href="dependency.html"><span class="token function">dependency</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="../../com.episode6.mockspresso2.reflect/-dependency-key/index.html">DependencyKey</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="dependency.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">provider<span class="token operator">: </span><span class="token keyword"></span><a href="../../com.episode6.mockspresso2.api/-dependencies/index.html">Dependencies</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="dependency.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="dependency.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Register a dependency provided by <a href="dependency.html">provider</a>, bound in the mockspresso graph with <a href="dependency.html">key</a> and return a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a> of that object.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-441166262%2FFunctions%2F2089714443" anchor-label="findDependency" id="-441166262%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="find-dependency.html"><span>find</span><wbr><span><span>Dependency</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-441166262%2FFunctions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="find-dependency.html">T</a><span class="token operator">&gt; </span><a href="find-dependency.html"><span class="token function">findDependency</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="../../com.episode6.mockspresso2.reflect/-dependency-key/index.html">DependencyKey</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="find-dependency.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="find-dependency.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Find an existing dependency in the underlying mockspresso instance (bound with <a href="find-dependency.html">key</a>) and return a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a> for it.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="264400203%2FFunctions%2F2089714443" anchor-label="interceptRealImplementation" id="264400203%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="intercept-real-implementation.html"><span>intercept</span><wbr><span>Real</span><wbr><span><span>Implementation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="264400203%2FFunctions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="intercept-real-implementation.html">BIND</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="intercept-real-implementation.html">IMPL</a><span class="token operator"> : </span><a href="intercept-real-implementation.html">BIND</a><span class="token operator">&gt; </span><a href="intercept-real-implementation.html"><span class="token function">interceptRealImplementation</span></a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;key<span class="token operator">: </span><a href="../../com.episode6.mockspresso2.reflect/-dependency-key/index.html">DependencyKey</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="intercept-real-implementation.html">BIND</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;implementationToken<span class="token operator">: </span><a href="../../com.episode6.mockspresso2.reflect/-type-token/index.html">TypeToken</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="intercept-real-implementation.html">IMPL</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;interceptor<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="intercept-real-implementation.html">IMPL</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="intercept-real-implementation.html">IMPL</a><span class="token operator"> = </span>{ it }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="intercept-real-implementation.html">IMPL</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Register a request to create a real object of type <a href="intercept-real-implementation.html">implementationToken</a> bound in the mockspresso graph with <a href="intercept-real-implementation.html">key</a>. The supplied <a href="intercept-real-implementation.html">interceptor</a> lambda will be called when the real object is created and allows the test code to wrap the newly constructed real object before it's used. This enables the mock-support plugins to include spy support.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1229199800%2FFunctions%2F2089714443" anchor-label="onSetup" id="-1229199800%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="on-setup.html"><span>on</span><wbr><span><span>Setup</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1229199800%2FFunctions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="on-setup.html"><span class="token function">onSetup</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cmd<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../-mockspresso-instance/index.html">MockspressoInstance</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Add a callback that will fire when the <a href="../-mockspresso-instance/index.html">MockspressoInstance</a> is fully instantiated/ensured.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1274203167%2FFunctions%2F2089714443" anchor-label="onTeardown" id="1274203167%2FFunctions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="on-teardown.html"><span>on</span><wbr><span><span>Teardown</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1274203167%2FFunctions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="on-teardown.html"><span class="token function">onTeardown</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cmd<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Add a callback that will fire when/if the <a href="../-mockspresso-instance/index.html">MockspressoInstance</a> is eventually torn down. (Automatic tear-down is not supported by default but can be configured using plugins).</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Inheritors</h2>
+      <div class="table" data-togglable="Inheritors"><a data-name="1594033896%2FInheritors%2F2089714443" anchor-label="Mockspresso" id="1594033896%2FInheritors%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-mockspresso/index.html">Mockspresso</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1594033896%2FInheritors%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <h2 class="tabbedcontent">Extensions</h2>
+      <div class="table" data-togglable="Extensions"><a data-name="-1138087455%2FExtensions%2F2089714443" anchor-label="dependency" id="-1138087455%2FExtensions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../dependency.html"><span><span>dependency</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1138087455%2FExtensions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../dependency.html">T</a><span class="token operator">&gt; </span><a href="index.html">MockspressoProperties</a><span class="token punctuation">.</span><a href="../dependency.html"><span class="token function">dependency</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">qualifier<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>provider<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../dependency.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../dependency.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Register a dependency provided by <a href="../dependency.html">provider</a>, bound in the mockspresso graph with a dependencyKey made from type <a href="../dependency.html">T</a> and <a href="../dependency.html">qualifier</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1069132881%2FExtensions%2F2089714443" anchor-label="fake" id="-1069132881%2FExtensions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../fake.html"><span><span>fake</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1069132881%2FExtensions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../fake.html">BIND</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../fake.html">IMPL</a><span class="token operator"> : </span><a href="../fake.html">BIND</a><span class="token operator">&gt; </span><a href="index.html">MockspressoProperties</a><span class="token punctuation">.</span><a href="../fake.html"><span class="token function">fake</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">qualifier<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>provider<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../fake.html">IMPL</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../fake.html">IMPL</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Register a dependency provided by <a href="../fake.html">provider</a> that is of type <a href="../fake.html">IMPL</a> but bound in the mockspresso graph with a dependencyKey made from type <a href="../fake.html">BIND</a> and <a href="../fake.html">qualifier</a>. Returns a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a> with access to that dependency as type <a href="../fake.html">IMPL</a></p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="52262016%2FExtensions%2F2089714443" anchor-label="findDependency" id="52262016%2FExtensions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../find-dependency.html"><span>find</span><wbr><span><span>Dependency</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="52262016%2FExtensions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../find-dependency.html">T</a><span class="token operator">&gt; </span><a href="index.html">MockspressoProperties</a><span class="token punctuation">.</span><a href="../find-dependency.html"><span class="token function">findDependency</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">qualifier<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../find-dependency.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Find an existing dependency in the underlying mockspresso instance (bound with a dependencyKey of type <a href="../find-dependency.html">T</a> + <a href="../find-dependency.html">qualifier</a>) and return a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a> for access to it.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1256526896%2FExtensions%2F2089714443" anchor-label="realImplementation" id="-1256526896%2FExtensions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../real-implementation.html"><span>real</span><wbr><span><span>Implementation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1256526896%2FExtensions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../real-implementation.html">BIND</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../real-implementation.html">IMPL</a><span class="token operator"> : </span><a href="../real-implementation.html">BIND</a><span class="token operator">&gt; </span><a href="index.html">MockspressoProperties</a><span class="token punctuation">.</span><a href="../real-implementation.html"><span class="token function">realImplementation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">qualifier<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>init<span class="token operator">: </span><span class="token keyword"></span><a href="../real-implementation.html">IMPL</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{ }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../real-implementation.html">IMPL</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Register a request to create a real object of type <a href="../real-implementation.html">IMPL</a> bound in the mockspresso graph with a dependencyKey made from type <a href="../real-implementation.html">BIND</a> and <a href="../real-implementation.html">qualifier</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-42928657%2FExtensions%2F2089714443" anchor-label="realInstance" id="-42928657%2FExtensions%2F2089714443" data-filterable-set=":api:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":api:dokkaHtmlPartial/commonMain" data-filterable-set=":api:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../real-instance.html"><span>real</span><wbr><span><span>Instance</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-42928657%2FExtensions%2F2089714443"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":api:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../real-instance.html">T</a><span class="token operator">&gt; </span><a href="index.html">MockspressoProperties</a><span class="token punctuation">.</span><a href="../real-instance.html"><span class="token function">realInstance</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">qualifier<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-annotation/index.html">Annotation</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>init<span class="token operator">: </span><span class="token keyword"></span><a href="../real-instance.html">T</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{ }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-lazy/index.html">Lazy</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../real-instance.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Register a request to create a real object of type <a href="../real-instance.html">T</a> bound in the mockspresso graph with a dependencyKey made from type <a href="../real-instance.html">T</a> and <a href="../real-instance.html">qualifier</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+
+</body></html>
+
