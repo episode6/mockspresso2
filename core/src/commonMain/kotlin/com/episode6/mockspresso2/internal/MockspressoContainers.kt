@@ -12,8 +12,9 @@ import com.episode6.mockspresso2.reflect.TypeToken
 internal class MockspressoInstanceContainer(private val instance: MxoInstance) : MockspressoInstance {
   override fun <T> findNow(key: DependencyKey<T>): T = instance.get(key)
   override fun <T> createNow(key: DependencyKey<T>): T = instance.create(key)
-  override fun buildUpon(): Mockspresso {
+  override fun buildUpon(initBlock: MockspressoProperties.() -> Unit): Mockspresso {
     return MockspressoContainer(properties = MockspressoPropertiesContainer(parent = mlazy { instance }))
+      .apply(initBlock)
   }
 }
 
@@ -79,7 +80,7 @@ internal class MockspressoContainer constructor(
     instanceLazy = mlazy { throw MockspressoAlreadyTornDownError() }
   }
 
-  override fun buildUpon(): Mockspresso {
-    return MockspressoContainer(properties = MockspressoPropertiesContainer(parent = instanceLazy))
+  override fun buildUpon(initBlock: MockspressoProperties.() -> Unit): Mockspresso {
+    return MockspressoContainer(properties = MockspressoPropertiesContainer(parent = instanceLazy)).apply(initBlock)
   }
 }

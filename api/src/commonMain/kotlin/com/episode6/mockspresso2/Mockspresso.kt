@@ -55,7 +55,7 @@ interface MockspressoInstance {
    * This method will NOT ensure this [MockspressoInstance] is initialized (i.e. it's possible to build new mockspresso
    * instances off of lazily instantiated ones, and the parents will be ensured when first accessed).
    */
-  fun buildUpon(): Mockspresso
+  fun buildUpon(initBlock: MockspressoProperties.() -> Unit = {}): Mockspresso
 }
 
 /**
