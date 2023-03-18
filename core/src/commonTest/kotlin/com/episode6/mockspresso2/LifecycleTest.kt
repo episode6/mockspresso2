@@ -18,12 +18,12 @@ class LifecycleTest {
   private val testDependency1: TestDependency1 = mockk(relaxUnitFun = true)
   private val testDependency2: TestDependency2 = mockk(relaxUnitFun = true)
 
-  private val mxo = MockspressoBuilder()
-    .onSetup(builderSetup)
-    .onTeardown(builderTeardown)
-    .dependency { testDependency1 }
-    .dependency { testDependency2 }
-    .build()
+  private val mxo = Mockspresso {
+    onSetup(builderSetup)
+    onTeardown(builderTeardown)
+    dependency { testDependency1 }
+    dependency { testDependency2 }
+  }
 
   init {
     mxo.onSetup(propSetup)
@@ -124,17 +124,25 @@ class LifecycleTest {
   private interface TestDependency1 {
     fun touch()
   }
+
   private interface TestDependency2 {
     fun touch()
   }
 
   // test obj calls dep during init, which lets us confirm if it's been constructed or not
   private class TestRealObj1(val dep: TestDependency1) {
-    init { dep.touch() }
+    init {
+      dep.touch()
+    }
+
     fun touch() {}
   }
+
   private class TestRealObj2(val dep: TestDependency2) {
-    init { dep.touch() }
+    init {
+      dep.touch()
+    }
+
     fun touch() {}
   }
 }

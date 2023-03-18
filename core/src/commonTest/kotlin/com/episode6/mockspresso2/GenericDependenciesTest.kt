@@ -8,11 +8,11 @@ import kotlin.test.Test
 class GenericDependenciesTest {
 
   @Test fun testSimpleGeneric() {
-    val mxo = MockspressoBuilder()
-      .dependency { 5 }
-      .dependency { "hello" }
-      .dependency { 4.2f }
-      .build()
+    val mxo = Mockspresso {
+      dependency { 5 }
+      dependency { "hello" }
+      dependency { 4.2f }
+    }
 
     val obj = mxo.createNow<GenericObj<String, Int, Float>>()
 
@@ -22,12 +22,12 @@ class GenericDependenciesTest {
   }
 
   @Test fun testGenericWithGeneric() {
-    val mxo = MockspressoBuilder()
-      .realInstance<GenericObj<Int, Float, Set<String>>>()
-      .dependency { 5 }
-      .dependency { setOf("str1", "str2") }
-      .dependency { 4.2f }
-      .build()
+    val mxo = Mockspresso {
+      realInstance<GenericObj<Int, Float, Set<String>>>()
+      dependency { 5 }
+      dependency { setOf("str1", "str2") }
+      dependency { 4.2f }
+    }
 
     val obj = mxo.createNow<GenericWithGeneric<Float, Int>>()
 
@@ -39,18 +39,18 @@ class GenericDependenciesTest {
   }
 
   @Test fun testRidiculousGenerics() {
-    val mxo = MockspressoBuilder()
-      .realInstance<GenericObj<List<Map<String, Int>>, Map<String, Int>, Set<String>>>()
-      .realInstance<GenericWithGeneric<Map<String, Int>, List<Map<String, Int>>>>()
-      .dependency { setOf("setStr1", "setStr2") }
-      .dependency { mapOf("str1" to 1) }
-      .dependency {
+    val mxo = Mockspresso {
+      realInstance<GenericObj<List<Map<String, Int>>, Map<String, Int>, Set<String>>>()
+      realInstance<GenericWithGeneric<Map<String, Int>, List<Map<String, Int>>>>()
+      dependency { setOf("setStr1", "setStr2") }
+      dependency { mapOf("str1" to 1) }
+      dependency {
         listOf(
           mapOf("str2" to 2),
           mapOf("str3" to 3)
         )
       }
-      .build()
+    }
 
     val obj = mxo.createNow<ConcreteWithGenerics>()
 

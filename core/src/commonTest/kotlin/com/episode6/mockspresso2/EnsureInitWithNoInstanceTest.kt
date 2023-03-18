@@ -6,7 +6,7 @@ import assertk.assertions.isTrue
 import kotlin.test.Test
 
 class EnsureInitWithNoInstanceTest {
-  private val mxo = MockspressoBuilder().build()
+  private val mxo = Mockspresso()
 
   private var depCreated = false
   private val dep by mxo.dependency {
@@ -19,9 +19,9 @@ class EnsureInitWithNoInstanceTest {
   }
 
   @Test fun testEnsureInit() {
-   mxo.ensureInit()
+    mxo.ensureInit()
 
-   assertThat(depCreated).isTrue()
+    assertThat(depCreated).isTrue()
   }
 
   @Test fun testTouch() {

@@ -15,9 +15,9 @@ class DynamicObjectMakerTest {
   }
 
   @Test fun testUsageInBuilder() {
-    val mxo = MockspressoBuilder()
-      .addDynamicObjectMaker(defaultTestInterfaceMaker())
-      .build()
+    val mxo = Mockspresso {
+      addDynamicObjectMaker(defaultTestInterfaceMaker())
+    }
 
     val parent: TestParent by mxo.realImplementation()
 
@@ -25,10 +25,10 @@ class DynamicObjectMakerTest {
   }
 
   @Test fun testUsageInBuilder_override() {
-    val mxo = MockspressoBuilder()
-      .addDynamicObjectMaker(defaultTestInterfaceMaker())
-      .dependency<TestInterface> { TestObject("override") }
-      .build()
+    val mxo = Mockspresso {
+      addDynamicObjectMaker(defaultTestInterfaceMaker())
+      dependency<TestInterface> { TestObject("override") }
+    }
 
     val parent: TestParent by mxo.realImplementation()
 
@@ -36,7 +36,7 @@ class DynamicObjectMakerTest {
   }
 
   @Test fun testUsageInProperties() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
     mxo.addDynamicObjectMaker(defaultTestInterfaceMaker())
     val parent: TestParent by mxo.realImplementation()
 
@@ -44,7 +44,7 @@ class DynamicObjectMakerTest {
   }
 
   @Test fun testUsageInProperties_override() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
     mxo.addDynamicObjectMaker(defaultTestInterfaceMaker())
     val parent: TestParent by mxo.realImplementation()
     val override by mxo.dependency<TestInterface> { TestObject("override") }
