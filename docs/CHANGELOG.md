@@ -2,7 +2,7 @@
 
 ### v2.1.0-SNAPSHOT - Unreleased
 
-- **BREAKING**: Simplified api and removed MockspressoBuilder completely. All methods that used to exist on the
+- **BREAKING CHANGE**: Simplified api and removed MockspressoBuilder completely. All methods that used to exist on the
   MockspressoBuilder are now on MockspressoProperties. This means we no longer need to duplicate extensions for both
   MockspressoBuilder and MockspressoProperties.
 
