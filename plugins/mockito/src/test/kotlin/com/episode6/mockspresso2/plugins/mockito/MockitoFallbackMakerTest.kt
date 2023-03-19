@@ -1,7 +1,7 @@
 package com.episode6.mockspresso2.plugins.mockito
 
 import assertk.assertThat
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.realInstance
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.inOrder
@@ -9,9 +9,9 @@ import org.mockito.kotlin.verify
 
 class MockitoFallbackMakerTest {
 
-  val mxo = MockspressoBuilder()
-    .fallbackWithMockito()
-    .build()
+  val mxo = Mockspresso {
+    fallbackWithMockito()
+  }
 
   private val realObject: TestObj by mxo.realInstance()
   private val realObjectWithNullable: TestObjNullable by mxo.realInstance()

@@ -1,6 +1,5 @@
 package com.episode6.mockspresso2.plugins.mockito
 
-import com.episode6.mockspresso2.MockspressoBuilder
 import com.episode6.mockspresso2.MockspressoProperties
 import com.episode6.mockspresso2.api.FallbackObjectMaker
 import com.episode6.mockspresso2.dependency
@@ -22,88 +21,10 @@ import kotlin.reflect.KClass
 /**
  * Use mockito to generate fallback objects for dependencies that are not present in the mockspresso instance
  */
-fun MockspressoBuilder.fallbackWithMockito(): MockspressoBuilder =
+fun MockspressoProperties.fallbackWithMockito() {
   makeFallbackObjectsWith(object : FallbackObjectMaker {
     override fun <T> makeObject(key: DependencyKey<T>): T = Mockito.mock(key.token.asJClass())
   })
-
-/**
- * Add a mock with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
- * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mock]
- * instead.
- */
-inline fun <reified T : Any?> MockspressoBuilder.mock(
-  qualifier: Annotation? = null,
-  extraInterfaces: Array<out KClass<out Any>>? = null,
-  name: String? = null,
-  spiedInstance: Any? = null,
-  defaultAnswer: Answer<Any>? = null,
-  serializable: Boolean = false,
-  serializableMode: SerializableMode? = null,
-  verboseLogging: Boolean = false,
-  invocationListeners: Array<InvocationListener>? = null,
-  stubOnly: Boolean = false,
-  @Incubating useConstructor: UseConstructor? = null,
-  @Incubating outerInstance: Any? = null,
-  @Incubating lenient: Boolean = false
-): MockspressoBuilder = dependency(qualifier) {
-  Mockito.mock(
-    T::class.java,
-    withSettings(
-      extraInterfaces = extraInterfaces,
-      name = name,
-      spiedInstance = spiedInstance,
-      defaultAnswer = defaultAnswer,
-      serializable = serializable,
-      serializableMode = serializableMode,
-      verboseLogging = verboseLogging,
-      invocationListeners = invocationListeners,
-      stubOnly = stubOnly,
-      useConstructor = useConstructor,
-      outerInstance = outerInstance,
-      lenient = lenient
-    )
-  )!!
-}
-
-/**
- * Add a mock with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
- * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mock]
- * instead.
- */
-inline fun <reified T : Any?> MockspressoBuilder.mock(
-  qualifier: Annotation? = null,
-  extraInterfaces: Array<out KClass<out Any>>? = null,
-  name: String? = null,
-  spiedInstance: Any? = null,
-  defaultAnswer: Answer<Any>? = null,
-  serializable: Boolean = false,
-  serializableMode: SerializableMode? = null,
-  verboseLogging: Boolean = false,
-  invocationListeners: Array<InvocationListener>? = null,
-  stubOnly: Boolean = false,
-  @Incubating useConstructor: UseConstructor? = null,
-  @Incubating outerInstance: Any? = null,
-  @Incubating lenient: Boolean = false,
-  noinline stubbing: KStubbing<T>.(T) -> Unit
-): MockspressoBuilder = dependency(qualifier) {
-  Mockito.mock(
-    T::class.java,
-    withSettings(
-      extraInterfaces = extraInterfaces,
-      name = name,
-      spiedInstance = spiedInstance,
-      defaultAnswer = defaultAnswer,
-      serializable = serializable,
-      serializableMode = serializableMode,
-      verboseLogging = verboseLogging,
-      invocationListeners = invocationListeners,
-      stubOnly = stubOnly,
-      useConstructor = useConstructor,
-      outerInstance = outerInstance,
-      lenient = lenient
-    )
-  ).apply { KStubbing(this).stubbing(this) }!!
 }
 
 /**

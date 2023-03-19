@@ -4,14 +4,14 @@ import assertk.all
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.prop
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.realInstance
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.inOrder
 
 class MockitoSpyingTest {
 
-  val mxo = MockspressoBuilder().build()
+  val mxo = Mockspresso()
 
   private val realObject: TestObj by mxo.realInstance()
   private val dep1: TestDepOne by mxo.spy()
