@@ -1,7 +1,7 @@
 package com.episode6.mockspresso2.plugins.javax.inject
 
-import com.episode6.mockspresso2.MockspressoBuilder
 import com.episode6.mockspresso2.MockspressoInstance
+import com.episode6.mockspresso2.MockspressoProperties
 import com.episode6.mockspresso2.plugins.javax.inject.reflect.asDependencies
 import com.episode6.mockspresso2.plugins.javax.inject.reflect.injectWithDependencies
 import com.episode6.mockspresso2.plugins.javax.inject.reflect.javaxRealObjectMaker
@@ -12,13 +12,16 @@ import kotlin.reflect.full.createType
  * Make real objects using reflection according to java.inject rules. Supports constructor, property, field and
  * method injection.
  */
-fun MockspressoBuilder.makeRealObjectsUsingJavaxInjectRules(): MockspressoBuilder =
+fun MockspressoProperties.makeRealObjectsUsingJavaxInjectRules() {
   makeRealObjectsWith(javaxRealObjectMaker())
+}
 
 /**
  * Enable automatic mapping of [javax.inject.Provider]s to their underlying dependencies.
  */
-fun MockspressoBuilder.javaxProviderSupport(): MockspressoBuilder = addDynamicObjectMaker(javaxProviderMaker())
+fun MockspressoProperties.javaxProviderSupport() {
+  addDynamicObjectMaker(javaxProviderMaker())
+}
 
 /**
  * Perform field and method injection on an object that's been created outside the context of mockspresso.

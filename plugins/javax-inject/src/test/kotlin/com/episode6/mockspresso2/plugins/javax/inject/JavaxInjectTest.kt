@@ -4,7 +4,7 @@ import assertk.assertThat
 import assertk.assertions.hasClass
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFailure
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.dependency
 import com.episode6.mockspresso2.reflect.typeToken
 import org.junit.jupiter.api.Test
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class JavaxInjectTest {
 
-  val mxo = MockspressoBuilder().build()
+  val mxo = Mockspresso()
 
   private val dep1 by mxo.dependency { Dependency1() }
   private val dep2 by mxo.dependency { Dependency2() }
@@ -94,7 +94,7 @@ class JavaxInjectTest {
     }
   }
 
-  private open class GenericInject<A: Any, B: Any> {
+  private open class GenericInject<A : Any, B : Any> {
     @Inject lateinit var d1: A
     @Inject lateinit var d2: B
   }

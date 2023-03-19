@@ -2,7 +2,7 @@ package com.episode6.mockspresso2.plugins.dagger2
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.dependency
 import com.episode6.mockspresso2.realInstance
 import org.junit.jupiter.api.Test
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class Dagger2InjectRealObjectMakerTest {
 
   @Test fun testConstructorInject() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingDagger2Rules() }
     val ro: ConstructorInject by mxo.realInstance()
     val d1 by mxo.dependency { Dependency1() }
     val d2 by mxo.dependency { Dependency2() }
@@ -21,7 +21,7 @@ class Dagger2InjectRealObjectMakerTest {
   }
 
   @Test fun testPropertyInject() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingDagger2Rules() }
     val ro: PropertiesInject by mxo.realInstance()
     val d1 by mxo.dependency { Dependency1() }
     val d2 by mxo.dependency { Dependency2() }
@@ -31,7 +31,7 @@ class Dagger2InjectRealObjectMakerTest {
   }
 
   @Test fun testPropertySetInject() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingDagger2Rules() }
     val ro: PropertiesSetInject by mxo.realInstance()
     val d1 by mxo.dependency { Dependency1() }
     val d2 by mxo.dependency { Dependency2() }
@@ -41,7 +41,7 @@ class Dagger2InjectRealObjectMakerTest {
   }
 
   @Test fun testPropertyFieldInject() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingDagger2Rules() }
     val ro: PropertiesFieldInject by mxo.realInstance()
     val d1 by mxo.dependency { Dependency1() }
     val d2 by mxo.dependency { Dependency2() }
@@ -51,7 +51,7 @@ class Dagger2InjectRealObjectMakerTest {
   }
 
   @Test fun testMethodInject() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingDagger2Rules() }
     val ro: MethodInject by mxo.realInstance()
     val d1 by mxo.dependency { Dependency1() }
     val d2 by mxo.dependency { Dependency2() }
@@ -68,14 +68,17 @@ class Dagger2InjectRealObjectMakerTest {
     @Inject lateinit var d1: Dependency1
     @Inject lateinit var d2: Dependency2
   }
+
   private class PropertiesSetInject @Inject constructor() {
     @set:Inject lateinit var d1: Dependency1
     @set:Inject lateinit var d2: Dependency2
   }
+
   private class PropertiesFieldInject @Inject constructor() {
     @field:Inject lateinit var d1: Dependency1
     @field:Inject lateinit var d2: Dependency2
   }
+
   private class MethodInject @Inject constructor() {
     lateinit var d1: Dependency1
     lateinit var d2: Dependency2

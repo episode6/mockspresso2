@@ -5,7 +5,7 @@ package com.episode6.mockspresso2.plugins.javax.inject
 import assertk.assertThat
 import assertk.assertions.hasClass
 import assertk.assertions.isFailure
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.plugins.javax.inject.reflect.MultipleInjectConstructorsException
 import com.episode6.mockspresso2.plugins.javax.inject.reflect.NoInjectConstructorsException
 import com.episode6.mockspresso2.realInstance
@@ -15,14 +15,14 @@ import javax.inject.Inject
 class BadInjectRealObjectMakerTest {
 
   @Test fun testNoConstructor() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingJavaxInjectRules() }
     val ro: HasNoConstructor by mxo.realInstance()
 
     assertThat { mxo.ensureInit() }.isFailure().hasClass(NoInjectConstructorsException::class)
   }
 
   @Test fun testTooManyConstructors() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingJavaxInjectRules() }
     val ro: HasTooManyConstructors by mxo.realInstance()
 
     assertThat { mxo.ensureInit() }.isFailure().hasClass(MultipleInjectConstructorsException::class)
