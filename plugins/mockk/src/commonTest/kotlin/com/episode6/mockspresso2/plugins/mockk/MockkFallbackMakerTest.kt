@@ -1,6 +1,6 @@
 package com.episode6.mockspresso2.plugins.mockk
 
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.realInstance
 import io.mockk.verify
 import io.mockk.verifyOrder
@@ -8,9 +8,9 @@ import kotlin.test.Test
 
 class MockkFallbackMakerTest {
 
-  val mxo = MockspressoBuilder()
-    .fallbackWithMockk()
-    .build()
+  val mxo = Mockspresso {
+    fallbackWithMockk()
+  }
 
   private val realObject: TestObj by mxo.realInstance()
   private val realObjectWithNullable: TestObjNullable by mxo.realInstance()
@@ -27,7 +27,7 @@ class MockkFallbackMakerTest {
 
   @Test fun testCanCallMockOnNullableDep() {
     realObjectWithNullable.nullableDep!!.doSomethingElse()
-    
+
     verify { realObjectWithNullable.nullableDep!!.doSomethingElse() }
   }
 

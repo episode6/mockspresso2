@@ -18,44 +18,22 @@ import io.mockk.spyk as _spyk
  * Use mockk to generate fallback objects for dependencies that are not present in the mockspresso instance
  */
 @Suppress("UNCHECKED_CAST")
-fun MockspressoBuilder.fallbackWithMockk(
+fun MockspressoProperties.fallbackWithMockk(
   relaxed: Boolean = true,
   relaxedUnitFun: Boolean = true,
-): MockspressoBuilder = makeFallbackObjectsWith(object : FallbackObjectMaker {
-  // we're duplicating internal mockk code here to support creating generic mocks based on a [DependencyKey]
-  override fun <T> makeObject(key: DependencyKey<T>): T = MockK.useImpl {
-    MockKGateway.implementation().mockFactory.mockk(
-      mockType = key.token.asKClass(),
-      name = "automock:$key",
-      relaxed = relaxed,
-      moreInterfaces = emptyArray(),
-      relaxUnitFun = relaxedUnitFun,
-    ) as T
-  }
-})
-
-/**
- * Add a mockk with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
- * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mockk]
- * instead.
- *
- * IMPORTANT: we default [relaxed] and [relaxUnitFun] to true for defaultMocks.
- */
-inline fun <reified T : Any?> MockspressoBuilder.mockk(
-  qualifier: Annotation? = null,
-  name: String? = null,
-  relaxed: Boolean = true,
-  vararg moreInterfaces: KClass<*>,
-  relaxUnitFun: Boolean = true,
-  noinline block: T.() -> Unit = {}
-) = dependency<T>(qualifier) {
-  _mockk(
-    name = name,
-    relaxed = relaxed,
-    moreInterfaces = *moreInterfaces,
-    relaxUnitFun = relaxUnitFun,
-    block = block
-  )
+) {
+  makeFallbackObjectsWith(object : FallbackObjectMaker {
+    // we're duplicating internal mockk code here to support creating generic mocks based on a [DependencyKey]
+    override fun <T> makeObject(key: DependencyKey<T>): T = MockK.useImpl {
+      MockKGateway.implementation().mockFactory.mockk(
+        mockType = key.token.asKClass(),
+        name = "automock:$key",
+        relaxed = relaxed,
+        moreInterfaces = emptyArray(),
+        relaxUnitFun = relaxedUnitFun,
+      ) as T
+    }
+  })
 }
 
 /**
