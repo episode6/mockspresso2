@@ -1,16 +1,22 @@
 # ChangeLog
 
-### v2.1-SNAPSHOT - Unreleased
+### v2.1.0-SNAPSHOT - Unreleased
 
-- **BREAKING**: Simplified api and removed MockspressoBuilder completely. All methods that used to exist on the MockspressoBuilder are now on MockspressoProperties. This means we no longer need to duplicate extensions for both MockspressoBuilder and MockspressoProperties.
-   - Before:
+- **BREAKING**: Simplified api and removed MockspressoBuilder completely. All methods that used to exist on the
+  MockspressoBuilder are now on MockspressoProperties. This means we no longer need to duplicate extensions for both
+  MockspressoBuilder and MockspressoProperties.
+
+  Before:
+
 ```kotlin
 val mxo = MockspressoBuilder
   .makeRealObjectsWithPrimaryConstructor()
   .fallbackWithMockk()
   .build()
 ```
-   - After:
+
+After:
+
 ```kotlin
 val mxo = Mockspresso {
   makeRealObjectsWithPrimaryConstructor()
