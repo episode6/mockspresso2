@@ -6,7 +6,7 @@
   MockspressoBuilder are now on MockspressoProperties. This means we no longer need to duplicate extensions for both
   MockspressoBuilder and MockspressoProperties.
 
-  Before:
+Before:
 
 ```kotlin
 val mxo = MockspressoBuilder
