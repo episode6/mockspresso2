@@ -2,8 +2,11 @@ package com.episode6.mockspresso2.plugins.mockk
 
 import assertk.all
 import assertk.assertThat
-import assertk.assertions.*
-import com.episode6.mockspresso2.MockspressoBuilder
+import assertk.assertions.hasClass
+import assertk.assertions.isEqualTo
+import assertk.assertions.isFailure
+import assertk.assertions.isNotNull
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.realInstance
 import io.mockk.every
 import io.mockk.verify
@@ -12,11 +15,11 @@ import kotlin.test.Test
 
 class MockkMockingTest {
 
-  val mxo = MockspressoBuilder()
-    .mockk<TestDepOne> {
+  val mxo = Mockspresso {
+    mockk<TestDepOne> {
       every { doSomething() } throws RuntimeException()
     }
-    .build()
+  }
 
   private val realObject: TestObj by mxo.realInstance()
   private val dep2: TestDepTwo by mxo.mockk(relaxed = true)

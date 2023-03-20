@@ -26,40 +26,6 @@ inline fun <reified T : Any?> MockspressoInstance.findNow(
 /**
  * Register a dependency provided by [provider], bound in the mockspresso graph with a dependencyKey made from
  * type [T] and [qualifier].
- */
-inline fun <reified T : Any?> MockspressoBuilder.dependency(
-  qualifier: Annotation? = null,
-  noinline provider: () -> T
-): MockspressoBuilder = dependency(dependencyKey<T>(qualifier)) { provider() }
-
-/**
- * Register a request to create a real object of type [T] bound in the mockspresso graph with a dependencyKey made from
- * type [T] and [qualifier].
- *
- * The supplied [init] lambda will be called when the real object is created.
- */
-inline fun <reified T : Any?> MockspressoBuilder.realInstance(
-  qualifier: Annotation? = null,
-  noinline init: T.() -> Unit = { }
-): MockspressoBuilder = dependencyKey<T>(qualifier).let { key ->
-  interceptRealImplementation(key, key.token) { it.apply(init) }
-}
-
-/**
- * Register a request to create a real object of type [IMPL] bound in the mockspresso graph with a dependencyKey made
- * from type [BIND] and [qualifier].
- *
- * The supplied [init] lambda will be called when the real object is created.
- */
-inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImplementation(
-  qualifier: Annotation? = null,
-  noinline init: IMPL.() -> Unit = { }
-): MockspressoBuilder =
-  interceptRealImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) { it.apply(init) }
-
-/**
- * Register a dependency provided by [provider], bound in the mockspresso graph with a dependencyKey made from
- * type [T] and [qualifier].
  *
  * Returns a [Lazy] with access to that dependency.
  *

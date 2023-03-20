@@ -12,7 +12,7 @@ import kotlin.test.Test
 @Suppress("UNUSED_VARIABLE") // We need to hold refs to some values to set up our test cases. If these were real tests the vars would not be unused.
 class SimpleIntegrationTest {
   @Test fun testSimpleWorkingCase() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
     val objUnderTest: SomeObject by mxo.realInstance()
     val dep1 by mxo.dependency { SomeDependency1() }
     val dep2 by mxo.dependency { SomeDependency2() }
@@ -23,7 +23,7 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testAccessDepFirst() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
     val objUnderTest: SomeObject by mxo.realInstance()
     val dep1 by mxo.dependency { SomeDependency1() }
     val dep2 by mxo.dependency { SomeDependency2() }
@@ -36,7 +36,7 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testFailsWithMultipleDepsOfSameKey() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
     val objUnderTest: SomeObject by mxo.realInstance()
     val dep1 by mxo.dependency { SomeDependency1() }
 
@@ -46,7 +46,7 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testFailsWithMultipleDepsOfSameKey_real_over_dep() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
     val objUnderTest: SomeObject by mxo.realInstance()
     val dep1 by mxo.dependency { SomeDependency1() }
 
@@ -56,7 +56,7 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testMissingDeps() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
     val objUnderTest: SomeObject by mxo.realInstance()
 
     assertThat {
@@ -65,7 +65,7 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testMultipleSameDepGetsSameInstance() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
     val objUnderTest: SomeBadObjectWithSameDepMultipleTimes by mxo.realInstance()
     val dep by mxo.dependency { SomeDependency1() }
 
@@ -75,7 +75,7 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testCreateRealObjectGetsNewInstances() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
 
     val obj1: SomeDependency1 = mxo.createNow()
     val obj2: SomeDependency1 = mxo.createNow()
@@ -84,7 +84,7 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testCreateRealObjectIsntCachedAsDep() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
 
     val obj1: SomeDependency1 = mxo.createNow()
 
@@ -94,9 +94,9 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testInterceptSpyk() {
-    val mxo = MockspressoBuilder()
-      .dependency { SomeDependency1() }
-      .build()
+    val mxo = Mockspresso {
+      dependency { SomeDependency1() }
+    }
 
     val dep2: SomeDependency2 by mxo.interceptRealImplementation(dependencyKey(), typeToken()) { spyk(it) }
     val objUnderTest: SomeObject by mxo.realInstance()
@@ -107,9 +107,9 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testDynamicDependency() {
-    val mxo = MockspressoBuilder()
-      .dependency(dependencyKey()) { SomeObject(get(dependencyKey()), get(dependencyKey())) }
-      .build()
+    val mxo = Mockspresso {
+      dependency(dependencyKey()) { SomeObject(get(dependencyKey()), get(dependencyKey())) }
+    }
 
     val dep1 by mxo.dependency { SomeDependency1() }
     val dep2 by mxo.dependency { SomeDependency2() }
@@ -120,7 +120,7 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testDynamicDependencyInProp() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
 
     val someObject by mxo.dependency(dependencyKey()) { SomeObject(get(dependencyKey()), get(dependencyKey())) }
     val dep1 by mxo.dependency { SomeDependency1() }
@@ -131,7 +131,7 @@ class SimpleIntegrationTest {
   }
 
   @Test fun testFakeOf() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
 
     val ro: SomeObjectWithIFaceDep by mxo.realInstance()
     val dep1 by mxo.dependency { SomeDependency1() }

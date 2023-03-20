@@ -4,7 +4,7 @@ package com.episode6.mockspresso2.plugins.dagger2
 import assertk.assertThat
 import assertk.assertions.hasClass
 import assertk.assertions.isFailure
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.plugins.javax.inject.reflect.MultipleInjectConstructorsException
 import com.episode6.mockspresso2.plugins.javax.inject.reflect.NoInjectConstructorsException
 import com.episode6.mockspresso2.realInstance
@@ -15,28 +15,28 @@ import javax.inject.Inject
 class Dagger2BadInjectRealObjectMakerTest {
 
   @Test fun testNoConstructor() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingDagger2Rules() }
     val ro: HasNoConstructor by mxo.realInstance()
 
     assertThat { mxo.ensureInit() }.isFailure().hasClass(NoInjectConstructorsException::class)
   }
 
   @Test fun testTooManyConstructors1() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingDagger2Rules() }
     val ro: HasTooManyConstructors1 by mxo.realInstance()
 
     assertThat { mxo.ensureInit() }.isFailure().hasClass(MultipleInjectConstructorsException::class)
   }
 
   @Test fun testTooManyConstructors2() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingDagger2Rules() }
     val ro: HasTooManyConstructors2 by mxo.realInstance()
 
     assertThat { mxo.ensureInit() }.isFailure().hasClass(MultipleInjectConstructorsException::class)
   }
 
   @Test fun testTooManyConstructors3() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingDagger2Rules() }
     val ro: HasTooManyConstructors3 by mxo.realInstance()
 
     assertThat { mxo.ensureInit() }.isFailure().hasClass(MultipleInjectConstructorsException::class)

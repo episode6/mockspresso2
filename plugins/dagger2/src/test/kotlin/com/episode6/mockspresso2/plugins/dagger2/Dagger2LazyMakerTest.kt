@@ -2,7 +2,7 @@ package com.episode6.mockspresso2.plugins.dagger2
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.dependency
 import com.episode6.mockspresso2.realInstance
 import dagger.Lazy
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class Dagger2LazyMakerTest {
 
   @Test fun testObjWithProviders() {
-    val mxo = MockspressoBuilder().dagger2LazySupport().build()
+    val mxo = Mockspresso { dagger2LazySupport() }
     val ro: ObjWithProviders by mxo.realInstance()
     val d1 by mxo.dependency { Dependency1() }
     val d2 by mxo.dependency { Dependency2() }
@@ -22,7 +22,7 @@ class Dagger2LazyMakerTest {
   }
 
   @Test fun testGenericObjWithProviders() {
-    val mxo = MockspressoBuilder().dagger2LazySupport().build()
+    val mxo = Mockspresso { dagger2LazySupport() }
     val ro: GenericObjWithProviders<Dependency1, Dependency2> by mxo.realInstance()
     val d1 by mxo.dependency { Dependency1() }
     val d2 by mxo.dependency { Dependency2() }
@@ -32,7 +32,10 @@ class Dagger2LazyMakerTest {
   }
 
   @Test fun testGenericObjWithProviders_inject() {
-    val mxo = MockspressoBuilder().dagger2LazySupport().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso {
+      dagger2LazySupport()
+      makeRealObjectsUsingDagger2Rules()
+    }
     val ro: GenericObjWithProvidersInject<Dependency1, Dependency2> by mxo.realInstance()
     val d1 by mxo.dependency { Dependency1() }
     val d2 by mxo.dependency { Dependency2() }
@@ -42,7 +45,10 @@ class Dagger2LazyMakerTest {
   }
 
   @Test fun testSubclassGenericObjWithProviders_inject() {
-    val mxo = MockspressoBuilder().dagger2LazySupport().makeRealObjectsUsingDagger2Rules().build()
+    val mxo = Mockspresso {
+      dagger2LazySupport()
+      makeRealObjectsUsingDagger2Rules()
+    }
     val ro: SubclassOfGenericWithProviders<Dependency1, Dependency2> by mxo.realInstance()
     val d1 by mxo.dependency { Dependency1() }
     val d2 by mxo.dependency { Dependency2() }

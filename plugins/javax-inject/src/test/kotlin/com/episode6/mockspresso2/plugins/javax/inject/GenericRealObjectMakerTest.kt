@@ -3,7 +3,7 @@ package com.episode6.mockspresso2.plugins.javax.inject
 import assertk.all
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.dependency
 import com.episode6.mockspresso2.realInstance
 import org.junit.jupiter.api.Test
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class GenericRealObjectMakerTest {
 
   @Test fun testSimpleDirectGeneric() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingJavaxInjectRules() }
     val ro: GenericObj<String, Int, Long> by mxo.realInstance()
     val depA: String by mxo.dependency { "hi" }
     val depB: Int by mxo.dependency { 4 }
@@ -33,7 +33,7 @@ class GenericRealObjectMakerTest {
   }
 
   @Test fun testSimpleSubclassDirectGeneric() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingJavaxInjectRules() }
     val ro: SubClass<String, Int, Long> by mxo.realInstance()
     val depC: String by mxo.dependency { "hi" }
     val depB: Int by mxo.dependency { 4 }
@@ -54,7 +54,7 @@ class GenericRealObjectMakerTest {
   }
 
   @Test fun testSimpleDirectGeneric_methodInject() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingJavaxInjectRules() }
     val ro: GenericObjMethodInject<String, Int, Long> by mxo.realInstance()
     val depA: String by mxo.dependency { "hi" }
     val depB: Int by mxo.dependency { 4 }
@@ -75,7 +75,7 @@ class GenericRealObjectMakerTest {
   }
 
   @Test fun testSimpleSubclassDirectGeneric_methodInject() {
-    val mxo = MockspressoBuilder().makeRealObjectsUsingJavaxInjectRules().build()
+    val mxo = Mockspresso { makeRealObjectsUsingJavaxInjectRules() }
     val ro: SubClassMethodInject<String, Int, Long> by mxo.realInstance()
     val depC: String by mxo.dependency { "hi" }
     val depB: Int by mxo.dependency { 4 }

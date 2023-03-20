@@ -2,16 +2,16 @@ package com.episode6.mockspresso2.plugins.mockito.factories
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.dependency
 import com.episode6.mockspresso2.realInstance
 import org.junit.jupiter.api.Test
 
 class MockitoAutoFactoryAnnotationTest {
 
-  val mxo = MockspressoBuilder()
-    .autoFactoriesByAnnotation<FactoryAnnotation>()
-    .build()
+  val mxo = Mockspresso {
+    autoFactoriesByAnnotation<FactoryAnnotation>()
+  }
 
   val ro by mxo.realInstance<RealObject>()
   val dep by mxo.dependency { Dependency() }

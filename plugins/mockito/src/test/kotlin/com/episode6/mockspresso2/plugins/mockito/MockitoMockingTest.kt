@@ -3,7 +3,7 @@ package com.episode6.mockspresso2.plugins.mockito
 import assertk.all
 import assertk.assertThat
 import assertk.assertions.*
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.realInstance
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.doThrow
@@ -12,11 +12,11 @@ import org.mockito.kotlin.verify
 
 class MockitoMockingTest {
 
-  val mxo = MockspressoBuilder()
-    .mock<TestDepOne> {
+  val mxo = Mockspresso {
+    mock<TestDepOne> {
       on { doSomething() } doThrow RuntimeException()
     }
-    .build()
+  }
 
   private val realObject: TestObj by mxo.realInstance()
   private val dep2: TestDepTwo by mxo.mock()

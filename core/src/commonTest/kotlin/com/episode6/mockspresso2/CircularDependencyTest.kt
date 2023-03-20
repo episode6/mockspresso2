@@ -11,10 +11,10 @@ import kotlin.test.Test
 class CircularDependencyTest {
 
   @Test fun testCircularDependency() {
-    val mxo = MockspressoBuilder()
-      .realInstance<A?>()
-      .realInstance<B?>()
-      .build()
+    val mxo = Mockspresso {
+      realInstance<A?>()
+      realInstance<B?>()
+    }
 
     val c by mxo.realImplementation<C?, C>()
 
@@ -24,9 +24,9 @@ class CircularDependencyTest {
   }
 
   @Test fun testWorksWhenChainIsBroken() {
-    val mxo = MockspressoBuilder()
-      .realInstance<A?>()
-      .build()
+    val mxo = Mockspresso {
+      realInstance<A?>()
+    }
 
     val b by mxo.dependency<B?> { B(null) }
     val c by mxo.realImplementation<C?, C>()
@@ -36,10 +36,10 @@ class CircularDependencyTest {
   }
 
   @Test fun testCircularDependency_stillFailsOnDynamicDependency() {
-    val mxo = MockspressoBuilder()
-      .realInstance<A?>()
-      .dependency<B?>(dependencyKey()) { B(get(dependencyKey())) }
-      .build()
+    val mxo = Mockspresso {
+      realInstance<A?>()
+      dependency<B?>(dependencyKey()) { B(get(dependencyKey())) }
+    }
 
     val c by mxo.realImplementation<C?, C>()
 

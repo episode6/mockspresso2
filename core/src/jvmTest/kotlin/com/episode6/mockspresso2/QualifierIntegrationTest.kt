@@ -13,7 +13,7 @@ import kotlin.reflect.full.createInstance
 class QualifierIntegrationTest {
 
   @Test fun testSimpleWorkingCaseWithQualifier() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
     val objUnderTest: SomeObjectWithQualifier by mxo.realInstance()
     val dep1 by mxo.dependency { SomeDependency1() }
     val dep2 by mxo.dependency(qualifier = SomeQualifier::class.createInstance()) { SomeDependency1() }
@@ -24,7 +24,7 @@ class QualifierIntegrationTest {
   }
 
   @Test fun testMultipleQualifiers() {
-    val mxo = MockspressoBuilder().build()
+    val mxo = Mockspresso()
     val objUnderTest: SomeBadObjectWithMultipleQualifiers by mxo.realInstance()
 
     assertThat { objUnderTest.doSomething() }

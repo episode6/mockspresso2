@@ -1,6 +1,6 @@
 package com.episode6.mockspresso2.plugins.junit4
 
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.MockspressoInstance
 import io.mockk.confirmVerified
 import io.mockk.mockk
@@ -13,10 +13,10 @@ class Junit4PluginsTest {
 
   private val setupCmd: (MockspressoInstance) -> Unit = mockk(relaxed = true)
   private val teardownCmd: () -> Unit = mockk(relaxed = true)
-  private val mxoRule = MockspressoBuilder()
-    .onSetup(setupCmd)
-    .onTeardown(teardownCmd)
-    .build().junitRule()
+  private val mxoRule = Mockspresso {
+    onSetup(setupCmd)
+    onTeardown(teardownCmd)
+  }.junitRule()
   private val baseStatement: Statement = mockk(relaxUnitFun = true)
   private val description: Description = mockk()
 

@@ -1,6 +1,6 @@
 package com.episode6.mockspresso2.plugins.junit5
 
-import com.episode6.mockspresso2.MockspressoBuilder
+import com.episode6.mockspresso2.Mockspresso
 import com.episode6.mockspresso2.MockspressoInstance
 import io.mockk.confirmVerified
 import io.mockk.mockk
@@ -12,10 +12,10 @@ import org.junit.jupiter.api.extension.ExtensionContext
 class JUnit5PluginsManualTest {
   private val setupCmd: (MockspressoInstance) -> Unit = mockk(relaxed = true)
   private val teardownCmd: () -> Unit = mockk(relaxed = true)
-  private val mxoExt = MockspressoBuilder()
-    .onSetup(setupCmd)
-    .onTeardown(teardownCmd)
-    .build().junitExtension()
+  private val mxoExt = Mockspresso {
+    onSetup(setupCmd)
+    onTeardown(teardownCmd)
+  }.junitExtension()
   private val extensionContext: ExtensionContext = mockk()
 
   @Test fun verifyNoOpMeansNoOp() {
