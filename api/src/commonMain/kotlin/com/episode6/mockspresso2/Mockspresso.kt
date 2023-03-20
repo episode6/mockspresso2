@@ -8,7 +8,7 @@ import com.episode6.mockspresso2.reflect.DependencyKey
 import com.episode6.mockspresso2.reflect.TypeToken
 
 /**
- * The main interface returned from a [MockspressoBuilder]. It implements [MockspressoInstance] but under the hood,
+ * The main interface of Mockspresso. It implements [MockspressoInstance] but under the hood,
  * the instance it implements is lazily initiated and doesn't become ensured/immutable until its dependencies are
  * accessed.
  *
@@ -50,9 +50,10 @@ interface MockspressoInstance {
   fun <T : Any?> findNow(key: DependencyKey<T>): T
 
   /**
-   * Returns a new [MockspressoBuilder] using this Mockspresso instance as a parent.
+   * Returns a new [Mockspresso] object using this Mockspresso instance as a parent. The new object will still
+   * be in builder-mode and can have new dependencies added to it even if the parent has already been ensured.
    *
-   * This method will NOT ensure this [MockspressoInstance] is initialized (i.e. it's possible to build new mockspresso
+   * This method will NOT ensure the receiver [MockspressoInstance] is initialized (i.e. it's possible to build new mockspresso
    * instances off of lazily instantiated ones, and the parents will be ensured when first accessed).
    */
   fun buildUpon(initBlock: MockspressoProperties.() -> Unit = {}): Mockspresso
