@@ -55,12 +55,25 @@ interface MockspressoInstance {
    * This method will NOT ensure this [MockspressoInstance] is initialized (i.e. it's possible to build new mockspresso
    * instances off of lazily instantiated ones, and the parents will be ensured when first accessed).
    */
+  @Deprecated(message = "MockspressoBuilder is deprecated, use buildChildMockspresso")
   fun buildUpon(): MockspressoBuilder
+
+
+  /**
+   * Returns a new [Mockspresso] object using this Mockspresso instance as a parent. The new object will be in
+   * builder-mode and can have dependencies added until its ensured. Any dependencies added to the new instance can
+   * override the matching ones in the parent instance.
+   *
+   * This method will NOT ensure the receiver [MockspressoInstance] is initialized (i.e. it's possible to build new mockspresso
+   * instances off of lazily instantiated ones, and the parents will be ensured when first accessed).
+   */
+  fun buildChildMockspresso(initBlock: MockspressoProperties.() -> Unit = {}): Mockspresso
 }
 
 /**
  * Builds a mockspresso [Mockspresso] instance that is lazily instantiated under the hood.
  */
+@Deprecated(message = "MockspressoBuilder is deprecated, prefer new syntax Mockspresso { /*builder method call */ }")
 interface MockspressoBuilder {
 
   /**
@@ -110,7 +123,7 @@ interface MockspressoBuilder {
   fun <BIND : Any?, IMPL : BIND> interceptRealImplementation(
     key: DependencyKey<BIND>,
     implementationToken: TypeToken<IMPL>,
-    interceptor: (IMPL) -> BIND = { it }
+    interceptor: (IMPL) -> IMPL = { it }
   ): MockspressoBuilder
 
   /**
@@ -149,6 +162,21 @@ interface MockspressoProperties {
    * is not supported by default but can be configured using plugins).
    */
   fun onTeardown(cmd: () -> Unit)
+
+  /**
+   * Define how this [MockspressoInstance] will construct real objects. By default, mockspresso will reflectively
+   * call the primary constructor of a given class and pass appropriate dependencies to it.
+   */
+  fun makeRealObjectsWith(realMaker: RealObjectMaker) // formerly injector
+
+  /**
+   * Define how this [MockspressoInstance] will make fallback objects (i.e. dependencies that have not been explicitly
+   * registered/cached within this instance). Usually this should be supplied by one of the mocking support plugins
+   * (i.e. plugins-mockito or plugins-mockk).
+   *
+   * By default, mockspresso ships with a no-op [FallbackObjectMaker] that throws exceptions when called.
+   */
+  fun makeFallbackObjectsWith(fallbackMaker: FallbackObjectMaker) // formerly mocker
 
   /**
    * Adds a [DynamicObjectMaker] to this [MockspressoInstance]. A [DynamicObjectMaker] gets a chance to supply any
