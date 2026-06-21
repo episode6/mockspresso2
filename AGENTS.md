@@ -46,5 +46,5 @@ This is a Kotlin Multiplatform project targeting JVM only. Key modules:
 ## Skills
 
 See `.agents/` for available skills:
-- `.agents/release-branch-skill/` — create a release branch
+- `.agents/release-branch-skill/` — cut/create a new release branch (e.g. "cut a release branch"); also registered under `.claude/skills/` for auto-trigger
 - `.agents/ship-release-skill/` — ship a release
