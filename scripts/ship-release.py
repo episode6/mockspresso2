@@ -55,9 +55,9 @@ def get_changelog_notes(version):
     notes = []
     found_section = False
     
-    # We look for a line starting with '## v<version>'
-    header_pattern = re.compile(rf"^##\s+v{re.escape(version)}(\s+|$|-)")
-    any_header_pattern = re.compile(r"^##\s+v\d+")
+    # We look for a line starting with '### v<version>'
+    header_pattern = re.compile(rf"^###\s+v{re.escape(version)}(\s+|$|-)")
+    any_header_pattern = re.compile(r"^###\s+v\d+")
     
     for line in lines:
         if found_section:
