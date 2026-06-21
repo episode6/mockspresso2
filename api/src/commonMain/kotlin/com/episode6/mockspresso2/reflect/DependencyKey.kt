@@ -10,7 +10,7 @@ import kotlin.reflect.typeOf
  * NOTE: In practice it's best to avoid using the primary constructor to create TypeTokens. Prefer the
  * [typeToken] method which uses a reified type to ensure type data is captured completely.
  */
-data class TypeToken<T : Any?>(val type: KType)
+public data class TypeToken<T : Any?>(val type: KType)
 
 /**
  * A representation of a binding "key" for Mockspresso's dependency Map. Every dependency in mockspresso is bound
@@ -19,15 +19,15 @@ data class TypeToken<T : Any?>(val type: KType)
  * NOTE: In practice it's best to avoid using the primary constructor to create DependencyKeys. Prefer the
  * [dependencyKey] method which uses a reified type to ensure type data is captured completely.
  */
-data class DependencyKey<T : Any?>(val token: TypeToken<T>, val qualifier: Annotation? = null)
+public data class DependencyKey<T : Any?>(val token: TypeToken<T>, val qualifier: Annotation? = null)
 
 /**
  * Creates a [TypeToken] which captures type [T]
  */
 @OptIn(ExperimentalStdlibApi::class)
-inline fun <reified T : Any?> typeToken(): TypeToken<T> = TypeToken(typeOf<T>())
+public inline fun <reified T : Any?> typeToken(): TypeToken<T> = TypeToken(typeOf<T>())
 
 /**
  * Creates a [DependencyKey] of type [T] + [qualifier]
  */
-inline fun <reified T : Any?> dependencyKey(qualifier: Annotation? = null) = DependencyKey<T>(typeToken(), qualifier)
+public inline fun <reified T : Any?> dependencyKey(qualifier: Annotation? = null): DependencyKey<T> = DependencyKey<T>(typeToken(), qualifier)

@@ -12,7 +12,7 @@ import kotlin.reflect.full.hasAnnotation
  * Marks any class encountered with the given [A] annotation as a Factory object. The object will be mocked and each
  * method will return a dependency from the underlying Mockspresso instance.
  */
-inline fun <reified A : Annotation> MockspressoBuilder.autoFactoriesByAnnotation(): MockspressoBuilder =
+public inline fun <reified A : Annotation> MockspressoBuilder.autoFactoriesByAnnotation(): MockspressoBuilder =
   addDynamicObjectMaker { key, deps ->
     when {
       key.token.asKClass().hasAnnotation<A>() -> DynamicObjectMaker.Answer.Yes(deps.autoFactoryMock(key))
@@ -24,7 +24,7 @@ inline fun <reified A : Annotation> MockspressoBuilder.autoFactoriesByAnnotation
  * Mark type [T] (with optional [qualifier]) as a Factory object. The object will be mocked and each method will return
  * a dependency from the underlying Mockspresso instance.
  */
-inline fun <reified T : Any?> MockspressoBuilder.autoFactory(qualifier: Annotation? = null): MockspressoBuilder {
+public inline fun <reified T : Any?> MockspressoBuilder.autoFactory(qualifier: Annotation? = null): MockspressoBuilder {
   val key = dependencyKey<T>(qualifier)
   return dependency(key) { autoFactoryMock(key) }
 }
@@ -33,7 +33,7 @@ inline fun <reified T : Any?> MockspressoBuilder.autoFactory(qualifier: Annotati
  * Mark type [T] (with optional [qualifier]) as a Factory object which is also accessible via the returned lazy.
  * The object will be mocked and each method will return a dependency from the underlying Mockspresso instance.
  */
-inline fun <reified T : Any?> MockspressoProperties.autoFactory(qualifier: Annotation? = null): Lazy<T> {
+public inline fun <reified T : Any?> MockspressoProperties.autoFactory(qualifier: Annotation? = null): Lazy<T> {
   val key = dependencyKey<T>(qualifier)
   return dependency(key) { autoFactoryMock(key) }
 }

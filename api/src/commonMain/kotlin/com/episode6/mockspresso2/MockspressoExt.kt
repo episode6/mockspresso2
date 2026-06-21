@@ -8,7 +8,7 @@ import com.episode6.mockspresso2.reflect.typeToken
  *
  * Calling this method will ensure this [MockspressoInstance] is initialized.
  */
-inline fun <reified T : Any?> MockspressoInstance.createNow(
+public inline fun <reified T : Any?> MockspressoInstance.createNow(
   qualifier: Annotation? = null
 ): T = createNow(dependencyKey<T>(qualifier))
 
@@ -19,7 +19,7 @@ inline fun <reified T : Any?> MockspressoInstance.createNow(
  *
  * Calling this method will ensure this [MockspressoInstance] is initialized.
  */
-inline fun <reified T : Any?> MockspressoInstance.findNow(
+public inline fun <reified T : Any?> MockspressoInstance.findNow(
   qualifier: Annotation? = null
 ): T = findNow(dependencyKey<T>(qualifier))
 
@@ -27,7 +27,7 @@ inline fun <reified T : Any?> MockspressoInstance.findNow(
  * Register a dependency provided by [provider], bound in the mockspresso graph with a dependencyKey made from
  * type [T] and [qualifier].
  */
-inline fun <reified T : Any?> MockspressoBuilder.dependency(
+public inline fun <reified T : Any?> MockspressoBuilder.dependency(
   qualifier: Annotation? = null,
   noinline provider: () -> T
 ): MockspressoBuilder = dependency(dependencyKey<T>(qualifier)) { provider() }
@@ -38,7 +38,7 @@ inline fun <reified T : Any?> MockspressoBuilder.dependency(
  *
  * The supplied [init] lambda will be called when the real object is created.
  */
-inline fun <reified T : Any?> MockspressoBuilder.realInstance(
+public inline fun <reified T : Any?> MockspressoBuilder.realInstance(
   qualifier: Annotation? = null,
   noinline init: T.() -> Unit = { }
 ): MockspressoBuilder = dependencyKey<T>(qualifier).let { key ->
@@ -51,7 +51,7 @@ inline fun <reified T : Any?> MockspressoBuilder.realInstance(
  *
  * The supplied [init] lambda will be called when the real object is created.
  */
-inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImplementation(
+public inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImplementation(
   qualifier: Annotation? = null,
   noinline init: IMPL.() -> Unit = { }
 ): MockspressoBuilder =
@@ -66,7 +66,7 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoBuilder.realImp
  * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
  * if it hasn't been already.
  */
-inline fun <reified T : Any?> MockspressoProperties.dependency(
+public inline fun <reified T : Any?> MockspressoProperties.dependency(
   qualifier: Annotation? = null,
   noinline provider: () -> T
 ): Lazy<T> = dependency(dependencyKey<T>(qualifier)) { provider() }
@@ -78,7 +78,7 @@ inline fun <reified T : Any?> MockspressoProperties.dependency(
  * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
  * if it hasn't been already.
  */
-@Suppress("UNCHECKED_CAST") inline fun <reified BIND : Any?, IMPL : BIND> MockspressoProperties.fake(
+@Suppress("UNCHECKED_CAST") public inline fun <reified BIND : Any?, IMPL : BIND> MockspressoProperties.fake(
   qualifier: Annotation? = null,
   noinline provider: () -> IMPL
 ): Lazy<IMPL> {
@@ -96,7 +96,7 @@ inline fun <reified T : Any?> MockspressoProperties.dependency(
  * If the dependency hasn't been cached or constructed then it will be generated on the fly and cached from that
  * point forward. If the binding hasn't been declared in this mockspresso instance, then a fallback will be generated.
  */
-inline fun <reified T : Any?> MockspressoProperties.findDependency(
+public inline fun <reified T : Any?> MockspressoProperties.findDependency(
   qualifier: Annotation? = null
 ): Lazy<T> = findDependency(dependencyKey<T>(qualifier))
 
@@ -110,7 +110,7 @@ inline fun <reified T : Any?> MockspressoProperties.findDependency(
  * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
  * if it hasn't been already.
  */
-inline fun <reified T : Any?> MockspressoProperties.realInstance(
+public inline fun <reified T : Any?> MockspressoProperties.realInstance(
   qualifier: Annotation? = null,
   noinline init: T.() -> Unit = { }
 ): Lazy<T> = dependencyKey<T>(qualifier).let { key ->
@@ -127,7 +127,7 @@ inline fun <reified T : Any?> MockspressoProperties.realInstance(
  * IMPORTANT: Reading the value from the returned lazy will cause the underlying [MockspressoInstance] to be ensured
  * if it hasn't been already.
  */
-inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.realImplementation(
+public inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.realImplementation(
   qualifier: Annotation? = null,
   noinline init: IMPL.() -> Unit = { }
 ): Lazy<IMPL> = interceptRealImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) { it.apply(init) }

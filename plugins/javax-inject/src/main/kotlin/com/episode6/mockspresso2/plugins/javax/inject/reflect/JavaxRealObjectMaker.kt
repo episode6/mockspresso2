@@ -16,8 +16,8 @@ import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.javaField
 
-typealias KAnnotationMatcher = KAnnotatedElement.() -> Boolean
-typealias JAnnotationMatcher = AnnotatedElement.() -> Boolean
+public typealias KAnnotationMatcher = KAnnotatedElement.() -> Boolean
+public typealias JAnnotationMatcher = AnnotatedElement.() -> Boolean
 
 private val defaultKMatcher: KAnnotationMatcher = { hasAnnotation<Inject>() }
 private val defaultJMatcher: JAnnotationMatcher = { isAnnotationPresent(Inject::class.java) }
@@ -26,7 +26,7 @@ private val defaultJMatcher: JAnnotationMatcher = { isAnnotationPresent(Inject::
  * Returns an [RealObjectMaker] that uses reflection to create real objects according to javax inject rules.
  * Objects must have a single Injectable constructor and supports field/property and method injection.
  */
-fun javaxRealObjectMaker(
+public fun javaxRealObjectMaker(
   isInjectProperty: KAnnotationMatcher = defaultKMatcher,
   isInjectField: JAnnotationMatcher = defaultJMatcher,
   isInjectFunction: KAnnotationMatcher = defaultKMatcher,
@@ -40,7 +40,7 @@ fun javaxRealObjectMaker(
   }
 }
 
-fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor: KAnnotationMatcher = defaultKMatcher): KFunction<*> {
+public fun DependencyKey<*>.findExactlyOneInjectConstructor(isInjectConstructor: KAnnotationMatcher = defaultKMatcher): KFunction<*> {
   val injectConstructors = token.asKClass().allConstructors().filter { it.isInjectConstructor() }
   return when {
     injectConstructors.isEmpty() -> throw NoInjectConstructorsException(this)
@@ -80,8 +80,8 @@ private fun KCallable<*>.returnTypeKey(context: TypeToken<*>): DependencyKey<*> 
   qualifier = annotations.findQualifier { "member $name in class $this" }
 )
 
-class MultipleInjectConstructorsException(key: DependencyKey<*>) :
+public class MultipleInjectConstructorsException(key: DependencyKey<*>) :
   AssertionError("Multiple Inject constructors found; only one is allowed. Key: $key")
 
-class NoInjectConstructorsException(key: DependencyKey<*>) :
+public class NoInjectConstructorsException(key: DependencyKey<*>) :
   AssertionError("No Inject constructors found; one is required. Key: $key")

@@ -1,6 +1,7 @@
 package com.episode6.mockspresso2
 
 import assertk.all
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.*
 import com.episode6.mockspresso2.reflect.dependencyKey
@@ -40,9 +41,9 @@ class SimpleIntegrationTest {
     val objUnderTest: SomeObject by mxo.realInstance()
     val dep1 by mxo.dependency { SomeDependency1() }
 
-    assertThat {
+    assertFailure {
       val dep2 by mxo.dependency { SomeDependency1() }
-    }.isFailure().hasClass(DependencyAlreadyMappedError::class)
+    }.hasClass(DependencyAlreadyMappedError::class)
   }
 
   @Test fun testFailsWithMultipleDepsOfSameKey_real_over_dep() {
@@ -50,18 +51,18 @@ class SimpleIntegrationTest {
     val objUnderTest: SomeObject by mxo.realInstance()
     val dep1 by mxo.dependency { SomeDependency1() }
 
-    assertThat {
+    assertFailure {
       val dep2: SomeDependency1 by mxo.realInstance()
-    }.isFailure().hasClass(DependencyAlreadyMappedError::class)
+    }.hasClass(DependencyAlreadyMappedError::class)
   }
 
   @Test fun testMissingDeps() {
     val mxo = MockspressoBuilder().build()
     val objUnderTest: SomeObject by mxo.realInstance()
 
-    assertThat {
+    assertFailure {
       objUnderTest.doSomething()
-    }.isFailure().hasClass(NoFallbackMakerProvidedError::class)
+    }.hasClass(NoFallbackMakerProvidedError::class)
   }
 
   @Test fun testMultipleSameDepGetsSameInstance() {
@@ -88,9 +89,9 @@ class SimpleIntegrationTest {
 
     val obj1: SomeDependency1 = mxo.createNow()
 
-    assertThat {
+    assertFailure {
       mxo.findNow<SomeDependency1>()
-    }.isFailure().hasClass(NoFallbackMakerProvidedError::class)
+    }.hasClass(NoFallbackMakerProvidedError::class)
   }
 
   @Test fun testInterceptSpyk() {

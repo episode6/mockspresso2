@@ -10,13 +10,15 @@ class ConfigJvmPlugin implements Plugin<Project> {
       plugins.with {
         apply("org.jetbrains.kotlin.jvm")
       }
-      compileKotlin {
-        kotlinOptions {
-          jvmTarget = Config.Jvm.name
-          freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+
+      kotlin {
+        def jvmTargetClass = it.class.classLoader.loadClass("org.jetbrains.kotlin.gradle.dsl.JvmTarget")
+        compilerOptions {
+          jvmTarget.set(jvmTargetClass.fromTarget(Config.Jvm.name))
+          freeCompilerArgs.add(Config.Kotlin.compilerArgs)
         }
-        sourceCompatibility = Config.Jvm.name
       }
+
       java {
         sourceCompatibility = Config.Jvm.sourceCompat
         targetCompatibility = Config.Jvm.targetCompat
@@ -29,6 +31,7 @@ class ConfigJvmPlugin implements Plugin<Project> {
 
       dependencies {
         testImplementation(libs.assertk.jvm)
+        testRuntimeOnly(libs.junit5.launcher)
       }
 
     }

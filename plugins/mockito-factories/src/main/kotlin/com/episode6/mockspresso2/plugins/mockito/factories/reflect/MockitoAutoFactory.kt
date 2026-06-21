@@ -16,14 +16,14 @@ import org.mockito.stubbing.Answer
  * Generally you shouldn't need to access this method directly, prefer applying with [MockspressoBuilder.autoFactory]
  * or [MockspressoProperties.autoFactory]
  */
-fun <T : Any?> Dependencies.autoFactoryMock(factoryKey: DependencyKey<T>): T =
+public fun <T : Any?> Dependencies.autoFactoryMock(factoryKey: DependencyKey<T>): T =
   Mockito.mock(factoryKey.token.asJClass(), mockitoAutoFactoryAnswer(factoryKey))
 
 /**
  * Returns a mockito default [Answer] for use in a mock of the given [factoryKey]. The answer will resolve the return
  * type of the called method at runtime and return a dependency from the mockspresso graph.
  */
-fun Dependencies.mockitoAutoFactoryAnswer(factoryKey: DependencyKey<*>): Answer<Any> = Answer<Any> { invoc ->
+public fun Dependencies.mockitoAutoFactoryAnswer(factoryKey: DependencyKey<*>): Answer<Any> = Answer<Any> { invoc ->
   when (invoc.method.returnType) {
     Void.TYPE -> null
     else      -> factoryKey.token

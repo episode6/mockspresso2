@@ -1,5 +1,6 @@
 package com.episode6.mockspresso2.reflect
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.*
 import org.junit.jupiter.api.Test
@@ -31,8 +32,7 @@ class JvmQualifierTest {
   }
 
   @Test fun testTwoQualifiers() {
-    assertThat { TwoQualifiers::class.annotations.findQualifier { "test failure context" } }
-      .isFailure()
+    assertFailure { TwoQualifiers::class.annotations.findQualifier { "test failure context" } }
       .given {
         assertThat(it).isInstanceOf(MultipleQualifierError::class)
         assertThat(it.message).isEqualTo("Multiple qualifier annotations found: test failure context")
@@ -40,8 +40,7 @@ class JvmQualifierTest {
   }
 
   @Test fun testTwoQualifiersWithName() {
-    assertThat { TwoQualifiersWithName::class.annotations.findQualifier { "test failure context" } }
-      .isFailure()
+    assertFailure { TwoQualifiersWithName::class.annotations.findQualifier { "test failure context" } }
       .isInstanceOf(MultipleQualifierError::class)
       .hasMessage("Multiple qualifier annotations found: test failure context")
   }

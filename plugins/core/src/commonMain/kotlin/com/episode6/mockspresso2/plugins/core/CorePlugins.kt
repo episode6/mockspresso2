@@ -10,20 +10,20 @@ import com.episode6.mockspresso2.reflect.primaryConstructor
 /**
  * Instruct this mockspresso instance to create real objects by calling their primary constructor.
  */
-fun MockspressoBuilder.makeRealObjectsUsingPrimaryConstructor(): MockspressoBuilder = makeRealObjectsWith(
+public fun MockspressoBuilder.makeRealObjectsUsingPrimaryConstructor(): MockspressoBuilder = makeRealObjectsWith(
   reflectionRealObjectMaker { token.asKClass().primaryConstructor() }
 )
 
 /**
  * Instruct this mockspresso instance to create real objects by calling the constructor with the fewest parameters.
  */
-fun MockspressoBuilder.makeRealObjectsUsingShortestConstructor(): MockspressoBuilder = makeRealObjectsWith(
+public fun MockspressoBuilder.makeRealObjectsUsingShortestConstructor(): MockspressoBuilder = makeRealObjectsWith(
   reflectionRealObjectMaker { token.asKClass().allConstructors().minByOrNull { f -> f.parameterCount() }!! }
 )
 
 /**
  * Instruct this mockspresso instance to create real objects by calling the constructor with the most parameters.
  */
-fun MockspressoBuilder.makeRealObjectsUsingLongestConstructor(): MockspressoBuilder = makeRealObjectsWith(
+public fun MockspressoBuilder.makeRealObjectsUsingLongestConstructor(): MockspressoBuilder = makeRealObjectsWith(
   reflectionRealObjectMaker { token.asKClass().allConstructors().maxByOrNull { f -> f.parameterCount() }!! }
 )

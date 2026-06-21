@@ -2,20 +2,20 @@ package com.episode6.mockspresso2
 
 import com.episode6.mockspresso2.reflect.DependencyKey
 
-class MockspressoAlreadyInitializedError :
+public class MockspressoAlreadyInitializedError :
   AssertionError("Attempt to modify mockspresso graph after it's already been initialized")
 
-class MockspressoAlreadyTornDownError :
+public class MockspressoAlreadyTornDownError :
   AssertionError("Attempt to access mockspresso graph after it's already been torn down")
 
-class DependencyAlreadyMappedError(key: DependencyKey<*>) :
+public class DependencyAlreadyMappedError(key: DependencyKey<*>) :
   AssertionError("Dependency has already been mapped: $key")
 
-class CircularDependencyError(key: DependencyKey<*>) :
+public class CircularDependencyError(key: DependencyKey<*>) :
   AssertionError("Circular dependency detected - key: $key)")
 
-class InvalidTypeReturnedFromMakerError(message: String) : AssertionError(message)
+public class InvalidTypeReturnedFromMakerError(message: String) : AssertionError(message)
 
-class InternalMockspressoError(message: String) : AssertionError(message)
+public class InternalMockspressoError(message: String) : AssertionError(message)
 
-class NoFallbackMakerProvidedError(key: DependencyKey<*>) : AssertionError("No FallbackObjectMaker provided; unable to generate binding for $key")
+public class NoFallbackMakerProvidedError(key: DependencyKey<*>) : AssertionError("No FallbackObjectMaker provided; unable to generate binding for $key")

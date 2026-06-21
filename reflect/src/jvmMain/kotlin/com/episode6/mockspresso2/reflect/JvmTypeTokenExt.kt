@@ -14,7 +14,7 @@ import kotlin.reflect.jvm.jvmName
 /**
  *  Return the [Class] for this [TypeToken].
  */
-@Suppress("UNCHECKED_CAST") fun <T : Any?> TypeToken<T>.asJClass(): Class<T> = asKClass().java as Class<T>
+@Suppress("UNCHECKED_CAST") public fun <T : Any?> TypeToken<T>.asJClass(): Class<T> = asKClass().java as Class<T>
 
 /**
  * Returns a concrete [TypeToken] representing the given [jvmType].
@@ -22,7 +22,7 @@ import kotlin.reflect.jvm.jvmName
  * @param declaringClass The class the jvmType is declared on (needed to resolve type arguments)
  * @receiver The context for this look up (must implement [declaringClass])
  */
-fun TypeToken<*>.resolveJvmType(jvmType: Type, declaringClass: Class<*>): TypeToken<*> =
+public fun TypeToken<*>.resolveJvmType(jvmType: Type, declaringClass: Class<*>): TypeToken<*> =
   when (jvmType) {
     is TypeVariable<*>   -> findActualTypeOfGenericTypeArgument(declaringClass, jvmType.name)
     is ParameterizedType -> resolveParamType(jvmType, declaringClass)
@@ -64,4 +64,4 @@ private fun findIndexForTypeArgument(clazz: Class<*>, typeParamName: String): In
 
 private infix fun KType.matches(clazz: Class<*>): Boolean = (classifier as? KClass<*>)?.jvmName == clazz.name
 
-class JvmTypeResolutionError(message: String) : AssertionError(message)
+public class JvmTypeResolutionError(message: String) : AssertionError(message)

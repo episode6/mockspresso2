@@ -12,11 +12,11 @@ import kotlin.reflect.full.hasAnnotation
  * method injection. This is the same as javax.inject rules except we also accept the [AssistedInject] as a
  * valid constructor annotation.
  */
-fun MockspressoBuilder.makeRealObjectsUsingDagger2Rules(): MockspressoBuilder = makeRealObjectsWith(
+public fun MockspressoBuilder.makeRealObjectsUsingDagger2Rules(): MockspressoBuilder = makeRealObjectsWith(
   javaxRealObjectMaker { findExactlyOneInjectConstructor { hasAnnotation<Inject>() || hasAnnotation<AssistedInject>() } }
 )
 
 /**
  * Enable automatic mapping of [dagger.Lazy]s to their underlying dependencies.
  */
-fun MockspressoBuilder.dagger2LazySupport(): MockspressoBuilder = addDynamicObjectMaker(dagger2LazyMaker())
+public fun MockspressoBuilder.dagger2LazySupport(): MockspressoBuilder = addDynamicObjectMaker(dagger2LazyMaker())
