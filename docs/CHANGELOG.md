@@ -2,6 +2,8 @@
 
 ### v2.2.0-SNAPSHOT - Unreleased
 
+- Fix `ship-release.py` to parse `### v<VERSION>` changelog headers (was incorrectly looking for `##`)
+
 ### v2.1.0 - Released 6/21/2026
 
 - Upgrade Kotlin 1.7.10 -> 2.3.21 (explicit API mode; all public declarations now require an explicit `public` modifier)
