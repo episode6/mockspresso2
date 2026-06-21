@@ -22,7 +22,7 @@ import kotlin.reflect.KClass
 /**
  * Use mockito to generate fallback objects for dependencies that are not present in the mockspresso instance
  */
-fun MockspressoBuilder.fallbackWithMockito(): MockspressoBuilder =
+public fun MockspressoBuilder.fallbackWithMockito(): MockspressoBuilder =
   makeFallbackObjectsWith(object : FallbackObjectMaker {
     override fun <T> makeObject(key: DependencyKey<T>): T = Mockito.mock(key.token.asJClass())
   })
@@ -32,7 +32,7 @@ fun MockspressoBuilder.fallbackWithMockito(): MockspressoBuilder =
  * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mock]
  * instead.
  */
-inline fun <reified T : Any?> MockspressoBuilder.mock(
+public inline fun <reified T : Any?> MockspressoBuilder.mock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
   name: String? = null,
@@ -71,7 +71,7 @@ inline fun <reified T : Any?> MockspressoBuilder.mock(
  * supplied qualifier annotation. If you need a reference to the mock dependency, consider [MockspressoProperties.mock]
  * instead.
  */
-inline fun <reified T : Any?> MockspressoBuilder.mock(
+public inline fun <reified T : Any?> MockspressoBuilder.mock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
   name: String? = null,
@@ -110,7 +110,7 @@ inline fun <reified T : Any?> MockspressoBuilder.mock(
  * Add a mock with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
  * supplied qualifier annotation and will be accessible via the returned lazy.
  */
-inline fun <reified T : Any?> MockspressoProperties.mock(
+public inline fun <reified T : Any?> MockspressoProperties.mock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
   name: String? = null,
@@ -148,7 +148,7 @@ inline fun <reified T : Any?> MockspressoProperties.mock(
  * Add a mock with the supplied params as a dependency in this mockspresso instance. Mock will be bound with the
  * supplied qualifier annotation and will be accessible via the returned lazy.
  */
-inline fun <reified T : Any?> MockspressoProperties.mock(
+public inline fun <reified T : Any?> MockspressoProperties.mock(
   qualifier: Annotation? = null,
   extraInterfaces: Array<out KClass<out Any>>? = null,
   name: String? = null,
@@ -187,7 +187,7 @@ inline fun <reified T : Any?> MockspressoProperties.mock(
  * Create a real object of [T] using mockspresso then wrap it in a mockito [spy]. This spy will be part of the mockspresso
  * graph and can be used by other real objects (and then verified in test code).
  */
-inline fun <reified T : Any?> MockspressoProperties.spy(qualifier: Annotation? = null): Lazy<T> =
+public inline fun <reified T : Any?> MockspressoProperties.spy(qualifier: Annotation? = null): Lazy<T> =
   interceptRealImplementation(dependencyKey<T>(qualifier), typeToken<T>()) { spy(it) }
 
 /**
@@ -195,7 +195,7 @@ inline fun <reified T : Any?> MockspressoProperties.spy(qualifier: Annotation? =
  * graph and can be used by other real objects (and then verified in test code). The [stubbing] will be applied to the
  * spy before it is injected as a dependency into other classes.
  */
-inline fun <reified T : Any?> MockspressoProperties.spy(
+public inline fun <reified T : Any?> MockspressoProperties.spy(
   qualifier: Annotation? = null,
   noinline stubbing: KStubbing<T>.(T) -> Unit
 ): Lazy<T> = interceptRealImplementation(dependencyKey<T>(qualifier), typeToken<T>()) { spy(it, stubbing) }
@@ -205,7 +205,7 @@ inline fun <reified T : Any?> MockspressoProperties.spy(
  * using type [BIND]). This spy will be part of the mockspresso graph and can be used by other real objects
  * (and then verified in test code).
  */
-inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(qualifier: Annotation? = null): Lazy<IMPL> =
+public inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(qualifier: Annotation? = null): Lazy<IMPL> =
   interceptRealImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) { spy(it) }
 
 /**
@@ -214,7 +214,7 @@ inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyI
  * (and then verified in test code). The [stubbing] will be applied to the spy before it is injected as a dependency
  * into other classes.
  */
-inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(
+public inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spyImplOf(
   qualifier: Annotation? = null,
   noinline stubbing: KStubbing<IMPL>.(IMPL) -> Unit
 ): Lazy<IMPL> = interceptRealImplementation(dependencyKey<BIND>(qualifier), typeToken<IMPL>()) { spy(it, stubbing) }

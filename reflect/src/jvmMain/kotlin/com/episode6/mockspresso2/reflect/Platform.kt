@@ -5,10 +5,10 @@ import kotlin.reflect.full.createType
 import kotlin.reflect.full.primaryConstructor
 import kotlin.reflect.jvm.isAccessible
 
-actual fun KCallable<*>.tryMakeAccessible() { isAccessible = true }
-actual fun KClass<*>.primaryConstructor(): KFunction<*> = primaryConstructor!!
-actual fun KClass<*>.allConstructors(): List<KFunction<*>> = constructors.toList()
-actual fun KFunction<*>.parameterCount(): Int = parameters.size
-actual fun KFunction<*>.callWith(vararg args: Any?): Any? = call(*args)
-actual fun KClass<*>.typeParameters(): List<KTypeParameter> = typeParameters
-actual fun KClass<*>.createConcreteType(arguments: List<KTypeProjection>, nullable: Boolean): KType = createType(arguments, nullable)
+public actual fun KCallable<*>.tryMakeAccessible() { isAccessible = true }
+public actual fun KClass<*>.primaryConstructor(): KFunction<*> = primaryConstructor!!
+public actual fun KClass<*>.allConstructors(): List<KFunction<*>> = constructors.toList()
+public actual fun KFunction<*>.parameterCount(): Int = parameters.size
+public actual fun KFunction<*>.callWith(vararg args: Any?): Any? = call(*args)
+public actual fun KClass<*>.typeParameters(): List<KTypeParameter> = typeParameters
+public actual fun KClass<*>.createConcreteType(arguments: List<KTypeProjection>, nullable: Boolean): KType = createType(arguments, nullable)

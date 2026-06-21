@@ -12,13 +12,13 @@ import kotlin.reflect.full.createType
  * Make real objects using reflection according to java.inject rules. Supports constructor, property, field and
  * method injection.
  */
-fun MockspressoBuilder.makeRealObjectsUsingJavaxInjectRules(): MockspressoBuilder =
+public fun MockspressoBuilder.makeRealObjectsUsingJavaxInjectRules(): MockspressoBuilder =
   makeRealObjectsWith(javaxRealObjectMaker())
 
 /**
  * Enable automatic mapping of [javax.inject.Provider]s to their underlying dependencies.
  */
-fun MockspressoBuilder.javaxProviderSupport(): MockspressoBuilder = addDynamicObjectMaker(javaxProviderMaker())
+public fun MockspressoBuilder.javaxProviderSupport(): MockspressoBuilder = addDynamicObjectMaker(javaxProviderMaker())
 
 /**
  * Perform field and method injection on an object that's been created outside the context of mockspresso.
@@ -26,7 +26,7 @@ fun MockspressoBuilder.javaxProviderSupport(): MockspressoBuilder = addDynamicOb
  * WARNING: this method will throw an [IllegalArgumentException] immediately if [instance] is not a concrete class.
  * To inject generics use the alternate signature of [injectNow] that accepts a [TypeToken]
  */
-fun MockspressoInstance.injectNow(instance: Any) {
+public fun MockspressoInstance.injectNow(instance: Any) {
   injectNow(instance, TypeToken(instance.javaClass.kotlin.createType()))
 }
 
@@ -34,6 +34,6 @@ fun MockspressoInstance.injectNow(instance: Any) {
  * Perform field and method injection on an object that's been created outside the context of mockspresso. This method
  * is safe to use with generic objects
  */
-fun <T : Any> MockspressoInstance.injectNow(instance: T, token: TypeToken<T>) {
+public fun <T : Any> MockspressoInstance.injectNow(instance: T, token: TypeToken<T>) {
   instance.injectWithDependencies(token, asDependencies())
 }

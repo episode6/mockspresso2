@@ -1,6 +1,7 @@
 plugins {
-  kotlin("multiplatform") version (libs.versions.kotlin.core.get()) apply (false)
-  id("org.jetbrains.dokka") version (libs.versions.dokka.core.get())
+  alias(libs.plugins.kotlin.multiplatform) apply false
+  alias(libs.plugins.kotlin.jvm) apply false
+  alias(libs.plugins.dokka)
   id("config-site")
 }
 

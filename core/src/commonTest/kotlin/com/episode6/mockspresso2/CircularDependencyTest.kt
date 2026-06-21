@@ -1,9 +1,9 @@
 package com.episode6.mockspresso2
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.hasClass
 import assertk.assertions.isEqualTo
-import assertk.assertions.isFailure
 import assertk.assertions.isNotNull
 import com.episode6.mockspresso2.reflect.dependencyKey
 import kotlin.test.Test
@@ -18,9 +18,9 @@ class CircularDependencyTest {
 
     val c by mxo.realImplementation<C?, C>()
 
-    assertThat {
+    assertFailure {
       c.a
-    }.isFailure().hasClass(CircularDependencyError::class)
+    }.hasClass(CircularDependencyError::class)
   }
 
   @Test fun testWorksWhenChainIsBroken() {
@@ -43,9 +43,9 @@ class CircularDependencyTest {
 
     val c by mxo.realImplementation<C?, C>()
 
-    assertThat {
+    assertFailure {
       c.a
-    }.isFailure().hasClass(CircularDependencyError::class)
+    }.hasClass(CircularDependencyError::class)
   }
 
   private class A(val b: B?)

@@ -1,9 +1,9 @@
 package com.episode6.mockspresso2.plugins.javax.inject
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.hasClass
 import assertk.assertions.isEqualTo
-import assertk.assertions.isFailure
 import com.episode6.mockspresso2.MockspressoBuilder
 import com.episode6.mockspresso2.dependency
 import com.episode6.mockspresso2.reflect.typeToken
@@ -56,7 +56,7 @@ class JavaxInjectTest {
   @Test fun testGenericFail() {
     val ro = GenericInject<Dependency1, Dependency2>()
 
-    assertThat { mxo.injectNow(ro) }.isFailure().hasClass(IllegalArgumentException::class)
+    assertFailure { mxo.injectNow(ro) }.hasClass(IllegalArgumentException::class)
   }
 
   @Test fun testGenericSuccess() {

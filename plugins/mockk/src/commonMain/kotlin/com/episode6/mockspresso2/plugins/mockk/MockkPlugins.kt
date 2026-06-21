@@ -18,7 +18,7 @@ import io.mockk.spyk as _spyk
  * Use mockk to generate fallback objects for dependencies that are not present in the mockspresso instance
  */
 @Suppress("UNCHECKED_CAST")
-fun MockspressoBuilder.fallbackWithMockk(
+public fun MockspressoBuilder.fallbackWithMockk(
   relaxed: Boolean = true,
   relaxedUnitFun: Boolean = true,
 ): MockspressoBuilder = makeFallbackObjectsWith(object : FallbackObjectMaker {
@@ -41,14 +41,14 @@ fun MockspressoBuilder.fallbackWithMockk(
  *
  * IMPORTANT: we default [relaxed] and [relaxUnitFun] to true for defaultMocks.
  */
-inline fun <reified T : Any?> MockspressoBuilder.mockk(
+public inline fun <reified T : Any?> MockspressoBuilder.mockk(
   qualifier: Annotation? = null,
   name: String? = null,
   relaxed: Boolean = true,
   vararg moreInterfaces: KClass<*>,
   relaxUnitFun: Boolean = true,
   noinline block: T.() -> Unit = {}
-) = dependency<T>(qualifier) {
+): MockspressoBuilder = dependency<T>(qualifier) {
   _mockk(
     name = name,
     relaxed = relaxed,
@@ -62,7 +62,7 @@ inline fun <reified T : Any?> MockspressoBuilder.mockk(
  * Add a mockk with the supplied params as a dependency in this mockspresso instance. Mockk will be bound with the
  * supplied qualifier annotation and will be accessible via the returned lazy.
  */
-inline fun <reified T : Any?> MockspressoProperties.mockk(
+public inline fun <reified T : Any?> MockspressoProperties.mockk(
   qualifier: Annotation? = null,
   name: String? = null,
   relaxed: Boolean = false,
@@ -83,7 +83,7 @@ inline fun <reified T : Any?> MockspressoProperties.mockk(
  * Create a real object of [T] using mockspresso then wrap it in a [spyk]. This spy will be part of the mockspresso
  * graph and can be used by other real objects (and then verified in test code).
  */
-inline fun <reified T : Any?> MockspressoProperties.spyk(
+public inline fun <reified T : Any?> MockspressoProperties.spyk(
   qualifier: Annotation? = null,
   name: String? = null,
   vararg moreInterfaces: KClass<*>,
@@ -104,7 +104,7 @@ inline fun <reified T : Any?> MockspressoProperties.spyk(
  * using type [BIND]). This spy will be part of the mockspresso graph and can be used by other real objects
  * (and then verified in test code).
  */
-inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spykImplOf(
+public inline fun <reified BIND : Any?, reified IMPL : BIND> MockspressoProperties.spykImplOf(
   qualifier: Annotation? = null,
   name: String? = null,
   vararg moreInterfaces: KClass<*>,

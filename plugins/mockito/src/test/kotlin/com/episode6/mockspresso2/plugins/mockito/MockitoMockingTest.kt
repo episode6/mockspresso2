@@ -1,6 +1,7 @@
 package com.episode6.mockspresso2.plugins.mockito
 
 import assertk.all
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.*
 import com.episode6.mockspresso2.MockspressoBuilder
@@ -36,8 +37,7 @@ class MockitoMockingTest {
   }
 
   @Test fun testCanCallMockFunctions() {
-    assertThat { realObject.dep1.doSomething() }
-      .isFailure()
+    assertFailure { realObject.dep1.doSomething() }
       .hasClass(RuntimeException::class)
     realObject.dep2.doSomethingElse()
 

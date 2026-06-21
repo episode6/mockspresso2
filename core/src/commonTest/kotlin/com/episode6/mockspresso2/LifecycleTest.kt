@@ -1,8 +1,8 @@
 package com.episode6.mockspresso2
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.hasClass
-import assertk.assertions.isFailure
 import io.mockk.confirmVerified
 import io.mockk.mockk
 import io.mockk.verify
@@ -112,8 +112,7 @@ class LifecycleTest {
     mxo.ensureInit()
     mxo.teardown()
 
-    assertThat { mxo.teardown() }
-      .isFailure()
+    assertFailure { mxo.teardown() }
       .hasClass(MockspressoAlreadyTornDownError::class)
   }
 

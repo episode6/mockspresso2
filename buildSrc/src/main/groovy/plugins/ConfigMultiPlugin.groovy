@@ -12,10 +12,10 @@ class ConfigMultiPlugin implements Plugin<Project> {
       }
       kotlin {
         jvm  {
-          compilations.all {
-            kotlinOptions {
-              jvmTarget = Config.Jvm.name
-            }
+          def jvmTargetClass = it.class.classLoader.loadClass("org.jetbrains.kotlin.gradle.dsl.JvmTarget")
+          compilerOptions {
+            jvmTarget.set(jvmTargetClass.fromTarget(Config.Jvm.name))
+            freeCompilerArgs.add(Config.Kotlin.compilerArgs)
           }
           java {
             sourceCompatibility = Config.Jvm.sourceCompat
@@ -41,6 +41,7 @@ class ConfigMultiPlugin implements Plugin<Project> {
           jvmTest {
             dependencies {
               implementation(libs.junit5.core)
+              runtimeOnly(libs.junit5.launcher)
               implementation(libs.assertk.jvm)
             }
           }

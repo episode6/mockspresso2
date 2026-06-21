@@ -14,18 +14,18 @@ class ConfigJvmDeployablePlugin implements Plugin<Project> {
         apply(CommonDeployablePlugin)
       }
 
-      task("sourcesJar", type: Jar) {
+      tasks.register("sourcesJar", Jar) {
         from sourceSets.main.allSource
         archiveClassifier.set('sources')
       }
 
       publishing {
         publications {
-          mavenJava(MavenPublication) {
+          register("mavenJava", MavenPublication) {
             from project.components.java
             Config.Maven.applyPomConfig(target, pom)
-            artifact sourcesJar
-            artifact javadocJar
+            artifact tasks.named("sourcesJar")
+            artifact tasks.named("javadocJar")
           }
         }
       }

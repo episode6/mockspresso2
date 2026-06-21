@@ -18,4 +18,6 @@ dependencies {
 tasks.test {
   // Enable JUnit 5
   useJUnitPlatform()
+  // mockito-inline (4.x) byte-buddy only supports up to Java 20; experimental flag unlocks newer JVMs
+  jvmArgs("-XX:+EnableDynamicAgentLoading", "-Dnet.bytebuddy.experimental=true")
 }

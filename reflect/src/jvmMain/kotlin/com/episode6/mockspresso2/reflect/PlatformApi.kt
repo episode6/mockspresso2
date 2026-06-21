@@ -5,9 +5,9 @@ import kotlin.reflect.KFunction
 import kotlin.reflect.KParameter
 import kotlin.reflect.full.hasAnnotation
 
-actual fun Annotation.isQualifier(): Boolean = annotationClass.hasAnnotation<Qualifier>()
+public actual fun Annotation.isQualifier(): Boolean = annotationClass.hasAnnotation<Qualifier>()
 
-actual fun KFunction<*>.parameterKeys(context: TypeToken<*>): List<DependencyKey<*>> =
+public actual fun KFunction<*>.parameterKeys(context: TypeToken<*>): List<DependencyKey<*>> =
   parameters.map { it.toDependencyKey(context) }
 
 private fun KParameter.toDependencyKey(context: TypeToken<*>): DependencyKey<*> = DependencyKey(

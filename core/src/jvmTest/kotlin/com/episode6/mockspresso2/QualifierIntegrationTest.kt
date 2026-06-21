@@ -1,9 +1,9 @@
 package com.episode6.mockspresso2
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.hasClass
 import assertk.assertions.isEqualTo
-import assertk.assertions.isFailure
 import assertk.assertions.isNotNull
 import com.episode6.mockspresso2.reflect.MultipleQualifierError
 import org.junit.jupiter.api.Test
@@ -27,8 +27,7 @@ class QualifierIntegrationTest {
     val mxo = MockspressoBuilder().build()
     val objUnderTest: SomeBadObjectWithMultipleQualifiers by mxo.realInstance()
 
-    assertThat { objUnderTest.doSomething() }
-      .isFailure()
+    assertFailure { objUnderTest.doSomething() }
       .hasClass(MultipleQualifierError::class)
   }
 
