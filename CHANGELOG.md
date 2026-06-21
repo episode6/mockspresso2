@@ -1,5 +1,16 @@
 # ChangeLog
 
+### v2.1.0-SNAPSHOT - Unreleased
+
+- Upgrade Kotlin 1.7.10 -> 2.3.21 (explicit API mode; all public declarations now require an explicit `public` modifier)
+- Upgrade Gradle wrapper 7.5.1 -> 9.5.1 (lazy task registration, `layout.buildDirectory`, explicit junit-platform-launcher dependency)
+- Upgrade Dokka 1.7.10 -> 2.2.0 with the new aggregation model
+- Raise JVM target from 1.8 to 17
+- Update test dependencies: assertk 0.25 -> 0.28.1 (`assertThat{}.isFailure()` -> `assertFailure{}`), mockk 1.13.3 -> 1.14.11
+- Fix Mockito 4.x on JDK 21+ by adding `-Dnet.bytebuddy.experimental=true`
+- Modernize CI: checkout@v6, setup-java@v5, gradle/actions/setup-gradle@v6, single macOS runner, and a verify-docs workflow for PRs
+- Publish to the Sonatype Central Portal: correct the artifact namespace path, exclude Maven local-repo metadata, and upload the signed bundle as a build artifact
+
 ### v2.0.1 - Released 3/9/2023
 
 - Update junit4 rule to ensure teardown is called even when the test fails/throws
