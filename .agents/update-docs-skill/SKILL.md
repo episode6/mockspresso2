@@ -1,3 +1,12 @@
+---
+name: update-docs-skill
+description: >-
+  Policy and automation requiring changelog/docs updates whenever code changes
+  are made. Use when updating docs or the changelog for a change, or to verify a
+  branch's code changes are accompanied by docs/CHANGELOG/README updates. Runs
+  scripts/verify-docs-updated.sh; enforced in CI by .github/workflows/verify-docs.yml.
+---
+
 # Enforce Docs & Changelog Updates Skill
 
 Purpose

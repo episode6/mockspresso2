@@ -1,3 +1,14 @@
+---
+name: release-branch-skill
+description: >-
+  Cut a new release branch and prepare the version-bump PRs, as defined in
+  RELEASE_CHECKLIST.md. Use whenever the user asks to "cut a release branch"
+  (or to cut/create/start a new release branch): verifies main is green,
+  creates release/v<VERSION>, and opens the snapshot-on-main and
+  release-on-branch version-bump PRs that update build.gradle.kts and
+  docs/CHANGELOG.md.
+---
+
 # Cut Release Branch Skill
 
 This skill automates and describes the process of cutting a new release branch and preparing the version bumps, as defined in `RELEASE_CHECKLIST.md`.
