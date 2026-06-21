@@ -36,6 +36,10 @@ jobs:
           mkdir -p bundle/com/episode6
           cp -r ~/.m2/repository/com/episode6/mockspresso2 bundle/com/episode6/
 
+          # Drop Maven local-repo metadata; remote repos manage their own
+          # maven-metadata.xml and reject the -local variant (HTTP 400).
+          find bundle -name "maven-metadata*.xml" -delete
+
           # Sign all artifacts
           echo "${{ secrets.GPG_KEY }}" | gpg --batch --import
           find bundle -type f ! -name "*.asc" ! -name "*.md5" ! -name "*.sha1" ! -name "*.sha256" ! -name "*.sha512" | while read -r file; do
