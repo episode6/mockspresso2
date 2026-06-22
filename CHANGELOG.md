@@ -3,6 +3,7 @@
 ### v2.2.0-SNAPSHOT - Unreleased
 
 - Fix `ship-release.py` to parse `### v<VERSION>` changelog headers (was incorrectly looking for `##`)
+- Fix broken Dokka KDoc links in `autoFactoryMock` (fully-qualify cross-package references to `autoFactory` extensions)
 
 ### v2.1.0 - Released 6/21/2026
 
