@@ -13,8 +13,9 @@ import org.mockito.stubbing.Answer
  * Returns a Factory object for the given [factoryKey]. The object will be mocked
  * and each method will return a dependency from the underlying Mockspresso instance.
  *
- * Generally you shouldn't need to access this method directly, prefer applying with [MockspressoBuilder.autoFactory]
- * or [MockspressoProperties.autoFactory]
+ * Generally you shouldn't need to access this method directly, prefer applying with
+ * [MockspressoBuilder.autoFactory][com.episode6.mockspresso2.plugins.mockito.factories.autoFactory]
+ * or [MockspressoProperties.autoFactory][com.episode6.mockspresso2.plugins.mockito.factories.autoFactory]
  */
 public fun <T : Any?> Dependencies.autoFactoryMock(factoryKey: DependencyKey<T>): T =
   Mockito.mock(factoryKey.token.asJClass(), mockitoAutoFactoryAnswer(factoryKey))
