@@ -1,4 +1,4 @@
-description = "Mockspresso2 plugins for junit5."
+description = "Automatic factory support for mockspresso2 using mockito."
 
 plugins {
   id("config-jvm-deploy")
