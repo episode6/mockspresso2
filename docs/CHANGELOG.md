@@ -2,6 +2,7 @@
 
 ### v2.2.0-SNAPSHOT - Unreleased
 
+- Move version name source of truth into `self.versions.toml` (build.gradle.kts, `ship-release.py` and release skills now read it from there)
 - Fix `ship-release.py` to parse `### v<VERSION>` changelog headers (was incorrectly looking for `##`)
 - Fix broken Dokka KDoc links in `autoFactoryMock` (fully-qualify cross-package references to `autoFactory` extensions)
 

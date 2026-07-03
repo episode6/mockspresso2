@@ -14,7 +14,7 @@
     - `[VERSION] Snapshot v<version>` points at `main`
     - `[VERSION] Release v<version>` points at new release branch
     - Update version in files:
-        - `build.gradle.kts`
+        - `self.versions.toml`
         - `docs/CHANGELOG.md`
 
 ### Harden Release Branch
