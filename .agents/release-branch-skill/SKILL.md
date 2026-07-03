@@ -5,7 +5,7 @@ description: >-
   RELEASE_CHECKLIST.md. Use whenever the user asks to "cut a release branch"
   (or to cut/create/start a new release branch): verifies main is green,
   creates release/v<VERSION>, and opens the snapshot-on-main and
-  release-on-branch version-bump PRs that update build.gradle.kts and
+  release-on-branch version-bump PRs that update self.versions.toml and
   docs/CHANGELOG.md.
 ---
 
@@ -30,14 +30,14 @@ Create two separate Pull Requests to update versions.
 - **Target Branch:** `main`
 - **PR Title:** `[VERSION] Snapshot v<NEXT_VERSION>-SNAPSHOT`
 - **Changes:**
-    - Update `version` in `build.gradle.kts`. **(VITAL)** When computing `<NEXT_VERSION>`, increment **only the patch version** (e.g., `2.2.0` → `2.2.1`). Never automatically increment the major or minor version — those bumps require explicit human decision.
+    - Update `version` in `self.versions.toml`. **(VITAL)** When computing `<NEXT_VERSION>`, increment **only the patch version** (e.g., `2.2.0` → `2.2.1`). Never automatically increment the major or minor version — those bumps require explicit human decision.
     - **(VITAL)** Update `docs/CHANGELOG.md` to include a new "Unreleased" section for the next version, AND update the version being released with its release date.
 
 #### PR 2: Release Version on Release Branch
 - **Target Branch:** `release/v<VERSION>`
 - **PR Title:** `[VERSION] Release v<VERSION>`
 - **Changes:**
-    - Update `version` in `build.gradle.kts` (remove `-SNAPSHOT` if present).
+    - Update `version` in `self.versions.toml` (remove `-SNAPSHOT` if present).
     - **(VITAL)** Update `docs/CHANGELOG.md` with the release date and the final version. Ensure all changes since the last release are documented.
 
 ### 4. Create Pull Requests
