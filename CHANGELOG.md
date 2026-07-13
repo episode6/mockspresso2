@@ -1,14 +1,9 @@
 # ChangeLog
 
-### v2.2.0-SNAPSHOT - Unreleased
-
-- Remove legacy Jenkinsfile (CI runs entirely on GitHub Actions)
-- Move version name source of truth into `self.versions.toml` (build.gradle.kts, `ship-release.py` and release skills now read it from there)
-- Fix `ship-release.py` to parse `### v<VERSION>` changelog headers (was incorrectly looking for `##`)
-- Fix broken Dokka KDoc links in `autoFactoryMock` (fully-qualify cross-package references to `autoFactory` extensions)
-
 ### v2.1.0 - Released 6/21/2026
 
+- Fix `ship-release.py` to parse `### v<VERSION>` changelog headers (was incorrectly looking for `##`)
+- Fix broken Dokka KDoc links in `autoFactoryMock` (fully-qualify cross-package references to `autoFactory` extensions)
 - Upgrade Kotlin 1.7.10 -> 2.3.21 (explicit API mode; all public declarations now require an explicit `public` modifier)
 - Upgrade Gradle wrapper 7.5.1 -> 9.5.1 (lazy task registration, `layout.buildDirectory`, explicit junit-platform-launcher dependency)
 - Upgrade Dokka 1.7.10 -> 2.2.0 with the new aggregation model
