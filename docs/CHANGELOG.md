@@ -2,6 +2,12 @@
 
 ### v2.2.0-SNAPSHOT - Unreleased
 
+- CI: snapshot publishes now use Maven's timestamped unique-snapshot protocol (new
+  `scripts/upload-snapshots.py`, ported from tacita — uploads timestamped filenames and
+  re-PUTs each module's `maven-metadata.xml` with an incremented buildNumber). The
+  previous plain PUTs of non-unique snapshot filenames only registered on a version's
+  first publish; sonatype central accepted but never served later republishes, so a
+  republished `-SNAPSHOT` version kept serving its first build's bytes
 - Remove legacy Jenkinsfile (CI runs entirely on GitHub Actions)
 - Move version name source of truth into `self.versions.toml` (build.gradle.kts, `ship-release.py` and release skills now read it from there)
 - Fix `ship-release.py` to parse `### v<VERSION>` changelog headers (was incorrectly looking for `##`)
