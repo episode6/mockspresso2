@@ -1,6 +1,6 @@
 # ChangeLog
 
-### v2.2.0-SNAPSHOT - Unreleased
+### v2.2.0 - Released 8/16/2026
 
 - Release artifacts are now signed with a dedicated RSA 4096 signing subkey
   (`3EBBA2410EE1077E`) at SHA-512, instead of the release key's 2048-bit primary. The key
@@ -14,6 +14,8 @@
   previous plain PUTs of non-unique snapshot filenames only registered on a version's
   first publish; sonatype central accepted but never served later republishes, so a
   republished `-SNAPSHOT` version kept serving its first build's bytes
+- Drop the Gradle `signing` plugin from the build — published signatures have always come
+  from the release workflow's gpg step, which overwrote whatever Gradle signed
 - Remove legacy Jenkinsfile (CI runs entirely on GitHub Actions)
 - Move version name source of truth into `self.versions.toml` (build.gradle.kts, `ship-release.py` and release skills now read it from there)
 - Fix `ship-release.py` to parse `### v<VERSION>` changelog headers (was incorrectly looking for `##`)
