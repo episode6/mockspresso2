@@ -2,6 +2,8 @@
 
 ### v2.2.1-SNAPSHOT - Unreleased
 
+- Add `project-icon.svg` so Collins shows a custom sidebar icon for this project instead of the generic folder icon
+
 ### v2.2.0 - Released 8/16/2026
 
 - Release artifacts are now signed with a dedicated RSA 4096 signing subkey
